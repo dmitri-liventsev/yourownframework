@@ -56,4 +56,9 @@ class View
     {
         $this->layoutPath = $layoutPath;
     }
+
+    public function isLogged()
+    {
+        var_dump(123); exit;
+    }
 }
