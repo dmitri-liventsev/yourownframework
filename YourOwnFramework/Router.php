@@ -23,7 +23,7 @@ class Router
         $route = $this->findRoute($URI);
 
         if (!method_exists($route[self::CONTROLLER], $route[self::ACTION])) {
-            throw new HttpNotFoundException();
+            throw new HttpNotFoundException(printf("Controller: %s Action %s", $route[self::CONTROLLER], $route[self::ACTION]));
         }
 
         return $route;
@@ -52,7 +52,7 @@ class Router
      */
     public function getControllerClassName(array $uri_segments) : string
     {
-        $controllerName = !isset($uri_segments[0]) || $uri_segments[0] == ""? 'Index' : $uri_segments[0];
+        $controllerName = !isset($uri_segments[1]) || $uri_segments[1] == ""? 'Index' : $uri_segments[1];
         $controllerClassName = '\\App\Controller\\' . ucfirst(strtolower($controllerName)) . 'Controller';
 
         return $controllerClassName;
@@ -64,7 +64,7 @@ class Router
      */
     public function getActionMethodName(array $uri_segments) : string
     {
-        $actionMethodName = !isset($uri_segments[1]) || $uri_segments[1] == ""? 'index' : $uri_segments[1];
+        $actionMethodName = !isset($uri_segments[2]) || $uri_segments[2] == ""? 'index' : $uri_segments[2];
 
         return strtolower($actionMethodName) . 'Action';
     }

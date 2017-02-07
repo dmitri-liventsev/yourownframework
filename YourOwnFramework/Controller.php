@@ -18,7 +18,7 @@ abstract class Controller implements ControllerInterface
     /**
      * @var Request
      */
-    private $request;
+    protected $request;
     /**
      * @var array
      */
@@ -90,9 +90,13 @@ abstract class Controller implements ControllerInterface
         //Before event
     }
 
-    protected function redirect()
+    /**
+     * @param $path
+     */
+    protected function redirect($path)
     {
-        //TODO: implement it!
+        header("Location: /" . $path);
+        die();
     }
 
     /**

@@ -5,6 +5,8 @@
 
 namespace YourOwnFramework;
 
+use Delight\Auth\Auth;
+
 class View
 {
     const CONTAINER_VIEW = 'view';
@@ -16,6 +18,11 @@ class View
 
     /** @var string */
     private $layoutPath;
+
+    /**
+     * @var Auth
+     */
+    protected $auth;
 
     public function render(array $params)
     {
@@ -57,8 +64,8 @@ class View
         $this->layoutPath = $layoutPath;
     }
 
-    public function isLogged()
+    public function setAuth(Auth $auth)
     {
-        var_dump(123); exit;
+        $this->auth = $auth;
     }
 }

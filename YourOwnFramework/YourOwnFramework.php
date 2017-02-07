@@ -122,6 +122,7 @@ class YourOwnFramework
         $view = $this->container->get(View::CONTAINER_VIEW);
         $view->setTemplatePath($this->controller->getTemplatePath());
         $view->setLayoutPath($this->controller->getLayoutPath());
+        $view->setAuth($this->getAuth());
 
         return $view;
     }
@@ -143,6 +144,9 @@ class YourOwnFramework
      */
     private function getRequest()
     {
-        return $this->container->get(Request::CONTAINER_REQUEST);
+        $request = $this->container->get(Request::CONTAINER_REQUEST);
+        $request->setParams($_POST);
+
+        return $request;
     }
 }
