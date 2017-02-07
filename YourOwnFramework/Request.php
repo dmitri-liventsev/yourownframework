@@ -8,5 +8,5 @@ namespace YourOwnFramework;
 
 class Request
 {
-
+    const CONTAINER_REQUEST = 'request';
 }

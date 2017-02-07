@@ -8,12 +8,16 @@ use YourOwnFramework\YourOwnFramework;
 
 return [
     'templatePath' => '/App/View/',
+    'layoutPath' => '/App/View/Layout/',
     YourOwnFramework::CONFIG_KEY_CONTAINER => [
         \YourOwnFramework\Router::CONTAINER_ROUTER => function (ContainerInterface $c) {
             return new \YourOwnFramework\Router();
         },
         \YourOwnFramework\View::CONTAINER_VIEW => function (ContainerInterface $c) {
             return new \YourOwnFramework\View();
+        },
+        \YourOwnFramework\Request::CONTAINER_REQUEST => function (ContainerInterface $c) {
+            return new \YourOwnFramework\Request();
         },
         'auth' => function (ContainerInterface $c) {
             $db = $c->get('db');

@@ -23,11 +23,6 @@ interface ControllerInterface
     public function setContainer(Container $container);
 
     /**
-     * @return string
-     */
-    public function getTemplatePath() : string;
-
-    /**
      * @param string $actionMethodName
      * @return mixed
      */
@@ -44,5 +39,15 @@ interface ControllerInterface
      * @return void
      */
     public function setRequest(Request $auth);
+
+    /**
+     * @return string
+     */
+    public function getLayoutPath() : string;
+
+    /**
+     * @return string
+     */
+    public function getTemplatePath() : string;
 
 }

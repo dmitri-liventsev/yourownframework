@@ -14,10 +14,23 @@ class View
      */
     private $templatePath;
 
+    /** @var string */
+    private $layoutPath;
+
     public function render(array $params)
     {
+        extract(['content' => $this->renderPhpFile($this->templatePath, $params)], EXTR_OVERWRITE);
+        require($this->layoutPath);
+    }
+
+    public function renderPhpFile($_file_, $params = [])
+    {
+        ob_start();
+        ob_implicit_flush(false);
         extract($params, EXTR_OVERWRITE);
-        require($this->templatePath);
+        require($_file_);
+
+        return ob_get_clean();
     }
 
     /**
@@ -34,5 +47,13 @@ class View
     public function setTemplatePath($templatePath)
     {
         $this->templatePath = $templatePath;
+    }
+
+    /**
+     * @param string $layoutPath
+     */
+    public function setLayoutPath($layoutPath)
+    {
+        $this->layoutPath = $layoutPath;
     }
 }

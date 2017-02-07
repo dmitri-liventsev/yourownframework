@@ -28,13 +28,21 @@ abstract class Controller implements ControllerInterface
      * @var Container
      */
     private $container;
+
+    /**
+     * @var string
+     */
+    protected $layout = 'layout';
+
+    /**
+     * @var string
+     */
+    protected $template = 'default';
+
     /**
      * @param array $config
      * @return void
      */
-
-    private $template = 'default';
-
     public function setConfig(array $config)
     {
         $this->config = $config;
@@ -55,6 +63,14 @@ abstract class Controller implements ControllerInterface
     public function getTemplatePath() : string
     {
         return ROOT . $this->config['templatePath'] . $this->template . '.php';
+    }
+
+    /**
+     * @return string
+     */
+    public function getLayoutPath() : string
+    {
+        return ROOT . $this->config['layoutPath'] . $this->layout . '.php';
     }
 
     /**

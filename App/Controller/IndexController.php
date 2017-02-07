@@ -11,6 +11,6 @@ class IndexController extends Controller
     public function indexAction()
     {
 
-        return ['test' => $userId];
+        return ['test' => 234];
     }
 }
