@@ -5,6 +5,7 @@
 
 namespace YourOwnFramework;
 
+use Delight\Auth\Auth;
 use DI\Container;
 use DI\ContainerBuilder;
 
@@ -105,6 +106,8 @@ class YourOwnFramework
         $controller = new $controllerClassName();
         $controller->setConfig($this->config);
         $controller->setContainer($this->container);
+        $controller->setAuth($this->getAuth());
+        $controller->setRequest($this->getRequest());
 
         return $controller;
     }
@@ -116,9 +119,29 @@ class YourOwnFramework
      */
     private function getView() : View
     {
-        $view = $this->container->get('view');
+        $view = $this->container->get(View::CONTAINER_VIEW);
         $view->setTemplatePath($this->controller->getTemplatePath());
 
         return $view;
+    }
+
+    /**
+     * @return Auth
+     *
+     * @throws \DI\NotFoundException
+     */
+    private function getAuth()
+    {
+        return $this->container->get('auth');
+    }
+
+    /**
+     * @return Request
+     *
+     * @throws \DI\NotFoundException
+     */
+    private function getRequest()
+    {
+        return $this->container->get('request');
     }
 }

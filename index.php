@@ -2,7 +2,7 @@
 /**
  * @author Dmitri Liventsev <dmitri.linvetsev@gmail.com>
  */
-spl_autoload_extensions(".php"); // comma-separated list
+spl_autoload_extensions(".php");
 spl_autoload_register();
 
 define("ROOT",$_SERVER["DOCUMENT_ROOT"]);

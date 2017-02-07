@@ -10,6 +10,7 @@ class IndexController extends Controller
 {
     public function indexAction()
     {
-        return ['test' => 123];
+
+        return ['test' => $userId];
     }
 }
