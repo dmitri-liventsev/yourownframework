@@ -1,0 +1,1 @@
+Ololo template <?php echo $test?>

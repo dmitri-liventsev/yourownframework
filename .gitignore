@@ -1,0 +1,7 @@
+.idea
+nbproject
+Thumbs.db
+/vendor
+.DS_Store
+phpunit.phar
+/phpunit.xml
