@@ -26,6 +26,7 @@ use YourOwnFramework\Db\ErzatsORM;
  * @method getRadio1()
  * @method getCreatedAt()
  * @method getId()
+ * @method getStatus()
  */
 class Profile extends ErzatsORM
 {
@@ -44,6 +45,6 @@ class Profile extends ErzatsORM
      */
     protected $params = [
         'id', 'text1', 'text2', 'text3', 'text4', 'text5', 'text6', 'text7', 'text8',
-        'checkbox1', 'checkbox2', 'checkbox3', 'radio1', 'isActive', 'deletedAt'
+        'checkbox1', 'checkbox2', 'checkbox3', 'radio1', 'isActive', 'deletedAt', 'status'
     ];
 }
