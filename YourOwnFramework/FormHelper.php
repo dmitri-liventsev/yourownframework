@@ -9,7 +9,7 @@ namespace YourOwnFramework;
 
 class FormHelper
 {
-    const CONTAINER_FORM_HELPER = 'form_helper';
+    const CONTAINER_KEY = 'form_helper';
 
     /**
      * @param string $name

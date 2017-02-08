@@ -9,17 +9,17 @@ use YourOwnFramework\YourOwnFramework;
 return [
     'templatePath' => '/App/View/',
     'layoutPath' => '/App/View/Layout/',
-    YourOwnFramework::CONFIG_KEY_CONTAINER => [
-        \YourOwnFramework\Router::CONTAINER_ROUTER => function (ContainerInterface $c) {
+    YourOwnFramework::CONTAINER_CONTAINER_KEY => [
+        \YourOwnFramework\Router::CONTAINER_KEY => function (ContainerInterface $c) {
             return new \YourOwnFramework\Router();
         },
-        \YourOwnFramework\View::CONTAINER_VIEW => function (ContainerInterface $c) {
-            return new \YourOwnFramework\View($c->get(\YourOwnFramework\FormHelper::CONTAINER_FORM_HELPER));
+        \YourOwnFramework\View::CONTAINER_KEY => function (ContainerInterface $c) {
+            return new \YourOwnFramework\View($c->get(\YourOwnFramework\FormHelper::CONTAINER_KEY));
         },
-        \YourOwnFramework\Request::CONTAINER_REQUEST => function (ContainerInterface $c) {
+        \YourOwnFramework\Request::CONTAINER_KEY => function (ContainerInterface $c) {
             return new \YourOwnFramework\Request();
         },
-        \YourOwnFramework\FormHelper::CONTAINER_FORM_HELPER => function (ContainerInterface $c) {
+        \YourOwnFramework\FormHelper::CONTAINER_KEY => function (ContainerInterface $c) {
             return new \YourOwnFramework\FormHelper();
         },
         'auth' => function (ContainerInterface $c) {

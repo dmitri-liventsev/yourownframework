@@ -9,7 +9,7 @@ use Delight\Auth\Auth;
 
 class View
 {
-    const CONTAINER_VIEW = 'view';
+    const CONTAINER_KEY = 'view';
 
     /**
      * @var FormHelper

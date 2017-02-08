@@ -2,7 +2,7 @@
 /**
  * @var $this YourOwnFramework\View
  * @var $profile \App\Model\Entity\Profile
-  */
+ */
 ?>
 
 <form method="post">

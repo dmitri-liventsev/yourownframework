@@ -8,7 +8,7 @@ namespace YourOwnFramework;
 
 class Request
 {
-    const CONTAINER_REQUEST = 'request';
+    const CONTAINER_KEY = 'request';
 
     /**
      * @var array

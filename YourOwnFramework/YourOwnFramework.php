@@ -11,7 +11,7 @@ use DI\ContainerBuilder;
 
 class YourOwnFramework
 {
-    const CONFIG_KEY_CONTAINER = 'container';
+    const CONTAINER_CONTAINER_KEY = 'container';
     /**
      * @var array
      */
@@ -90,7 +90,7 @@ class YourOwnFramework
     private function initializeContainer() : Container
     {
         $builder = new ContainerBuilder();
-        $builder->addDefinitions($this->config[self::CONFIG_KEY_CONTAINER]);
+        $builder->addDefinitions($this->config[self::CONTAINER_CONTAINER_KEY]);
 
         return $builder->build();
     }
@@ -119,7 +119,7 @@ class YourOwnFramework
      */
     private function getView() : View
     {
-        $view = $this->container->get(View::CONTAINER_VIEW);
+        $view = $this->container->get(View::CONTAINER_KEY);
         $view->setTemplatePath($this->controller->getTemplatePath());
         $view->setLayoutPath($this->controller->getLayoutPath());
         $view->setAuth($this->getAuth());
@@ -144,7 +144,7 @@ class YourOwnFramework
      */
     private function getRequest()
     {
-        $request = $this->container->get(Request::CONTAINER_REQUEST);
+        $request = $this->container->get(Request::CONTAINER_KEY);
         $request->setParams($_POST);
 
         return $request;

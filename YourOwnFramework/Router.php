@@ -11,7 +11,7 @@ class Router
 {
     const CONTROLLER = 'controller';
     const ACTION = 'action';
-    const CONTAINER_ROUTER = 'router';
+    const CONTAINER_KEY = 'router';
 
     /**
      * @return array
