@@ -1,21 +1,76 @@
 <?php
 /**
- * @var $this YourOwnFramework\View
- * @var $profile \App\Model\Entity\Profile
+ * @var $this YourOwnFramework\View\View
+ * @var $profile array
  */
 ?>
 
 <form method="post">
-    <?php echo $this->form->text('text1', 'text1', $profile->getText1())?>
-    <?php echo $this->form->text('text2', 'text2', $profile->getText2())?>
-    <?php echo $this->form->text('text3', 'text3', $profile->getText3())?>
-    <?php echo $this->form->text('text4', 'text4', $profile->getText4())?>
-    <?php echo $this->form->text('text5', 'text5', $profile->getText5())?>
-    <?php echo $this->form->text('text6', 'text6', $profile->getText6())?>
-    <?php echo $this->form->text('text7', 'text7', $profile->getText7())?>
-    <?php echo $this->form->text('text8', 'text8', $profile->getText8())?>
-    <?php echo $this->form->text('checkbox1', 'checkbox1', $profile->getCheckbox1())?>
-    <?php echo $this->form->text('checkbox2', 'checkbox2', $profile->getCheckbox2())?>
-    <?php echo $this->form->text('checkbox3', 'checkbox3', $profile->getCheckbox3())?>
+    <?php
+        if (isset($profile['text1'])) {
+            echo $this->form->text('text1', 'text1', $profile['text1']);
+        }
+    ?>
+    <?php
+        if (isset($profile['text2'])) {
+            echo $this->form->text('text2', 'text2', $profile['text2']);
+        }
+    ?>
+    <?php
+        if (isset($profile['text3'])) {
+            echo $this->form->text('text3', 'text3', $profile['text3']);
+        }
+    ?>
+    <?php
+        if (isset($profile['text4'])) {
+            echo $this->form->text('text4', 'text4', $profile['text4']);
+        }
+    ?>
+    <?php
+        if (isset($profile['text5'])) {
+            echo $this->form->text('text5', 'text5', $profile['text5']);
+        }
+    ?>
+    <?php
+        if (isset($profile['text6'])) {
+            echo $this->form->text('text6', 'text6', $profile['text6']);
+        }
+    ?>
+    <?php
+        if (isset($profile['text7'])) {
+            echo $this->form->text('text7', 'text7', $profile['text7']);
+        }
+    ?>
+    <?php
+        if (isset($profile['text8'])) {
+            echo $this->form->text('text8', 'text8', $profile['text8']);
+        }
+    ?>
+    <?php
+        if (isset($profile['checkbox1'])) {
+            echo $this->form->checkbox('checkbox1', 'checkbox1', !!$profile['checkbox1']);
+        }
+    ?>
+    <?php
+        if (isset($profile['checkbox2'])) {
+            echo $this->form->checkbox('checkbox2', 'checkbox2', !!$profile['checkbox2']);
+        }
+    ?>
+    <?php
+        if (isset($profile['checkbox3'])) {
+            echo $this->form->checkbox('checkbox3', 'checkbox3', !!$profile['checkbox3']);
+        }
+    ?>
+    <?php
+        if (isset($profile['radio1'])) {
+            echo $this->form->radio(
+                'radio1',
+                'radio1',
+                [0 => 'option0', 1 => 'option1', 2 => 'option2'],
+                $profile['radio1']
+            );
+        }
+    ?>
+
     <?php echo $this->form->submit()?>
 </form>

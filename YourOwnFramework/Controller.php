@@ -130,5 +130,15 @@ abstract class Controller implements ControllerInterface
     {
         return $this->request;
     }
+
+    /**
+     * @param string $containerKey
+     *
+     * @return mixed
+     */
+    protected function get(string $containerKey)
+    {
+        return $this->container->get($containerKey);
+    }
 }
 

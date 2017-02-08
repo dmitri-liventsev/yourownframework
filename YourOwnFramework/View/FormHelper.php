@@ -21,10 +21,10 @@ class FormHelper
      */
     public function text(string $name, string $label = '', string $value = '', array $params = [])
     {
-        return printf('<div class="form-group">
-                        <label for="%s">%s:</label>
-                        <input type="%s" class="form-control" value="%s">
-                      </div>', $name, $label, $name, $value);
+        return "<div class='form-group'>
+                        <label for='$name'>$label:</label>
+                        <input name='$name' class='form-control' value='$value'>
+                      </div>";
     }
 
     /**
@@ -39,9 +39,9 @@ class FormHelper
     {
         $checked = $isChecked? 'checked="checked"' : '';
 
-        return printf('<div class="checkbox">
-                        <label><input type="checkbox" name="%s" %s> %s</label>
-                      </div>', $name, $checked, $label);
+        return "<div class=\"checkbox\">
+                        <label><input type=\"checkbox\" name=\"$name\" $checked> $label</label>
+                      </div>";
     }
 
     /**
@@ -59,14 +59,14 @@ class FormHelper
 
         foreach($options as $value => $option) {
             $checked = $value == $defaultValue ? 'checked="checked"' : '';
-            $radioButtons .= printf('<label class="radio-inline"><input value="%s" %s type="radio" name="%s">%s</label>', $value, $checked, $name, $option);
+            $radioButtons .= "<label class=\"radio-inline\"><input value=\"$value\" $checked type=\"radio\" name=\"$name\">$option</label>";
         }
 
-        return printf('<div class="form-group"><label for="%s">%s:</label>%s</div>', $name, $label, $radioButtons);
+        return "<div class=\"form-group\"><label for=\"$name\">$label:</label>$radioButtons</div>";
     }
 
     public function submit()
     {
-        return printf('<input type="submit" class="btn btn-default" value="Submit"/>');
+        return '<input type="submit" class="btn btn-default" value="Submit"/>';
     }
 }

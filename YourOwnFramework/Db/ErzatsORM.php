@@ -100,7 +100,7 @@ abstract class ErzatsORM implements ErzatsORMInterface
     public function __call($methodName, $arguments = null)
     {
         $prefix = substr($methodName, 0, 3);
-        $param = substr($methodName, 3);
+        $param = lcfirst(substr($methodName, 3));
         $value = $arguments[0] ?? null;
 
         if ($prefix == 'get') { // get

@@ -13,18 +13,22 @@ abstract class Repository
 
     private $entityClassName;
 
+    protected $table;
+
     public function __construct(Executor $executor, string $entityClassName)
     {
         $this->executor = $executor;
+        $this->executor->setTable($this->table);
+
         $this->entityClassName = $entityClassName;
     }
 
     /**
-     * @param string $where
+     * @param string|array $where
      * @param array $params
      * @return null|ErzatsORMInterface
      */
-    protected function findOne(string $where, array $params = [])
+    protected function findOne($where, array $params = [])
     {
         $result = $this->findAll($where, $params);
 
@@ -32,17 +36,19 @@ abstract class Repository
     }
 
     /**
-     * @param string $where
+     * @param string|array $where
      * @param array $params
      * @return ErzatsORMInterface[]
      */
-    protected function findAll(string $where, array $params)
+    protected function findAll($where, array $params)
     {
         $rows = $this->executor->select($where, $params);
         $result = [];
 
-        foreach ($rows as $row) {
-            $result = $this->buildEntity($row);
+        if ($rows !== false) {
+            foreach ($rows as $row) {
+                $result[] = $this->buildEntity($row);
+            }
         }
 
         return $result;

@@ -51,19 +51,20 @@ class Executor
     }
 
     /**
-     * @param string $where
+     * @param string|array $where
      * @param array $params
      * @return array
      */
-    public function select(string $where, array $params = [])
+    public function select($where, array $params = [])
     {
-        $sth = $this->db->prepare("SELECT * FROM" . $this->table . "WHERE " . $where);
-
-        foreach ($params as $fieldName => $param) {
-            $sth->bindParam($fieldName, $params);
+        if (is_array($where)) {
+            $where = implode(' AND ', $where);
         }
 
-        return $sth->fetchAll($sth, PDO::FETCH_ASSOC);
+        $sth = $this->db->prepare("SELECT * FROM " . $this->table . " WHERE " . $where);
+        $sth->execute($params);
+
+        return $sth;
     }
 
     /**
