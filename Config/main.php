@@ -14,10 +14,13 @@ return [
             return new \YourOwnFramework\Router();
         },
         \YourOwnFramework\View::CONTAINER_VIEW => function (ContainerInterface $c) {
-            return new \YourOwnFramework\View();
+            return new \YourOwnFramework\View($c->get(\YourOwnFramework\FormHelper::CONTAINER_FORM_HELPER));
         },
         \YourOwnFramework\Request::CONTAINER_REQUEST => function (ContainerInterface $c) {
             return new \YourOwnFramework\Request();
+        },
+        \YourOwnFramework\FormHelper::CONTAINER_FORM_HELPER => function (ContainerInterface $c) {
+            return new \YourOwnFramework\FormHelper();
         },
         'auth' => function (ContainerInterface $c) {
             $db = $c->get('db');

@@ -12,6 +12,19 @@ class View
     const CONTAINER_VIEW = 'view';
 
     /**
+     * @var FormHelper
+     */
+    protected $formHelper;
+
+    /**
+     * View constructor.
+     * @param FormHelper $formHelper
+     */
+    public function __construct(FormHelper $formHelper)
+    {
+        $this->formHelper = $formHelper;
+    }
+    /**
      * @var string
      */
     private $templatePath;

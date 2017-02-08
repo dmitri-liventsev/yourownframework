@@ -1,7 +1,6 @@
 <?php
 /**
  * @author Dmitri Liventsev <dmitri@credy.eu>
- * User: dmitri
  */
 
 namespace YourOwnFramework;
@@ -140,6 +139,5 @@ class Executor
         $reponse->execute($args);
 
         return $reponse;
-
     }
 }
