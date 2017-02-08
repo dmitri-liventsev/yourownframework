@@ -24,12 +24,20 @@ class View
      */
     protected $auth;
 
+    /**
+     * @param array $params
+     */
     public function render(array $params)
     {
         extract(['content' => $this->renderPhpFile($this->templatePath, $params)], EXTR_OVERWRITE);
         require($this->layoutPath);
     }
 
+    /**
+     * @param $_file_
+     * @param array $params
+     * @return string
+     */
     public function renderPhpFile($_file_, $params = [])
     {
         ob_start();
@@ -64,6 +72,9 @@ class View
         $this->layoutPath = $layoutPath;
     }
 
+    /**
+     * @param Auth $auth
+     */
     public function setAuth(Auth $auth)
     {
         $this->auth = $auth;

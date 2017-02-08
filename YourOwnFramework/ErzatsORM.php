@@ -55,7 +55,7 @@ class ErzatsORM
         if ($this->isNew()) {
             $this->clear();
         } else {
-            $this->paramsValue = $this->executor->getAll();
+            $this->paramsValue = $this->executor->getAll($this->getPrimaryKey());
         }
     }
 
