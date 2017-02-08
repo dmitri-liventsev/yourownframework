@@ -40,12 +40,28 @@ class Executor
      * @param string $primaryKey
      * @return array
      */
-    public function getAll($primaryKey)
+    public function getOneByPrimaryKey($primaryKey)
     {
-        $statement = $this->query("SELECT * FROM" . $this->table . "WHERE id = ?", $primaryKey);
-        $result = $statement->fetchAll(PDO::FETCH_ASSOC)[0] ?? null;
+        $where = 'id = :id';
+        $result = $this->select($where, ['id' => $primaryKey]);
 
-        return $result;
+        return isset($result[0]) ? $result[0] : null;
+    }
+
+    /**
+     * @param string $where
+     * @param array $params
+     * @return array
+     */
+    public function select(string $where, array $params = [])
+    {
+        $sth = $this->db->prepare("SELECT * FROM" . $this->table . "WHERE " . $where);
+
+        foreach ($params as $fieldName => $param) {
+            $sth->bindParam($fieldName, $params);
+        }
+
+        return $sth->fetchAll($sth, PDO::FETCH_ASSOC);
     }
 
     /**

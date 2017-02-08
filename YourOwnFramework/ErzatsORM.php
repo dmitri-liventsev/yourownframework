@@ -7,7 +7,7 @@ namespace YourOwnFramework;
 
 use YourOwnFramework\Exception\ErzatsORMException;
 
-class ErzatsORM
+abstract class ErzatsORM implements ErzatsORMInterface
 {
     /**
      * @var array
@@ -55,7 +55,7 @@ class ErzatsORM
         if ($this->isNew()) {
             $this->clear();
         } else {
-            $this->paramsValue = $this->executor->getAll($this->getPrimaryKey());
+            $this->paramsValue = $this->executor->getOneByPrimaryKey($this->getPrimaryKey());
         }
     }
 
@@ -137,5 +137,23 @@ class ErzatsORM
         $this->paramsValue[$param] = $value;
 
         return true;
+    }
+
+    /**
+     * @return array
+     */
+    public function getListOfFields()
+    {
+        return $this->params;
+    }
+
+    /**
+     * @param array $params
+     */
+    public function load(array $params = [])
+    {
+        foreach($params as $fieldName => $param) {
+            $this->paramsValue[$fieldName] = $param;
+        }
     }
 }
