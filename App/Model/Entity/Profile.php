@@ -5,7 +5,7 @@
 
 namespace App\Model\Entity;
 
-use YourOwnFramework\ErzatsORM;
+use YourOwnFramework\Db\ErzatsORM;
 
 /**
  * Class Profile

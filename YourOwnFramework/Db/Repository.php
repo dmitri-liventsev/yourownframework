@@ -4,7 +4,8 @@
  * User: dmitri
  */
 
-namespace YourOwnFramework;
+namespace YourOwnFramework\Db;
+
 
 abstract class Repository
 {

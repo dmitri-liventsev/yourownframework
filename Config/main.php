@@ -13,14 +13,23 @@ return [
         \YourOwnFramework\Router::CONTAINER_KEY => function (ContainerInterface $c) {
             return new \YourOwnFramework\Router();
         },
-        \YourOwnFramework\View::CONTAINER_KEY => function (ContainerInterface $c) {
-            return new \YourOwnFramework\View($c->get(\YourOwnFramework\FormHelper::CONTAINER_KEY));
+        \YourOwnFramework\View\View::CONTAINER_KEY => function (ContainerInterface $c) {
+            return new \YourOwnFramework\View\View($c->get(\YourOwnFramework\View\FormHelper::CONTAINER_KEY));
         },
         \YourOwnFramework\Request::CONTAINER_KEY => function (ContainerInterface $c) {
             return new \YourOwnFramework\Request();
         },
-        \YourOwnFramework\FormHelper::CONTAINER_KEY => function (ContainerInterface $c) {
-            return new \YourOwnFramework\FormHelper();
+        \YourOwnFramework\View\FormHelper::CONTAINER_KEY => function (ContainerInterface $c) {
+            return new \YourOwnFramework\View\FormHelper();
+        },
+        \YourOwnFramework\Db\Executor::CONTAINER_KEY => function (ContainerInterface $c) {
+            return new \YourOwnFramework\Db\Executor($c->get('db'));
+        },
+        \App\Model\Repository\ProfileRepository::CONTAINER_KEY => function (ContainerInterface $c) {
+            return new \App\Model\Repository\ProfileRepository(
+                $c->get(\YourOwnFramework\Db\Executor::CONTAINER_KEY),
+                \App\Model\Entity\Profile::class
+            );
         },
         'auth' => function (ContainerInterface $c) {
             $db = $c->get('db');

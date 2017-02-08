@@ -4,8 +4,7 @@
  * User: dmitri
  */
 
-namespace YourOwnFramework;
-
+namespace YourOwnFramework\Db;
 
 interface ErzatsORMInterface
 {

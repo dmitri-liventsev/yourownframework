@@ -3,12 +3,14 @@
  * @author Dmitri Liventsev <dmitri@credy.eu>
  */
 
-namespace YourOwnFramework;
+namespace YourOwnFramework\Db;
 
 use PDO;
 
 class Executor
 {
+    const CONTAINER_KEY = 'executor';
+
     /**
      * @var string
      */

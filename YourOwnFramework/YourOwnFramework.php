@@ -8,6 +8,7 @@ namespace YourOwnFramework;
 use Delight\Auth\Auth;
 use DI\Container;
 use DI\ContainerBuilder;
+use YourOwnFramework\View\View;
 
 class YourOwnFramework
 {

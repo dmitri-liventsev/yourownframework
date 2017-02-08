@@ -2,15 +2,16 @@
 
 namespace App\Model\Repository;
 
-use YourOwnFramework\Repository;
+use YourOwnFramework\Db\Repository;
 
 /**
  * @author Dmitri Liventsev <dmitri@credy.eu>
  */
 class ProfileRepository extends Repository
 {
+    const CONTAINER_KEY = 'repository.profile';
     /**
-     * @return \YourOwnFramework\ErzatsORMInterface[]
+     * @return \YourOwnFramework\Db\ErzatsORMInterface[]
      */
     public function findAllNotChecked()
     {
@@ -23,7 +24,7 @@ class ProfileRepository extends Repository
 
     /**
      * @param $id
-     * @return null|\YourOwnFramework\ErzatsORMInterface
+     * @return null|\YourOwnFramework\Db\ErzatsORMInterface
      */
     public function findOneById($id)
     {
