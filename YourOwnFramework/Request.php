@@ -31,6 +31,7 @@ class Request
     {
         return $this->params[$fieldName] ?? null;
     }
+
     /**
      * @param array $params
      */
@@ -38,6 +39,4 @@ class Request
     {
         $this->params = $params;
     }
-
-
 }
