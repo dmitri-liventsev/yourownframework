@@ -147,6 +147,7 @@ class YourOwnFramework
     {
         $request = $this->container->get(Request::CONTAINER_KEY);
         $request->setParams($_POST);
+        $request->setMethod($_SERVER['REQUEST_METHOD']);
 
         return $request;
     }

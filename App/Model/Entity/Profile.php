@@ -19,9 +19,18 @@ use YourOwnFramework\Db\ErzatsORM;
  * @method getIsActive()
  * @method getCreatedAt()
  * @method getDeletedAt()
+ * @method setId()
+ * @method setUserId()
+ * @method setDetails()
+ * @method setStatus()
+ * @method setIsActive()
+ * @method setCreatedAt()
+ * @method setDeletedAt()
  */
 class Profile extends ErzatsORM
 {
+    protected $table = 'profile';
+
     /**
      * @var string
      */

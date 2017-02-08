@@ -7,19 +7,24 @@ namespace App\Controller;
 
 use App\Model\Repository\ProfileRepository;
 use YourOwnFramework\Controller;
+use YourOwnFramework\Request;
 
 class ProfileController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $this->template = 'form';
 
         /** @var ProfileRepository $profileRepository */
         $profileRepository = $this->get(ProfileRepository::CONTAINER_KEY);
-
         $profile = $profileRepository->findActiveProfileByUserId($this->auth->getUserId());
-        $allProfiles = $profileRepository->findAllByUserId($this->auth->getUserId());
 
+        if ($request->isPost()) {
+            $profile->setDetails(json_encode($request->getParams()));
+            $profile->save();
+        }
+
+        $allProfiles = $profileRepository->findAllByUserId($this->auth->getUserId());
         $profileData = json_decode($profile->getDetails(), true) ?? [];
 
         return [

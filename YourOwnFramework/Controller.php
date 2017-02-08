@@ -80,7 +80,7 @@ abstract class Controller implements ControllerInterface
     public function callAction(string $actionMethodName)
     {
         $this->before();
-        $result = $this->$actionMethodName() ?? [];
+        $result = $this->$actionMethodName($this->request) ?? [];
 
         return $result;
     }

@@ -9,19 +9,17 @@ namespace YourOwnFramework;
 class Request
 {
     const CONTAINER_KEY = 'request';
-
+    const METHOD_POST = 'POST';
     /**
      * @var array
      */
     private $params;
 
     /**
-     * @return array
+     * @var string
      */
-    public function getParams()
-    {
-        return $this->params;
-    }
+    private $method;
+
 
     /**
      * @param string $fieldName
@@ -39,4 +37,30 @@ class Request
     {
         $this->params = $params;
     }
+
+    /**
+     * @return array
+     */
+    public function getParams()
+    {
+        return $this->params;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPost()
+    {
+        return $this->method == self::METHOD_POST;
+    }
+
+    /**
+     * @param string $method
+     */
+    public function setMethod($method)
+    {
+        $this->method = $method;
+    }
+
+
 }

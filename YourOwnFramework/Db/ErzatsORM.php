@@ -81,7 +81,7 @@ abstract class ErzatsORM implements ErzatsORMInterface
      */
     public function isNew()
     {
-        return $this->getPrimaryKey() !== null;
+        return $this->getPrimaryKey() === null;
     }
 
     private function clear()
@@ -129,7 +129,7 @@ abstract class ErzatsORM implements ErzatsORMInterface
      */
     private function setParam($param, $value)
     {
-        if (!isset($this->params[$param])) {
+        if (!in_array($param, $this->params)) {
             throw new ErzatsORMException('Param not exists');
         }
 

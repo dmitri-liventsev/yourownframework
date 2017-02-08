@@ -64,7 +64,7 @@ class Executor
         $sth = $this->db->prepare("SELECT * FROM " . $this->table . " WHERE " . $where);
         $sth->execute($params);
 
-        return $sth;
+        return $sth->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -75,9 +75,11 @@ class Executor
     public function insert($params)
     {
         $query = $this->getInsertQuery(array_keys($params));
-        $sth = $this->db->prepare($query, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+        $sth = $this->db->prepare($query);
 
-        return $sth->execute($this->getParamMap($params));
+        $sth->execute($params);
+
+        return $sth->execute($params);
     }
 
     /**
@@ -91,7 +93,7 @@ class Executor
 
         $values = [];
         foreach ($fields as $field) {
-            $values = ":" . $field;
+            $values[] = ":" . $field;
         }
 
         $values = implode(",", $values);
@@ -125,9 +127,8 @@ class Executor
     {
         $query = $this->getUpdateQuery(array_keys($params));
         $sth = $this->db->prepare($query, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-        $params['id'] = $primaryKey;
 
-        return $sth->execute($this->getParamMap($params));
+        return $sth->execute($params);
     }
 
     /**
@@ -139,10 +140,14 @@ class Executor
     {
         $fieldValues = [];
         foreach ($fields as $field) {
-            $fieldValues = $field . " = :" . $field;
+            if ($field == 'id') {
+                continue;
+            }
+
+            $fieldValues[] = $field . " = :" . $field. ' ';
         }
 
-        return "UPDATE " . $this->table . " SET " . $fieldValues . " WHERE id = :id";
+        return "UPDATE " . $this->table . " SET " . implode(',', $fieldValues) . " WHERE id = :id";
     }
 
     /**
