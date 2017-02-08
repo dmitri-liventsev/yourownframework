@@ -14,7 +14,7 @@ class View
     /**
      * @var FormHelper
      */
-    protected $formHelper;
+    protected $form;
 
     /**
      * View constructor.
@@ -22,14 +22,17 @@ class View
      */
     public function __construct(FormHelper $formHelper)
     {
-        $this->formHelper = $formHelper;
+        $this->form = $formHelper;
     }
+
     /**
      * @var string
      */
     private $templatePath;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $layoutPath;
 
     /**

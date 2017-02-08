@@ -64,4 +64,9 @@ class FormHelper
 
         return printf('<div class="form-group"><label for="%s">%s:</label>%s</div>', $name, $label, $radioButtons);
     }
+
+    public function submit()
+    {
+        return printf('<input type="submit" class="btn btn-default" value="Submit"/>');
+    }
 }
