@@ -124,5 +124,21 @@ abstract class Controller implements ControllerInterface
     {
         return $this->container->get($containerKey);
     }
+
+    /**
+     * @return string
+     */
+    public function getLayout(): string
+    {
+        return $this->layout;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTemplate(): string
+    {
+        return $this->template;
+    }
 }
 
