@@ -25,11 +25,12 @@ class ProfileController extends Controller
         $profile = $profileRepository->findActiveProfileByUserId($this->auth->getUserId());
 
         if ($request->isPost()) {
-            $profile->delete();
+            $profile->setIsActive(0);
             $profile->save();
 
             $profile = $profileRepository->clone($profile);
             $profile->setDetails(json_encode($request->getParams()));
+            $profile->setIsActive(1);
             $profile->save();
         }
 

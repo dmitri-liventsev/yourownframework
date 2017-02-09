@@ -22,7 +22,10 @@ class ProfileRepository extends Repository
      */
     public function findAllNotChecked()
     {
-        $where = 'status = :status';
+        $where = [
+            'status = :status',
+            'deletedAt IS NULL'
+        ];
         $params = ['status', Profile::STATUS_NOT_CHECKED];
 
         return $this->findAll($where, $params);
@@ -35,7 +38,10 @@ class ProfileRepository extends Repository
      */
     public function findAllByUserId($userId)
     {
-        $where = 'userId = :userId';
+        $where = [
+            'userId = :userId',
+            'deletedAt IS NULL'
+        ];
         $params = ['userId' => $userId];
 
         return $this->findAll($where, $params);
@@ -51,6 +57,7 @@ class ProfileRepository extends Repository
         $where = [
             'userId = :userId',
             'isActive = 1',
+            'deletedAt IS NULL'
         ];
         $params = ['userId' => $userId];
 
@@ -63,7 +70,7 @@ class ProfileRepository extends Repository
      */
     public function findOneById($id)
     {
-        return $this->findOne('id = :id', ['id' => $id]);
+        return $this->findOne(['id = :id', 'deletedAt IS NULL'], ['id' => $id]);
     }
 
     /**
@@ -71,7 +78,10 @@ class ProfileRepository extends Repository
      */
     public function findAllActive()
     {
-        $where = 'isActive = 1';
+        $where = [
+            'isActive = 1',
+            'deletedAt IS NULL'
+        ];
 
         return $this->findAll($where, []);
     }
