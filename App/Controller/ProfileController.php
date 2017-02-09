@@ -15,7 +15,7 @@ use YourOwnFramework\Request;
 
 class ProfileController extends Controller
 {
-    const COMMON_AMOUNT_OF_SECOND_PER_DAY = 86400;
+    const COMMON_AMOUNT_OF_SECONDS_PER_DAY = 86400;
 
     const UIC_COOKIE_NAME = 'zdesBylVasja';
 
@@ -42,8 +42,8 @@ class ProfileController extends Controller
         $profile->increaseViewCount();
         $ip = $request->getIp();
 
-        if ($uicRepository->isUnique($ip, $profileId) && !$this->request->hasCookie(self::UIC_COOKIE_NAME)) {
-            $this->setCookie(self::UIC_COOKIE_NAME, 1, self::COMMON_AMOUNT_OF_SECOND_PER_DAY);
+        if ($uicRepository->isUnique($ip, $profileId) && !$request->hasCookie(self::UIC_COOKIE_NAME)) {
+            $this->setCookie(self::UIC_COOKIE_NAME, 1, self::COMMON_AMOUNT_OF_SECONDS_PER_DAY);
 
             $profile->increaseUic();
             /** @var Uic $uic */
@@ -56,6 +56,7 @@ class ProfileController extends Controller
         $profile->save();
 
         $this->template = 'profile';
+
         return ['profile' => $profile];
     }
 
@@ -90,6 +91,7 @@ class ProfileController extends Controller
         $profileData = json_decode($profile->getDetails(), true) ?? [];
 
         $this->template = 'editprofile';
+
         return [
             'profileData' => $profileData,
             'profile' => $profile,

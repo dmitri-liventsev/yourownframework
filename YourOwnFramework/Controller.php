@@ -18,7 +18,7 @@ abstract class Controller implements ControllerInterface
     /**
      * @var Request
      */
-    protected $request;
+    private $request;
     /**
      * @var array
      */
