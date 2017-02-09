@@ -1,12 +1,12 @@
 <?php
 /**
  * @author Dmitri Liventsev <dmitri@credy.eu>
+ * @var $activeProfiles \App\Model\Entity\Profile[]
  */
 $activeProfilesJson = json_encode($activeProfiles);
 
 echo <<<JS
 var activeProfiles = $activeProfiles;
-
 
 function HtmlEncode(s)
 {
