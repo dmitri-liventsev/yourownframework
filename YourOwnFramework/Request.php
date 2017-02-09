@@ -9,7 +9,24 @@ namespace YourOwnFramework;
 class Request
 {
     const CONTAINER_KEY = 'request';
+
     const METHOD_POST = 'POST';
+
+    /**
+     * @var array
+     */
+    private $post;
+
+    /**
+     * @var array
+     */
+    private $get;
+
+    /**
+     * @var array
+     */
+    private $server;
+
     /**
      * @var array
      */
@@ -20,6 +37,20 @@ class Request
      */
     private $method;
 
+    public function __construct(RequestDataProvider $requestDataProvider)
+    {
+        $this->post = $requestDataProvider->getPost();
+        $this->get = $requestDataProvider->getGet();
+        $this->server = $requestDataProvider->getServer();
+
+        $this->init();
+    }
+
+    private function init()
+    {
+        $this->determineMethod();
+        $this->determineParams();
+    }
 
     /**
      * @param string $fieldName
@@ -39,14 +70,6 @@ class Request
     }
 
     /**
-     * @return array
-     */
-    public function getParams()
-    {
-        return $this->params;
-    }
-
-    /**
      * @return bool
      */
     public function isPost()
@@ -54,13 +77,16 @@ class Request
         return $this->method == self::METHOD_POST;
     }
 
-    /**
-     * @param string $method
-     */
-    public function setMethod($method)
+    private function determineMethod()
     {
-        $this->method = $method;
+        $this->method = $this->server['REQUEST_METHOD'];
     }
 
-
+    /**
+     * @return array
+     */
+    public function determineParams()
+    {
+        $this->params = $this->post + $this->get;
+    }
 }
