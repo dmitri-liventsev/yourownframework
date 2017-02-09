@@ -12,11 +12,6 @@ class Executor
     const CONTAINER_KEY = 'executor';
 
     /**
-     * @var string
-     */
-    private $table;
-
-    /**
      * @var PDO
      */
     private $db;
@@ -34,20 +29,14 @@ class Executor
 
     /**
      * @param string $table
-     */
-    public function setTable($table)
-    {
-        $this->table = $table;
-    }
-
-    /**
      * @param string|array $where
      * @param array $params
+     *
      * @return array
      */
-    public function select($where, array $params = [])
+    public function select(string $table, $where, array $params = [])
     {
-        $query = $this->queryBuilder->getSelectQuery($where, $this->table);
+        $query = $this->queryBuilder->getSelectQuery($where, $table);
         $sth = $this->db->prepare($query);
         $sth->execute($params);
 
@@ -55,29 +44,30 @@ class Executor
     }
 
     /**
-     * @param $params
+     * @param string $table
+     * @param array $params
      *
      * @return bool
      */
-    public function insert($params)
+    public function insert(string $table, array $params) : bool
     {
-        $query = $this->queryBuilder->getInsertQuery(array_keys($params), $this->table);
+        $query = $this->queryBuilder->getInsertQuery(array_keys($params), $table);
         $sth = $this->db->prepare($query);
-
         $sth->execute($params);
 
         return $sth->execute($params);
     }
 
     /**
-     * @param $primaryKey
-     * @param $params
+     * @param string $table
+     * @param string $primaryKey
+     * @param array $params
      *
      * @return bool
      */
-    public function update($primaryKey, $params)
+    public function update(string $table, string $primaryKey, array $params) : bool
     {
-        $query = $this->queryBuilder->getUpdateQuery(array_keys($params), $this->table, $primaryKey);
+        $query = $this->queryBuilder->getUpdateQuery(array_keys($params), $table, $primaryKey);
         $sth = $this->db->prepare($query, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 
         return $sth->execute($params);
@@ -85,16 +75,13 @@ class Executor
 
     /**
      * @param string $query
+     *
      * @return \PDOStatement
      */
-    public function query($query)
+    public function query($query, $params)
     {
-        $args = func_get_args();
-        array_shift($args);
+        $prepStatement = $this->db->prepare($query);
 
-        $reponse = $this->db->prepare($query);
-        $reponse->execute($args);
-
-        return $reponse;
+        return $prepStatement->execute($params);
     }
 }

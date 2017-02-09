@@ -7,6 +7,13 @@ namespace YourOwnFramework\Db;
 
 use YourOwnFramework\Exception\ErzatsORMException;
 
+/**
+ * Class ErzatsORM
+ *
+ * @package YourOwnFramework\Db
+ *
+ * @method setDeletedAt($deletedAt)
+ */
 abstract class ErzatsORM implements ErzatsORMInterface
 {
     /**
@@ -50,7 +57,6 @@ abstract class ErzatsORM implements ErzatsORMInterface
      */
     public function __construct(Executor $executor)
     {
-        $executor->setTable($this->table);
         $this->executor = $executor;
         $this->clear();
     }
@@ -63,23 +69,25 @@ abstract class ErzatsORM implements ErzatsORMInterface
             $where = $this->primaryKey .' = :' . $this->primaryKey;
             $params = [$this->primaryKey => $this->getPrimaryKeyValue()];
 
-            $this->paramsValue = $this->executor->select($where, $params);
+            $this->paramsValue = $this->executor->select($this->table, $where, $params);
         }
     }
 
     public function save()
     {
+        $params = array_diff_key($this->paramsValue, array_flip($this->utilFields));
         if ($this->isNew()) {
-            $this->executor->insert($this->paramsValue);
+            $this->executor->insert($this->table, $params);
         } else {
-            $this->executor->update($this->primaryKey, $this->paramsValue);
+            $params[$this->getPrimaryKey()] = $this->getPrimaryKeyValue();
+            $this->executor->update($this->table, $this->primaryKey, $params);
         }
     }
 
     /**
      * @return int
      */
-    public function getPrimaryKeyValue() : int
+    public function getPrimaryKeyValue()
     {
         return $this->paramsValue[$this->primaryKey];
     }
@@ -125,7 +133,7 @@ abstract class ErzatsORM implements ErzatsORMInterface
             return $this->setParam($param, $value);
         }
 
-        throw new ErzatsORMException('Method not exists');
+        throw new ErzatsORMException("Method '$methodName' is not exists");
     }
 
     /**
@@ -135,6 +143,17 @@ abstract class ErzatsORM implements ErzatsORMInterface
     private function getParam($param)
     {
         return $this->paramsValue[$param] ?? null;
+    }
+
+    /**
+     * @param string $sql
+     * @param array $params
+     *
+     * @return bool
+     */
+    public function query(string $sql, array $params = [])
+    {
+        return $this->executor->query($sql, $params);
     }
 
     /**

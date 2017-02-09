@@ -33,12 +33,12 @@ class ProfileController extends Controller
         /** @var UicRepository $uicRepository */
         $uicRepository = $this->get(UicRepository::CONTAINER_KEY);
 
-        /** @var Profile $profile */
-        $profile = $profileRepository->findOneById($profileId);
         if ($profileId === null) {
-            throw new HttpNotFoundException();
+            $profileId = $this->auth->getUserId();
         }
 
+        /** @var Profile $profile */
+        $profile = $profileRepository->findOneById($profileId);
         $profile->increaseViewCount();
         $ip = $request->getIp();
 
@@ -52,8 +52,6 @@ class ProfileController extends Controller
             $uic->setProfileId($profileId);
             $uic->save();
         }
-
-        $profile->save();
 
         $this->template = 'profile';
 

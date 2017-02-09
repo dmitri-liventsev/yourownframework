@@ -18,8 +18,6 @@ abstract class Repository
     public function __construct(Executor $executor, string $entityClassName)
     {
         $this->executor = $executor;
-        $this->executor->setTable($this->table);
-
         $this->entityClassName = $entityClassName;
     }
 
@@ -55,7 +53,7 @@ abstract class Repository
     {
         $result = $this->findAll($where, $params);
 
-        return isset($result[0]) ? $result[0] : null;
+        return $result[0] ?? null;
     }
 
     /**
@@ -65,7 +63,7 @@ abstract class Repository
      */
     protected function findAll($where, array $params)
     {
-        $rows = $this->executor->select($where, $params);
+        $rows = $this->executor->select($this->table, $where, $params);
         $result = [];
 
         if ($rows !== false) {

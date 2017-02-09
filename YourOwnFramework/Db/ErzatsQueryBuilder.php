@@ -28,7 +28,7 @@ class ErzatsQueryBuilder
         $values = implode(",", $values);
 
         return <<<SQL
-                INSERT INTO $table ($fieldNames) VALUES ($values)";
+                INSERT INTO $table ($fieldNames) VALUES ($values)
 SQL;
 
     }

@@ -47,19 +47,13 @@
         }
     ?>
     <?php
-        if (isset($profile['checkbox1'])) {
-            echo $this->form->checkbox('checkbox1', 'checkbox1', !!$profile['checkbox1']);
-        }
+        echo $this->form->checkbox('checkbox1', 'checkbox1', !!isset($profile['checkbox1']));
     ?>
     <?php
-        if (isset($profile['checkbox2'])) {
-            echo $this->form->checkbox('checkbox2', 'checkbox2', !!$profile['checkbox2']);
-        }
+        echo $this->form->checkbox('checkbox2', 'checkbox2', !!isset($profile['checkbox2']));
     ?>
     <?php
-        if (isset($profile['checkbox3'])) {
-            echo $this->form->checkbox('checkbox3', 'checkbox3', !!$profile['checkbox3']);
-        }
+        echo $this->form->checkbox('checkbox3', 'checkbox3', !!isset($profile['checkbox3']));
     ?>
     <?php
         if (isset($profile['radio1'])) {

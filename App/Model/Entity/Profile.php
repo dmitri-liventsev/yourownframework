@@ -26,8 +26,8 @@ use YourOwnFramework\Db\ErzatsORM;
  * @method setDetails($details)
  * @method setStatus($status)
  * @method setIsActive($isActive)
- * @method setViewCount()
- * @method setUic()
+ * @method setViewCount($viewCount)
+ * @method setUic($Uic)
  * @method setCreatedAt($createdAt)
  * @method setDeletedAt($deletedAt)
  */
@@ -57,7 +57,7 @@ class Profile extends ErzatsORM
     /**
      * @var array
      */
-    protected $utilFields = ['id', 'deletedAt', 'createdAt'];
+    protected $utilFields = ['id', 'createdAt', 'viewCount', 'uic'];
 
     /**
      * @return bool
@@ -69,12 +69,18 @@ class Profile extends ErzatsORM
 
     public function increaseViewCount()
     {
-        $this->setViewCount('viewCount + 1');
+        $this->query(
+            'UPDATE profile SET viewCount = viewCount + 1 WHERE ( id = :id )',
+            ['id' => $this->getPrimaryKeyValue()]
+        );
     }
 
     public function increaseUic()
     {
-        $this->setViewCount('uic + 1');
+        $this->query(
+            'UPDATE profile SET uic = uic + 1 WHERE ( id = :id )',
+            ['id' => $this->getPrimaryKeyValue()]
+        );
     }
 
     public function checkDetails()
@@ -91,5 +97,10 @@ class Profile extends ErzatsORM
         }
 
         return $status;
+    }
+
+    public function isNotChecked()
+    {
+        return $this->getStatus() == self::STATUS_NOT_CHECKED;
     }
 }

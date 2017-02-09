@@ -22,7 +22,7 @@ class UicRepository extends Repository
      *
      * @return array
      */
-    public function findByIpAndProffileId($ip, $profileId)
+    public function findByIpAndProfileId($ip, $profileId)
     {
         $where = [
             'ip = :ip',
@@ -35,6 +35,6 @@ class UicRepository extends Repository
 
     public function isUnique($ip, $profileId)
     {
-        return count($this->findByIpAndProffileId($ip, $profileId)) == 0;
+        return count($this->findByIpAndProfileId($ip, $profileId)) == 0;
     }
 }

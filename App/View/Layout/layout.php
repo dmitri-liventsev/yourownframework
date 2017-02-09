@@ -58,7 +58,9 @@
                 <a href="/auth/logout">
                     <button type="button" class="btn btn-danger pull-right top6">Logout</button>
                 </a>
+                <a href="/profile/edit">
                 <button type="button" class="btn btn-primary pull-right top6">Edit Profile</button>
+                </a>
 
             <?php endif; ?>
         </div><!--/.navbar-collapse -->
