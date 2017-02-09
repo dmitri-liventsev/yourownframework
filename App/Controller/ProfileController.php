@@ -33,12 +33,13 @@ class ProfileController extends Controller
         /** @var UicRepository $uicRepository */
         $uicRepository = $this->get(UicRepository::CONTAINER_KEY);
 
+        /** @var Profile $profile */
         if ($profileId === null) {
-            $profileId = $this->auth->getUserId();
+            $profile = $profileRepository->findActiveProfileByUserId($this->auth->getUserId());
+        } else {
+            $profile = $profileRepository->findOneById($profileId);
         }
 
-        /** @var Profile $profile */
-        $profile = $profileRepository->findOneById($profileId);
         $profile->increaseViewCount();
         $ip = $request->getIp();
 
@@ -70,11 +71,6 @@ class ProfileController extends Controller
         /** @var Profile $profile */
         $profile = $profileRepository->findActiveProfileByUserId($this->auth->getUserId());
 
-        if($profile === null) {
-            $profile = $profileRepository->create();
-            $profile->save();
-        }
-
         if ($request->isPost()) {
             $profile->setIsActive(0);
             $profile->save();
@@ -82,6 +78,7 @@ class ProfileController extends Controller
             $profile = $profileRepository->clone($profile);
             $profile->setDetails(json_encode($request->getParams()));
             $profile->setIsActive(1);
+
             $profile->save();
         }
 

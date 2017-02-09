@@ -70,7 +70,7 @@ SQL;
         }
 
         return <<<SQL
-            SELECT * FROM $table WHERE $where;
+            SELECT * FROM $table WHERE $where
 SQL;
 
     }

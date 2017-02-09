@@ -86,6 +86,13 @@ class ProfileRepository extends Repository
         return $this->findAll($where, []);
     }
 
+    /**
+     * Don`t ask me why i don`t use joins %) or count(viewCount).
+     * I just to lazy to implement a real ORM just for test assignment
+     *
+     * @param int $userId
+     * @return array
+     */
     public function getProfileStatisticsByUserId(int $userId)
     {
         $allUserProfiles = $this->findAllByUserId($userId);

@@ -53,9 +53,14 @@ class Executor
     {
         $query = $this->queryBuilder->getInsertQuery(array_keys($params), $table);
         $sth = $this->db->prepare($query);
-        $sth->execute($params);
+        $isInserted = $sth->execute($params);
 
-        return $sth->execute($params);
+        $result = false;
+        if ($isInserted) {
+            $result = $this->db->lastInsertId();
+        }
+
+        return $result;
     }
 
     /**

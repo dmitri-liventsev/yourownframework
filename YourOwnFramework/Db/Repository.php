@@ -36,7 +36,7 @@ abstract class Repository
      */
     public function clone(ErzatsORMInterface $originalEntity)
     {
-        $params = array_diff($originalEntity->getParams(), $originalEntity->getUtilFields());
+        $params = array_diff_key($originalEntity->getParams(), array_flip($originalEntity->getUtilFields()));
 
         $newEntity = $this->buildEntity();
         $newEntity->load($params);
@@ -64,8 +64,8 @@ abstract class Repository
     protected function findAll($where, array $params)
     {
         $rows = $this->executor->select($this->table, $where, $params);
-        $result = [];
 
+        $result = [];
         if ($rows !== false) {
             foreach ($rows as $row) {
                 $result[] = $this->buildEntity($row);
