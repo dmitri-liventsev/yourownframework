@@ -87,13 +87,13 @@ class Profile extends ErzatsORM
     {
         $status = true;
 
-        $details = json_decode($this->getDetails());
+        $details = json_decode($this->getDetails(), true);
         if (!$details) {
             $status = false;
         }
 
         foreach ($this->detailsAtToCheck as $detailName) {
-            $status = $status || isset($details[$detailName]) && strlen($details[$detailName]) < self::LEN_MAX;
+            $status = $status && (isset($details[$detailName]) && strlen($details[$detailName]) >= self::LEN_MAX);
         }
 
         return $status;

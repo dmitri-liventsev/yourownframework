@@ -38,6 +38,7 @@ class Executor
     {
         $query = $this->queryBuilder->getSelectQuery($where, $table);
         $sth = $this->db->prepare($query);
+
         $sth->execute($params);
 
         return $sth->fetchAll(PDO::FETCH_ASSOC);

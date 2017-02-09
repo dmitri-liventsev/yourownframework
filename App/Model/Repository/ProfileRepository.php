@@ -26,7 +26,7 @@ class ProfileRepository extends Repository
             'status = :status',
             'deletedAt IS NULL'
         ];
-        $params = ['status', Profile::STATUS_NOT_CHECKED];
+        $params = ['status' => Profile::STATUS_NOT_CHECKED];
 
         return $this->findAll($where, $params);
     }

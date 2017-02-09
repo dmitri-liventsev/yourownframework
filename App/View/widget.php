@@ -16,21 +16,23 @@ $( document ).ready(function() {
     jQuery.each(activeProfiles, function( index, value ) {
         switch (value.status) {
             case "valid":
-                var statusClass = 'danger'
+                var statusClass = 'success'
             break
             case "invalid":
-                var statusClass = 'success'
+                var statusClass = 'danger'
             break
             default:
                 var statusClass = 'active'
         };
+
+
         var row = $('<tr></tr>',{class: statusClass});
-        row.append($('<td></td>', {'text': value.userId}));
+        var td = $('<td></td>').append($('<a href="/profile?id=' + value.id + '"> ' + value.userId +'</a>'));
+        row.append(td);
         row.append($('<td></td>', {'text': value.text1}));
         row.append($('<td></td>', {'text': value.statistics.view}));
         row.append($('<td></td>', {'text': value.statistics.uic}));
 
-        console.log(row);
         body.append(row);
     });
     table.append(body);

@@ -8,11 +8,14 @@ use App\Model\Repository\ProfileRepository;
 use DI\Container;
 use DI\ContainerBuilder;
 
-define("ROOT",dirname($_SERVER["DOCUMENT_ROOT"]));
+define("ROOT",dirname(__DIR__));
+
 require(ROOT . '/autoload.php');
 require(ROOT . '/vendor/autoload.php');
 
-$config = require(ROOT . '/Config/main.php')[\YourOwnFramework\YourOwnFramework::CONTAINER_CONTAINER_KEY];
+$config = require(ROOT . '/Config/main.php');
+$config = $config[\YourOwnFramework\YourOwnFramework::CONTAINER_CONTAINER_KEY];
+
 $container = initializeContainer($config);
 
 function initializeContainer($config) : Container
