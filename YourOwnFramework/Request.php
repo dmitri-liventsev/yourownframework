@@ -62,11 +62,11 @@ class Request
     }
 
     /**
-     * @param array $params
+     * @return array
      */
-    public function setParams($params)
+    public function getParams()
     {
-        $this->params = $params;
+        return $this->params;
     }
 
     /**
@@ -82,9 +82,6 @@ class Request
         $this->method = $this->server['REQUEST_METHOD'];
     }
 
-    /**
-     * @return array
-     */
     public function determineParams()
     {
         $this->params = $this->post + $this->get;
