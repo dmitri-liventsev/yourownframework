@@ -13,18 +13,22 @@ return [
         \YourOwnFramework\Router::CONTAINER_KEY => function (ContainerInterface $c) {
             return new \YourOwnFramework\Router();
         },
-        \YourOwnFramework\View\View::CONTAINER_KEY => function (ContainerInterface $c) {
-            return new \YourOwnFramework\View\View($c->get(\YourOwnFramework\View\FormHelper::CONTAINER_KEY));
-        },
         \YourOwnFramework\RequestDataProvider::CONTAINER_KEY => function (ContainerInterface $c) {
             return new \YourOwnFramework\RequestDataProvider();
         },
         \YourOwnFramework\Request::CONTAINER_KEY => function (ContainerInterface $c) {
             return new \YourOwnFramework\Request($c->get(\YourOwnFramework\RequestDataProvider::CONTAINER_KEY));
         },
+
+        //VIEW
+        \YourOwnFramework\View\View::CONTAINER_KEY => function (ContainerInterface $c) {
+            return new \YourOwnFramework\View\View($c->get(\YourOwnFramework\View\FormHelper::CONTAINER_KEY));
+        },
         \YourOwnFramework\View\FormHelper::CONTAINER_KEY => function (ContainerInterface $c) {
             return new \YourOwnFramework\View\FormHelper();
         },
+
+        //DB
         \YourOwnFramework\Db\ErzatsQueryBuilder::CONTAINER_KEY => function (ContainerInterface $c) {
             return new \YourOwnFramework\Db\ErzatsQueryBuilder();
         },
