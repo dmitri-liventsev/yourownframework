@@ -69,7 +69,8 @@ class View
      */
     public function includeTemplate(string $templateName, array $params)
     {
-        //TODO: implement it
+        extract($params, EXTR_OVERWRITE);
+        require($this->getFullTemplatePath($templateName));
     }
 
     /**

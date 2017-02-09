@@ -27,7 +27,10 @@ class ErzatsQueryBuilder
 
         $values = implode(",", $values);
 
-        return "INSERT INTO " . $table . " (". $fieldNames . ") VALUES (" . $values  . ")";
+        return <<<SQL
+                INSERT INTO $table ($fieldNames) VALUES ($values)";
+SQL;
+
     }
 
     /**
@@ -47,8 +50,12 @@ class ErzatsQueryBuilder
 
             $fieldValues[] = $field . " = :" . $field. ' ';
         }
+        $fieldValues = implode(',', $fieldValues);
 
-        return "UPDATE " . $table . " SET " . implode(',', $fieldValues) . " WHERE " . $primaryKey . " = :" . $primaryKey;
+        return <<<SQL
+            UPDATE $table SET $fieldValues WHERE $primaryKey = :$primaryKey;
+SQL;
+
     }
 
     /**
@@ -62,7 +69,10 @@ class ErzatsQueryBuilder
             $where = implode(' AND ', $where);
         }
 
-        return "SELECT * FROM " . $table . " WHERE " . $where;
+        return <<<SQL
+            SELECT * FROM $table WHERE $where;
+SQL;
+
     }
 
     /**
