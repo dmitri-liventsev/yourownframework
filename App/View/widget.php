@@ -6,7 +6,9 @@
 $activeProfilesJson = json_encode($activeProfiles);
 
 echo <<<JS
-var activeProfiles = $activeProfiles;
+var activeProfiles = $activeProfilesJson;
+
+console.log(activeProfiles);
 
 function HtmlEncode(s)
 {

@@ -20,6 +20,8 @@ class WidgetController extends Controller
      */
     public function indexAction(Request $request)
     {
+        header("Content-Type: text/javascript");
+
         /** @var ProfileRepository $profileRepository */
         $profileRepository = $this->get(ProfileRepository::CONTAINER_KEY);
         $activeProfiles = $profileRepository->findAllActive();
@@ -29,7 +31,7 @@ class WidgetController extends Controller
         foreach($activeProfiles as $profile) {
             $statistics = $profileRepository->getProfileStatisticsByUserId($profile->getUserId());
             $profileArrays[$profile->getId()] = $profile->getParams();
-            $profileArrays['statistics'] = $statistics;
+            $profileArrays[$profile->getId()]['statistics'] = $statistics;
         }
 
         $this->layout = 'widget';

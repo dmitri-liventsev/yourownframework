@@ -35,7 +35,7 @@ class Router
      */
     private function findRoute(string $URI) : array
     {
-        $uri_segments = explode('/', $URI);
+        $uri_segments = explode('/', str_replace('.php', '',$URI));
 
         $controllerClassName = $this->getControllerClassName($uri_segments);
         $actionMethodName = $this->getActionMethodName($uri_segments);
