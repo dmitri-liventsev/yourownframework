@@ -77,6 +77,7 @@ class ProfileController extends Controller
             $profile = $profileRepository->clone($profile);
             $profile->setDetails(json_encode($request->getParams()));
             $profile->setIsActive(1);
+            $profile->setStatus(Profile::STATUS_NOT_CHECKED);
 
             $profile->save();
         }

@@ -6,15 +6,43 @@
 $activeProfilesJson = json_encode($activeProfiles);
 
 echo <<<JS
-var activeProfiles = $activeProfilesJson;
+$( document ).ready(function() {
+    var activeProfiles = $activeProfilesJson;
+    var table = $('<table class="table table-striped"></table>');
+    var th = $('<thead><tr><th>UserId</th><th>Most Recent Data</th><th>View Count</th><th>Unique impression count</th></tr></thead>');
+    table.append(th);
 
-console.log(activeProfiles);
+    var body = $('<tbody></tbody>');
+    jQuery.each(activeProfiles, function( index, value ) {
+        switch (value.status) {
+            case "valid":
+                var statusClass = 'danger'
+            break
+            case "invalid":
+                var statusClass = 'success'
+            break
+            default:
+                var statusClass = 'active'
+        };
+        var row = $('<tr></tr>',{class: statusClass});
+        row.append($('<td></td>', {'text': value.userId}));
+        row.append($('<td></td>', {'text': value.text1}));
+        row.append($('<td></td>', {'text': value.statistics.view}));
+        row.append($('<td></td>', {'text': value.statistics.uic}));
 
-function HtmlEncode(s)
-{
-  var el = document.createElement("div");
-  el.innerText = el.textContent = s;
-  s = el.innerHTML;
-  return s;
-}
+        console.log(row);
+        body.append(row);
+    });
+    table.append(body);
+    $("#widget").html(table);
+
+    function HtmlEncode(s)
+    {
+      var el = document.createElement("div");
+      el.innerText = el.textContent = s;
+      s = el.innerHTML;
+      return s;
+    }
+});
+
 JS;

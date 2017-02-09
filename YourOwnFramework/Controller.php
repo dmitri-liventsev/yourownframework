@@ -141,9 +141,24 @@ abstract class Controller implements ControllerInterface
         return $this->template;
     }
 
-    protected function setCookie($name, $value, $lifeTime)
+    /**
+     * @param string $name
+     * @param $value
+     * @param int $lifeTime
+     */
+    protected function setCookie(string $name, $value, int $lifeTime)
     {
         setcookie($name, $value, time() + $lifeTime);
     }
+
+    /**
+     * @param $headerName
+     * @param $value
+     */
+    protected function header(string $headerName, string $value)
+    {
+        header("$headerName: $value");
+    }
+
 }
 
