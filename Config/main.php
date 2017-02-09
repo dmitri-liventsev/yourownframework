@@ -16,14 +16,20 @@ return [
         \YourOwnFramework\View\View::CONTAINER_KEY => function (ContainerInterface $c) {
             return new \YourOwnFramework\View\View($c->get(\YourOwnFramework\View\FormHelper::CONTAINER_KEY));
         },
+        \YourOwnFramework\RequestDataProvider::CONTAINER_KEY => function (ContainerInterface $c) {
+            return new \YourOwnFramework\RequestDataProvider();
+        },
         \YourOwnFramework\Request::CONTAINER_KEY => function (ContainerInterface $c) {
-            return new \YourOwnFramework\Request();
+            return new \YourOwnFramework\Request($c->get(\YourOwnFramework\RequestDataProvider::CONTAINER_KEY));
         },
         \YourOwnFramework\View\FormHelper::CONTAINER_KEY => function (ContainerInterface $c) {
             return new \YourOwnFramework\View\FormHelper();
         },
+        \YourOwnFramework\Db\ErzatsQueryBuilder::CONTAINER_KEY => function (ContainerInterface $c) {
+            return new \YourOwnFramework\Db\ErzatsQueryBuilder();
+        },
         \YourOwnFramework\Db\Executor::CONTAINER_KEY => function (ContainerInterface $c) {
-            return new \YourOwnFramework\Db\Executor($c->get('db'));
+            return new \YourOwnFramework\Db\Executor($c->get('db'), $c->get(\YourOwnFramework\Db\ErzatsQueryBuilder::CONTAINER_KEY));
         },
         \App\Model\Repository\ProfileRepository::CONTAINER_KEY => function (ContainerInterface $c) {
             return new \App\Model\Repository\ProfileRepository(

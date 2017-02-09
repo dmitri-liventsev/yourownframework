@@ -9,6 +9,8 @@ namespace YourOwnFramework;
 
 class RequestDataProvider
 {
+    const CONTAINER_KEY = 'request_data_provider';
+
     /**
      * @return array
      */

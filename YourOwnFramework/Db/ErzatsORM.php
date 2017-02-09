@@ -55,7 +55,10 @@ abstract class ErzatsORM implements ErzatsORMInterface
         if ($this->isNew()) {
             $this->clear();
         } else {
-            $this->paramsValue = $this->executor->getOneByPrimaryKey($this->getPrimaryKey());
+            $where = $this->primaryKey .' = :' . $this->primaryKey;
+            $params = [$this->primaryKey => $this->getPrimaryKeyValue()];
+
+            $this->paramsValue = $this->executor->select($where, $params);
         }
     }
 
@@ -64,14 +67,14 @@ abstract class ErzatsORM implements ErzatsORMInterface
         if ($this->isNew()) {
             $this->executor->insert($this->paramsValue);
         } else {
-            $this->executor->update($this->getPrimaryKey(), $this->paramsValue);
+            $this->executor->update($this->primaryKey, $this->paramsValue);
         }
     }
 
     /**
      * @return int
      */
-    public function getPrimaryKey()
+    public function getPrimaryKeyValue()
     {
         return $this->paramsValue[$this->primaryKey];
     }
@@ -81,7 +84,7 @@ abstract class ErzatsORM implements ErzatsORMInterface
      */
     public function isNew()
     {
-        return $this->getPrimaryKey() === null;
+        return $this->getPrimaryKeyValue() === null;
     }
 
     private function clear()

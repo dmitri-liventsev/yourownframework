@@ -24,10 +24,12 @@ class Executor
     /**
      * Executor constructor.
      * @param PDO $db
+     * @param ErzatsQueryBuilder $queryBuilder
      */
-    public function __construct(PDO $db)
+    public function __construct(PDO $db, ErzatsQueryBuilder $queryBuilder)
     {
         $this->db = $db;
+        $this->queryBuilder = $queryBuilder;
     }
 
     /**
@@ -39,29 +41,14 @@ class Executor
     }
 
     /**
-     * @param string $primaryKey
-     * @return array
-     */
-    public function getOneByPrimaryKey($primaryKey)
-    {
-        $where = 'id = :id';
-        $result = $this->select($where, ['id' => $primaryKey]);
-
-        return isset($result[0]) ? $result[0] : null;
-    }
-
-    /**
      * @param string|array $where
      * @param array $params
      * @return array
      */
     public function select($where, array $params = [])
     {
-        if (is_array($where)) {
-            $where = implode(' AND ', $where);
-        }
-
-        $sth = $this->db->prepare("SELECT * FROM " . $this->table . " WHERE " . $where);
+        $query = $this->queryBuilder->getSelectQuery($where, $this->table);
+        $sth = $this->db->prepare($query);
         $sth->execute($params);
 
         return $sth->fetchAll(PDO::FETCH_ASSOC);
@@ -74,47 +61,12 @@ class Executor
      */
     public function insert($params)
     {
-        $query = $this->getInsertQuery(array_keys($params));
+        $query = $this->queryBuilder->getInsertQuery(array_keys($params), $this->table);
         $sth = $this->db->prepare($query);
 
         $sth->execute($params);
 
         return $sth->execute($params);
-    }
-
-    /**
-     * @param $fields
-     *
-     * @return string
-     */
-    private function getInsertQuery($fields)
-    {
-        $fieldNames = implode(',', $fields);
-
-        $values = [];
-        foreach ($fields as $field) {
-            $values[] = ":" . $field;
-        }
-
-        $values = implode(",", $values);
-
-        return "INSERT INTO " . $this->table . " (". $fieldNames . ") VALUES (" . $values  . ")";
-    }
-
-    /**
-     * @param $params
-     *
-     * @return array
-     */
-    private function getParamMap($params)
-    {
-        $paramMap = [];
-
-        foreach ($params as $fieldName => $value) {
-            $paramMap[":" . $fieldName] = $value;
-        }
-
-        return $paramMap;
     }
 
     /**
@@ -125,29 +77,10 @@ class Executor
      */
     public function update($primaryKey, $params)
     {
-        $query = $this->getUpdateQuery(array_keys($params));
+        $query = $this->queryBuilder->getUpdateQuery(array_keys($params), $this->table, $primaryKey);
         $sth = $this->db->prepare($query, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 
         return $sth->execute($params);
-    }
-
-    /**
-     * @param array $fields
-     *
-     * @return string
-     */
-    private function getUpdateQuery(array $fields)
-    {
-        $fieldValues = [];
-        foreach ($fields as $field) {
-            if ($field == 'id') {
-                continue;
-            }
-
-            $fieldValues[] = $field . " = :" . $field. ' ';
-        }
-
-        return "UPDATE " . $this->table . " SET " . implode(',', $fieldValues) . " WHERE id = :id";
     }
 
     /**
