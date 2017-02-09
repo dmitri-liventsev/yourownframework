@@ -54,7 +54,8 @@ class Request
 
     /**
      * @param string $fieldName
-     * @return null
+     *
+     * @return null|int|string|array
      */
     public function get(string $fieldName)
     {

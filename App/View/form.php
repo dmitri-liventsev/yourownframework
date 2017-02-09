@@ -8,42 +8,42 @@
 <form method="post">
     <?php
         if (isset($profile['text1'])) {
-            echo $this->form->text('text1', 'text1', $profile['text1']);
+            echo $this->form->text('text1', 'text1', htmlspecialchars($profile['text1']));
         }
     ?>
     <?php
         if (isset($profile['text2'])) {
-            echo $this->form->text('text2', 'text2', $profile['text2']);
+            echo $this->form->text('text2', 'text2', htmlspecialchars($profile['text2']));
         }
     ?>
     <?php
         if (isset($profile['text3'])) {
-            echo $this->form->text('text3', 'text3', $profile['text3']);
+            echo $this->form->text('text3', 'text3', htmlspecialchars($profile['text3']));
         }
     ?>
     <?php
         if (isset($profile['text4'])) {
-            echo $this->form->text('text4', 'text4', $profile['text4']);
+            echo $this->form->text('text4', 'text4', htmlspecialchars($profile['text4']));
         }
     ?>
     <?php
         if (isset($profile['text5'])) {
-            echo $this->form->text('text5', 'text5', $profile['text5']);
+            echo $this->form->text('text5', 'text5', htmlspecialchars($profile['text5']));
         }
     ?>
     <?php
         if (isset($profile['text6'])) {
-            echo $this->form->text('text6', 'text6', $profile['text6']);
+            echo $this->form->text('text6', 'text6', htmlspecialchars($profile['text6']));
         }
     ?>
     <?php
         if (isset($profile['text7'])) {
-            echo $this->form->text('text7', 'text7', $profile['text7']);
+            echo $this->form->text('text7', 'text7', htmlspecialchars($profile['text7']));
         }
     ?>
     <?php
         if (isset($profile['text8'])) {
-            echo $this->form->text('text8', 'text8', $profile['text8']);
+            echo $this->form->text('text8', 'text8', htmlspecialchars($profile['text8']));
         }
     ?>
     <?php
