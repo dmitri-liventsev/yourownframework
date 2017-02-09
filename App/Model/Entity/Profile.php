@@ -29,6 +29,10 @@ use YourOwnFramework\Db\ErzatsORM;
  */
 class Profile extends ErzatsORM
 {
+    const STATUS_VALID = 'valid';
+    const STATUS_INVALID = 'invalid';
+    const STATUS_NOT_CHECKED = 'not_checked';
+
     protected $table = 'profile';
 
     /**
@@ -42,4 +46,12 @@ class Profile extends ErzatsORM
     protected $params = [
         'id', 'userId', 'details', 'isActive', 'status', 'deletedAt'
     ];
+
+    /**
+     * @return bool
+     */
+    public function isValid() :bool
+    {
+        return $this->getStatus() == self::STATUS_VALID;
+    }
 }

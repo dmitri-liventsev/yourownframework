@@ -33,7 +33,8 @@ class ProfileController extends Controller
         $profileData = json_decode($profile->getDetails(), true) ?? [];
 
         return [
-            'profile' => $profileData,
+            'profileData' => $profileData,
+            'profile' => $profile,
             'allProfile' => $allProfiles,
         ];
     }
