@@ -4,7 +4,7 @@
 
  SNOOZE=17
 
- COMMAND="./Job/standalonescript.php"
+ COMMAND="./Job/checker.php"
 
  while true
 
