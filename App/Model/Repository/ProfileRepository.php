@@ -85,4 +85,20 @@ class ProfileRepository extends Repository
 
         return $this->findAll($where, []);
     }
+
+    public function getProfileStatisticsByUserId(int $userId)
+    {
+        $allUserProfiles = $this->findAllByUserId($userId);
+
+        $viewCount = 0;
+        $uicCount = 0;
+
+        /** @var Profile $profile */
+        foreach ($allUserProfiles as $profile) {
+            $viewCount += $profile->getViewCount();
+            $uicCount += $profile->getUic();
+        }
+
+        return ['view' => $viewCount, 'uic' => $uicCount];
+    }
 }
