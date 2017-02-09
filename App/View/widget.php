@@ -14,18 +14,7 @@ $( document ).ready(function() {
 
     var body = $('<tbody></tbody>');
     jQuery.each(activeProfiles, function( index, value ) {
-        switch (value.status) {
-            case "valid":
-                var statusClass = 'success'
-            break
-            case "invalid":
-                var statusClass = 'danger'
-            break
-            default:
-                var statusClass = 'active'
-        };
-
-
+        statusClass = getStatusClass(value.status)
         var row = $('<tr></tr>',{class: statusClass});
         var td = $('<td></td>').append($('<a href="/profile?id=' + value.id + '"> ' + value.userId +'</a>'));
         row.append(td);
@@ -37,6 +26,22 @@ $( document ).ready(function() {
     });
     table.append(body);
     $("#widget").html(table);
+
+    function getStatusClass(status)
+    {
+        switch (status) {
+            case "valid":
+                var statusClass = 'success'
+            break
+            case "invalid":
+                var statusClass = 'danger'
+            break
+            default:
+                var statusClass = 'active'
+        };
+
+        return statusClass;
+    }
 
     function HtmlEncode(s)
     {
