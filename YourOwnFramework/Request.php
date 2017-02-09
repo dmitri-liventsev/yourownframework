@@ -116,8 +116,10 @@ class Request
      * @param $cookieName
      * @return bool
      */
-    public function hasCookie(string $cookieName) : bool
+    public function hasCookie(string $cookieName, $userId = null) : bool
     {
-        return $this->getCookie($cookieName) !== null;
+        $cookie = $this->getCookie($cookieName);
+
+        return ($userId === null && $cookie !== $userId) || ($userId !== null && $cookie === $userId);
     }
 }

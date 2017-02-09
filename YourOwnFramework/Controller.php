@@ -143,7 +143,7 @@ abstract class Controller implements ControllerInterface
 
     protected function setCookie($name, $value, $lifeTime)
     {
-        setcookie($name, $value, $lifeTime);
+        setcookie($name, $value, time() + $lifeTime);
     }
 }
 

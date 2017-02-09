@@ -43,9 +43,8 @@ class ProfileController extends Controller
         $profile->increaseViewCount();
         $ip = $request->getIp();
 
-        if ($uicRepository->isUnique($ip, $profileId) && !$request->hasCookie(self::UIC_COOKIE_NAME)) {
-            $this->setCookie(self::UIC_COOKIE_NAME, 1, self::COMMON_AMOUNT_OF_SECONDS_PER_DAY);
-
+        if (!$request->hasCookie(self::UIC_COOKIE_NAME, $profile->getUserId()) && $uicRepository->isUnique($ip, $profileId)) {
+            $this->setCookie(self::UIC_COOKIE_NAME, $profile->getUserId(), self::COMMON_AMOUNT_OF_SECONDS_PER_DAY);
             $profile->increaseUic();
             /** @var Uic $uic */
             $uic = $uicRepository->create();
