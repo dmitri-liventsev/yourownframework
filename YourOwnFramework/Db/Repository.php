@@ -24,6 +24,29 @@ abstract class Repository
     }
 
     /**
+     * @return ErzatsORMInterface
+     */
+    public function create()
+    {
+        return $this->buildEntity();
+    }
+
+    /**
+     * @param ErzatsORMInterface $originalEntity
+     *
+     * @return ErzatsORMInterface
+     */
+    public function clone(ErzatsORMInterface $originalEntity)
+    {
+        $params = array_diff($originalEntity->getParams(), $originalEntity->getUtilFields());
+
+        $newEntity = $this->buildEntity();
+        $newEntity->load($params);
+
+        return $newEntity;
+    }
+
+    /**
      * @param string|array $where
      * @param array $params
      * @return null|ErzatsORMInterface

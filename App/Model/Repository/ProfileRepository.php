@@ -22,9 +22,8 @@ class ProfileRepository extends Repository
      */
     public function findAllNotChecked()
     {
-        //TODO: implement it
-        $where = '';
-        $params = [];
+        $where = 'status = :status';
+        $params = ['status', Profile::STATUS_NOT_CHECKED];
 
         return $this->findAll($where, $params);
     }

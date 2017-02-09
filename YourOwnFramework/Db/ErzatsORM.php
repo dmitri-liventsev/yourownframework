@@ -40,6 +40,11 @@ abstract class ErzatsORM implements ErzatsORMInterface
     private $executor;
 
     /**
+     * @var array
+     */
+    protected $utilFields = ['id'];
+
+    /**
      * ErzatsORM constructor.
      * @param Executor $executor
      */
@@ -74,15 +79,23 @@ abstract class ErzatsORM implements ErzatsORMInterface
     /**
      * @return int
      */
-    public function getPrimaryKeyValue()
+    public function getPrimaryKeyValue() : int
     {
         return $this->paramsValue[$this->primaryKey];
     }
 
     /**
+     * @return string
+     */
+    public function getPrimaryKey() : string
+    {
+        return $this->primaryKey;
+    }
+
+    /**
      * @return bool
      */
-    public function isNew()
+    public function isNew() : bool
     {
         return $this->getPrimaryKeyValue() === null;
     }
@@ -125,12 +138,20 @@ abstract class ErzatsORM implements ErzatsORMInterface
     }
 
     /**
+     * @return array
+     */
+    public function getParams() : array
+    {
+        return $this->paramsValue;
+    }
+
+    /**
      * @param string $param
      * @param string|int|null|bool $value
      * @return bool
      * @throws ErzatsORMException
      */
-    private function setParam($param, $value)
+    private function setParam($param, $value) : bool
     {
         if (!in_array($param, $this->params)) {
             throw new ErzatsORMException('Param not exists');
@@ -145,7 +166,7 @@ abstract class ErzatsORM implements ErzatsORMInterface
     /**
      * @return array
      */
-    public function getListOfFields()
+    public function getListOfFields() : array
     {
         return $this->params;
     }
@@ -158,5 +179,18 @@ abstract class ErzatsORM implements ErzatsORMInterface
         foreach($params as $fieldName => $param) {
             $this->paramsValue[$fieldName] = $param;
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function getUtilFields(): array
+    {
+        return $this->utilFields;
+    }
+
+    public function delete()
+    {
+        $this->setDeletedAt(date('Y-m-d'));
     }
 }

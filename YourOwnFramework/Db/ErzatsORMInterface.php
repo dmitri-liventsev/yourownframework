@@ -47,5 +47,13 @@ interface ErzatsORMInterface
 {
     public function load(array $params = []);
 
+    public function getParams();
+
+    public function getPrimaryKey();
+
+    public function getUtilFields();
+
+    public function delete();
+
     public function save();
 }

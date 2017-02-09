@@ -44,8 +44,13 @@ class Profile extends ErzatsORM
      * @var array
      */
     protected $params = [
-        'id', 'userId', 'details', 'isActive', 'status', 'deletedAt'
+        'id', 'userId', 'details', 'isActive', 'status', 'deletedAt', 'createdAt'
     ];
+
+    /**
+     * @var array
+     */
+    protected $utilFields = ['id', 'deletedAt', 'createdAt'];
 
     /**
      * @return bool
