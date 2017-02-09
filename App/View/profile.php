@@ -12,22 +12,22 @@
 <h2>Profile</h2>
 
 <div class="row">
-  <div class="col-sm-6" id="form_div">
-      <?php $this->includeTemplate('form', ['profile' => $profileData]);?>
-  </div>
-  <div class="col-sm-6">
-    <div>
-        <h4>Profile Status</h4>
-        <?php if($profile->isValid()):?>
-            You profile is valid, you was a good boy, so please take that kitty:
-            <img width="250" alt="Kitty" src="http://www.randomkittengenerator.com/cats/rotator.php" />
-        <?php else:?>
-            Your profile is invalid
-            <img width="250" alt="No!" src="/img/no.gif">
-        <?php endif;?>
+    <div class="col-sm-6" id="form_div">
+        <?php $this->includeTemplate('form', ['profile' => $profileData]);?>
     </div>
+    <div class="col-sm-6">
+        <div>
+            <h4>Profile Status</h4>
+            <?php if($profile->isValid()):?>
+                You profile is valid, you was a good boy, so please take that kitty:
+                <img width="250" alt="Kitty" src="http://www.randomkittengenerator.com/cats/rotator.php" />
+            <?php else:?>
+                Your profile is invalid
+                <img width="250" alt="No!" src="/img/no.gif">
+            <?php endif;?>
+        </div>
     <div id="versions"></div>
-  </div>
+    </div>
 </div>
 
 <script type="text/javascript">
