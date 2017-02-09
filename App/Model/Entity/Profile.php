@@ -36,6 +36,7 @@ class Profile extends ErzatsORM
     const STATUS_VALID = 'valid';
     const STATUS_INVALID = 'invalid';
     const STATUS_NOT_CHECKED = 'not_checked';
+    const LEN_MAX = 2;
 
     protected $table = 'profile';
 
@@ -50,6 +51,8 @@ class Profile extends ErzatsORM
     protected $params = [
         'id', 'userId', 'details', 'isActive', 'status', 'viewCount', 'uic', 'deletedAt', 'createdAt'
     ];
+
+    private $detailsAtToCheck = ['text1', 'text2', 'text3', 'text4', 'text5', 'text6', 'text7', 'text8'];
 
     /**
      * @var array
@@ -72,5 +75,21 @@ class Profile extends ErzatsORM
     public function increaseUic()
     {
         $this->setViewCount('uic + 1');
+    }
+
+    public function checkDetails()
+    {
+        $status = true;
+
+        $details = json_decode($this->getDetails());
+        if (!$details) {
+            $status = false;
+        }
+
+        foreach ($this->detailsAtToCheck as $detailName) {
+            $status = $status || isset($details[$detailName]) && strlen($details[$detailName]) < self::LEN_MAX;
+        }
+
+        return $status;
     }
 }
