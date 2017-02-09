@@ -16,7 +16,7 @@ class AuthController extends Controller
     public function loginAction(Request $request)
     {
         try {
-            $this->auth->login($this->request->get('email'), $this->request->get('password'));
+            $this->auth->login($request->get('email'), $request->get('password'));
         } catch (\Delight\Auth\InvalidEmailException $e) {
             $this->redirect('auth\wrong');
         } catch (\Delight\Auth\InvalidPasswordException $e) {

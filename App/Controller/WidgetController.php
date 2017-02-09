@@ -14,6 +14,7 @@ class WidgetController extends Controller
 {
     /**
      * @param Request $request
+     *
      * @return array
      */
     public function indexAction(Request $request)
