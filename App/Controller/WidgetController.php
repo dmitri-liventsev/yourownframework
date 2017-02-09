@@ -8,10 +8,15 @@ namespace App\Controller;
 
 use App\Model\Repository\ProfileRepository;
 use YourOwnFramework\Controller;
+use YourOwnFramework\Request;
 
 class WidgetController extends Controller
 {
-    public function indexAction()
+    /**
+     * @param Request $request
+     * @return array
+     */
+    public function indexAction(Request $request)
     {
         $this->layout = 'widget';
         $this->template = 'widget';

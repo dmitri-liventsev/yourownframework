@@ -6,10 +6,14 @@
 namespace App\Controller;
 
 use YourOwnFramework\Controller;
+use YourOwnFramework\Request;
 
 class AuthController extends Controller
 {
-    public function loginAction()
+    /**
+     * @param Request $request
+     */
+    public function loginAction(Request $request)
     {
         try {
             $this->auth->login($this->request->get('email'), $this->request->get('password'));
@@ -22,13 +26,19 @@ class AuthController extends Controller
         $this->redirect('profile');
     }
 
-    public function logoutAction()
+    /**
+     * @param Request $request
+     */
+    public function logoutAction(Request $request)
     {
         $this->auth->logout();
         $this->redirect('');
     }
 
-    public function wrongAction()
+    /**
+     * @param Request $request
+     */
+    public function wrongAction(Request $request)
     {
         $this->template = "wrongAuth";
     }

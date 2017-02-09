@@ -2,15 +2,19 @@
 
 namespace App\Controller;
 use YourOwnFramework\Controller;
+use YourOwnFramework\Request;
 
 /**
  * @author Dmitri Liventsev <dmitri.linvetsev@gmail.com>
  */
 class IndexController extends Controller
 {
-    public function indexAction()
+    /**
+     * @param Request $request
+     * @return array
+     */
+    public function indexAction(Request $request)
     {
-
-        return ['test' => 234];
+        return [];
     }
 }

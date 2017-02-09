@@ -11,6 +11,11 @@ use YourOwnFramework\Request;
 
 class ProfileController extends Controller
 {
+    /**
+     * @param Request $request
+     *
+     * @return array
+     */
     public function indexAction(Request $request)
     {
         $this->template = 'form';
