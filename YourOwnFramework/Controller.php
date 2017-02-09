@@ -140,5 +140,10 @@ abstract class Controller implements ControllerInterface
     {
         return $this->template;
     }
+
+    protected function setCookie($name, $value, $lifeTime)
+    {
+        setcookie($name, $value, $lifeTime);
+    }
 }
 

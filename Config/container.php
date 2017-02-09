@@ -5,6 +5,21 @@
 use Interop\Container\ContainerInterface;
 
 return [
+    /*****************Application*************/
+    \App\Model\Repository\ProfileRepository::CONTAINER_KEY => function (ContainerInterface $c) {
+        return new \App\Model\Repository\ProfileRepository(
+            $c->get(\YourOwnFramework\Db\Executor::CONTAINER_KEY),
+            \App\Model\Entity\Profile::class
+        );
+    },
+    \App\Model\Repository\UicRepository::CONTAINER_KEY => function (ContainerInterface $c) {
+        return new \App\Model\Repository\UicRepository(
+            $c->get(\YourOwnFramework\Db\Executor::CONTAINER_KEY),
+            \App\Model\Entity\Uic::class
+        );
+    },
+
+    /*****************System*************/
     \YourOwnFramework\Router::CONTAINER_KEY => function (ContainerInterface $c) {
         return new \YourOwnFramework\Router();
     },
@@ -35,12 +50,6 @@ return [
     },
     \YourOwnFramework\Db\Executor::CONTAINER_KEY => function (ContainerInterface $c) {
         return new \YourOwnFramework\Db\Executor($c->get('db'), $c->get(\YourOwnFramework\Db\ErzatsQueryBuilder::CONTAINER_KEY));
-    },
-    \App\Model\Repository\ProfileRepository::CONTAINER_KEY => function (ContainerInterface $c) {
-        return new \App\Model\Repository\ProfileRepository(
-            $c->get(\YourOwnFramework\Db\Executor::CONTAINER_KEY),
-            \App\Model\Entity\Profile::class
-        );
     },
     'auth' => function (ContainerInterface $c) {
         $db = $c->get('db');

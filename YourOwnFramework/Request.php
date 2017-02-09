@@ -33,6 +33,11 @@ class Request
     private $params;
 
     /**
+     * @var array
+     */
+    private $cookie;
+
+    /**
      * @var string
      */
     private $method;
@@ -42,6 +47,7 @@ class Request
         $this->post = $requestDataProvider->getPost();
         $this->get = $requestDataProvider->getGet();
         $this->server = $requestDataProvider->getServer();
+        $this->cookie = $requestDataProvider->getCookies();
 
         $this->init();
     }
@@ -86,5 +92,32 @@ class Request
     public function determineParams()
     {
         $this->params = $this->post + $this->get;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIp() : string
+    {
+        return $this->server['REMOTE_ADDR'];
+    }
+
+    /**
+     * @param string $cookieName
+     *
+     * @return string|int|null
+     */
+    public function getCookie(string $cookieName)
+    {
+        return isset($this->cookie[$cookieName]) ? $this->cookie[$cookieName] : null;
+    }
+
+    /**
+     * @param $cookieName
+     * @return bool
+     */
+    public function hasCookie(string $cookieName) : bool
+    {
+        return $this->getCookie($cookieName) !== null;
     }
 }

@@ -34,4 +34,12 @@ class RequestDataProvider
     {
         return $_SERVER;
     }
+
+    /**
+     * @return array
+     */
+    public function getCookies()
+    {
+        return $_COOKIE;
+    }
 }

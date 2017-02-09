@@ -17,6 +17,8 @@ use YourOwnFramework\Db\ErzatsORM;
  * @method getDetails()
  * @method getStatus()
  * @method getIsActive()
+ * @method getViewCount()
+ * @method getUic()
  * @method getCreatedAt()
  * @method getDeletedAt()
  * @method setId($id)
@@ -24,6 +26,8 @@ use YourOwnFramework\Db\ErzatsORM;
  * @method setDetails($details)
  * @method setStatus($status)
  * @method setIsActive($isActive)
+ * @method setViewCount()
+ * @method setUic()
  * @method setCreatedAt($createdAt)
  * @method setDeletedAt($deletedAt)
  */
@@ -44,7 +48,7 @@ class Profile extends ErzatsORM
      * @var array
      */
     protected $params = [
-        'id', 'userId', 'details', 'isActive', 'status', 'deletedAt', 'createdAt'
+        'id', 'userId', 'details', 'isActive', 'status', 'viewCount', 'uic', 'deletedAt', 'createdAt'
     ];
 
     /**
@@ -58,5 +62,15 @@ class Profile extends ErzatsORM
     public function isValid() :bool
     {
         return $this->getStatus() == self::STATUS_VALID;
+    }
+
+    public function increaseViewCount()
+    {
+        $this->setViewCount('viewCount + 1');
+    }
+
+    public function increaseUic()
+    {
+        $this->setViewCount('uic + 1');
     }
 }

@@ -18,12 +18,12 @@ class WidgetController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $this->layout = 'widget';
-        $this->template = 'widget';
-
         /** @var ProfileRepository $profileRepository */
         $profileRepository = $this->get(ProfileRepository::CONTAINER_KEY);
         $activeProfiles = $profileRepository->findAllActive();
+
+        $this->layout = 'widget';
+        $this->template = 'widget';
 
         return ["activeProfiles" => $activeProfiles];
     }
