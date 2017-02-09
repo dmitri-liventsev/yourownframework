@@ -19,13 +19,13 @@ use YourOwnFramework\Db\ErzatsORM;
  * @method getIsActive()
  * @method getCreatedAt()
  * @method getDeletedAt()
- * @method setId()
- * @method setUserId()
- * @method setDetails()
- * @method setStatus()
- * @method setIsActive()
- * @method setCreatedAt()
- * @method setDeletedAt()
+ * @method setId($id)
+ * @method setUserId($userId)
+ * @method setDetails($details)
+ * @method setStatus($status)
+ * @method setIsActive($isActive)
+ * @method setCreatedAt($createdAt)
+ * @method setDeletedAt($deletedAt)
  */
 class Profile extends ErzatsORM
 {

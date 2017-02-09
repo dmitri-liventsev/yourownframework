@@ -66,4 +66,14 @@ class ProfileRepository extends Repository
     {
         return $this->findOne('id = :id', ['id' => $id]);
     }
+
+    /**
+     * @return Profile[]
+     */
+    public function findAllActive()
+    {
+        $where = 'isActive = 1';
+
+        return $this->findAll($where, []);
+    }
 }
