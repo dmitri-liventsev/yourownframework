@@ -43,11 +43,11 @@ interface ControllerInterface
     /**
      * @return string
      */
-    public function getLayoutPath() : string;
+    public function getLayout() : string;
 
     /**
      * @return string
      */
-    public function getTemplatePath() : string;
+    public function getTemplate() : string;
 
 }

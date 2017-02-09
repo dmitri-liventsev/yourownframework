@@ -58,22 +58,6 @@ abstract class Controller implements ControllerInterface
     }
 
     /**
-     * @return string
-     */
-    public function getTemplatePath() : string
-    {
-        return ROOT . $this->config['templatePath'] . $this->template . '.php';
-    }
-
-    /**
-     * @return string
-     */
-    public function getLayoutPath() : string
-    {
-        return ROOT . $this->config['layoutPath'] . $this->layout . '.php';
-    }
-
-    /**
      * @param string $actionMethodName
      * @return mixed
      */

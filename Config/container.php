@@ -17,11 +17,17 @@ return [
 
     //VIEW
     \YourOwnFramework\View\View::CONTAINER_KEY => function (ContainerInterface $c) {
-        return new \YourOwnFramework\View\View($c->get(\YourOwnFramework\View\FormHelper::CONTAINER_KEY));
+        return new \YourOwnFramework\View\View(
+            $c->get(\YourOwnFramework\View\FormHelper::CONTAINER_KEY),
+            $c->get('layoutDirectory'),
+            $c->get('templateDirectory')
+        );
     },
     \YourOwnFramework\View\FormHelper::CONTAINER_KEY => function (ContainerInterface $c) {
         return new \YourOwnFramework\View\FormHelper();
     },
+    'templateDirectory' => '/App/View/',
+    'layoutDirectory' => '/App/View/Layout/',
 
     //DATABASE
     \YourOwnFramework\Db\ErzatsQueryBuilder::CONTAINER_KEY => function (ContainerInterface $c) {

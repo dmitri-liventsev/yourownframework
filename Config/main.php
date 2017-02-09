@@ -6,7 +6,7 @@
 use YourOwnFramework\YourOwnFramework;
 
 return [
-    'templatePath' => '/App/View/',
-    'layoutPath' => '/App/View/Layout/',
+    'templateDirectory' => '/App/View/',
+    'layoutDirectory' => '/App/View/Layout/',
     YourOwnFramework::CONTAINER_CONTAINER_KEY => require(__DIR__.'/container.php')
 ];

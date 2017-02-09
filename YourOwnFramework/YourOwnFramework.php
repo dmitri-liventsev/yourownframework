@@ -120,9 +120,10 @@ class YourOwnFramework
      */
     private function getView() : View
     {
+        /** @var View $view */
         $view = $this->container->get(View::CONTAINER_KEY);
-        $view->setTemplatePath($this->controller->getTemplatePath());
-        $view->setLayoutPath($this->controller->getLayoutPath());
+        $view->setTemplate($this->controller->getTemplate());
+        $view->setLayout($this->controller->getLayout());
         $view->setAuth($this->getAuth());
 
         return $view;

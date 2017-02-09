@@ -19,21 +19,35 @@ class View
     /**
      * View constructor.
      * @param FormHelper $formHelper
+     * @param string $layoutDirectory
+     * @param string $templateDirectory
      */
-    public function __construct(FormHelper $formHelper)
+    public function __construct(FormHelper $formHelper, string $layoutDirectory, string $templateDirectory)
     {
         $this->form = $formHelper;
+        $this->layoutDirectory = $layoutDirectory;
+        $this->templateDirectory = $templateDirectory;
     }
 
     /**
      * @var string
      */
-    private $templatePath;
+    private $template;
 
     /**
      * @var string
      */
-    private $layoutPath;
+    private $layout;
+
+    /**
+     * @var string
+     */
+    private $layoutDirectory;
+
+    /**
+     * @var string
+     */
+    private $templateDirectory;
 
     /**
      * @var Auth
@@ -45,8 +59,17 @@ class View
      */
     public function render(array $params)
     {
-        extract(['content' => $this->renderPhpFile($this->templatePath, $params)], EXTR_OVERWRITE);
-        require($this->layoutPath);
+        extract(['content' => $this->renderPhpFile($this->getFullTemplatePath($this->template), $params)], EXTR_OVERWRITE);
+        require($this->getFullLayoutPath($this->layout));
+    }
+
+    /**
+     * @param string $templateName
+     * @param array $params
+     */
+    public function includeTemplate(string $templateName, array $params)
+    {
+        //TODO: implement it
     }
 
     /**
@@ -67,25 +90,25 @@ class View
     /**
      * @return string
      */
-    public function getTemplatePath()
+    public function getTemplate()
     {
-        return $this->templatePath;
+        return $this->template;
     }
 
     /**
-     * @param string $templatePath
+     * @param string $template
      */
-    public function setTemplatePath($templatePath)
+    public function setTemplate($template)
     {
-        $this->templatePath = $templatePath;
+        $this->template = $template;
     }
 
     /**
-     * @param string $layoutPath
+     * @param string $layout
      */
-    public function setLayoutPath($layoutPath)
+    public function setLayout($layout)
     {
-        $this->layoutPath = $layoutPath;
+        $this->layout = $layout;
     }
 
     /**
@@ -94,5 +117,24 @@ class View
     public function setAuth(Auth $auth)
     {
         $this->auth = $auth;
+    }
+
+    /**
+     * @param string $template
+     * @return string
+     */
+    public function getFullTemplatePath(string $template) : string
+    {
+        return ROOT . $this->templateDirectory . $template . '.php';
+    }
+
+    /**
+     * @param string $layout
+     *
+     * @return string
+     */
+    public function getFullLayoutPath(string $layout) : string
+    {
+        return ROOT . $this->layoutDirectory . $layout . '.php';
     }
 }
