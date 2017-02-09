@@ -17,7 +17,7 @@ class ProfileController extends Controller
 {
     const COMMON_AMOUNT_OF_SECONDS_PER_DAY = 86400;
 
-    const UIC_COOKIE_NAME = 'zdesBylVasja';
+    const UIC_COOKIE_NAME = 'zdesBylMurzik';
 
     /**
      * @param Request $request
