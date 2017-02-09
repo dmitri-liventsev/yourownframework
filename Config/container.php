@@ -2,6 +2,7 @@
 /**
  * @author Dmitri Liventsev <dmitri@credy.eu>
  */
+use Interop\Container\ContainerInterface;
 
 return [
     \YourOwnFramework\Router::CONTAINER_KEY => function (ContainerInterface $c) {

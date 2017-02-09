@@ -3,7 +3,6 @@
  * @author Dmitri Liventsev <dmitri.linvetsev@gmail.com>
  */
 
-use Interop\Container\ContainerInterface;
 use YourOwnFramework\YourOwnFramework;
 
 return [
