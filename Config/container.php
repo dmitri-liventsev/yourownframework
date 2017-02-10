@@ -84,6 +84,7 @@ return [
     },
 
     //VIEW
+
     \YourOwnFramework\View\View::CONTAINER_KEY => function (ContainerInterface $c) {
         return new \YourOwnFramework\View\View(
             $c->get(\YourOwnFramework\View\FormHelper::CONTAINER_KEY),
@@ -98,6 +99,7 @@ return [
     'layoutDirectory' => '/App/View/Layout/',
 
     //DATABASE
+
     \YourOwnFramework\Db\ErzatsQueryBuilder::CONTAINER_KEY => function (ContainerInterface $c) {
         return new \YourOwnFramework\Db\ErzatsQueryBuilder();
     },
