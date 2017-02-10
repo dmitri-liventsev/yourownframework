@@ -39,7 +39,12 @@ class ProfileGet implements ServiceInterface
             $widget->increaseUic();
         }
 
-        return ['profile' => $profile];
+        $profileVersions = $this->profileRepository->findAllByUserId($profile->getUserId());
+
+        return [
+            'profile' => $profile,
+            'profileVersions' => $profileVersions,
+        ];
     }
 
     /**

@@ -54,7 +54,7 @@ class ProfileEdit implements ServiceInterface
             $widget->save();
         }
 
-        $allProfiles = $this->profileRepository->findAllByUserId($profile->getUserId());
+        $profileVersions = $this->profileRepository->findAllByUserId($profile->getUserId());
         $profileData = json_decode($profile->getDetails(), true) ?? [];
 
         $this->template = 'editprofile';
@@ -62,7 +62,7 @@ class ProfileEdit implements ServiceInterface
         return [
             'profileData' => $profileData,
             'profile' => $profile,
-            'allProfile' => $allProfiles,
+            'profileVersions' => $profileVersions,
         ];
     }
 
