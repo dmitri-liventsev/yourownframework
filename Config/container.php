@@ -6,6 +6,9 @@ use Interop\Container\ContainerInterface;
 
 return [
     /*****************Application*************/
+
+    //Repositories
+
     \App\Model\Repository\ProfileRepository::CONTAINER_KEY => function (ContainerInterface $c) {
         return new \App\Model\Repository\ProfileRepository(
             $c->get(\YourOwnFramework\Db\Executor::CONTAINER_KEY),
@@ -18,6 +21,56 @@ return [
             \App\Model\Entity\Widget::class
         );
     },
+
+    //Service Executors
+
+    \App\Service\ProfileEdit::CONTAINER_KEY_EXECUTOR => function (ContainerInterface $c) {
+        return new ServiceExecutor\ServiceExecutor(
+            new \App\Service\Validator\ProfileEditValidator(),
+            $c->get(\App\Service\ProfileEdit::CONTAINER_KEY)
+        );
+    },
+
+    \App\Service\ProfileGet::CONTAINER_KEY_EXECUTOR => function (ContainerInterface $c) {
+        return new ServiceExecutor\ServiceExecutor(
+            new \App\Service\Validator\ProfileGetValidator(),
+            $c->get(\App\Service\ProfileGet::CONTAINER_KEY)
+        );
+    },
+    \App\Service\WidgetGet::CONTAINER_KEY_EXECUTOR => function (ContainerInterface $c) {
+        return new ServiceExecutor\ServiceExecutor(
+            new \App\Service\Validator\WidgetGetValidator(),
+            $c->get(\App\Service\WidgetGet::CONTAINER_KEY)
+        );
+    },
+
+    //Services
+
+    \App\Service\ProfileEdit::CONTAINER_KEY => function (ContainerInterface $c) {
+        $service = new \App\Service\ProfileEdit();
+        $service->setProfileRepository($c->get(\App\Model\Repository\ProfileRepository::CONTAINER_KEY));
+        $service->setWidgetRepository($c->get(\App\Model\Repository\WidgetRepository::CONTAINER_KEY));
+
+        return $service;
+    },
+
+    \App\Service\ProfileGet::CONTAINER_KEY => function (ContainerInterface $c) {
+        $service = new \App\Service\ProfileGet();
+        $service->setProfileRepository($c->get(\App\Model\Repository\ProfileRepository::CONTAINER_KEY));
+        $service->setWidgetRepository($c->get(\App\Model\Repository\WidgetRepository::CONTAINER_KEY));
+
+        return $service;
+    },
+    \App\Service\WidgetGet::CONTAINER_KEY => function (ContainerInterface $c) {
+        $service = new \App\Service\WidgetGet();
+        $service->setProfileRepository($c->get(\App\Model\Repository\ProfileRepository::CONTAINER_KEY));
+        $service->setWidgetRepository($c->get(\App\Model\Repository\WidgetRepository::CONTAINER_KEY));
+
+        return $service;
+    },
+
+
+
 
     /*****************System*************/
     \YourOwnFramework\Router::CONTAINER_KEY => function (ContainerInterface $c) {

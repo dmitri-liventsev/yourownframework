@@ -4,7 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "975f476d7bff6b0bd791aaeed26a1842",
+    "hash": "0959f93c84468b2269e73878b50a0e0d",
+    "content-hash": "1060732cf5b4613b1260ab7583b568b4",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -31,7 +32,7 @@
                 "MIT"
             ],
             "description": "Promoting the interoperability of container objects (DIC, SL, etc.)",
-            "time": "2014-12-30T15:22:37+00:00"
+            "time": "2014-12-30 15:22:37"
         },
         {
             "name": "delight-im/auth",
@@ -71,7 +72,7 @@
                 "login",
                 "security"
             ],
-            "time": "2016-12-12T19:58:37+00:00"
+            "time": "2016-12-12 19:58:37"
         },
         {
             "name": "delight-im/cookie",
@@ -112,7 +113,7 @@
                 "samesite",
                 "xss"
             ],
-            "time": "2016-12-18T20:22:46+00:00"
+            "time": "2016-12-18 20:22:46"
         },
         {
             "name": "delight-im/db",
@@ -153,7 +154,7 @@
                 "sql",
                 "sqlite"
             ],
-            "time": "2016-12-01T12:40:36+00:00"
+            "time": "2016-12-01 12:40:36"
         },
         {
             "name": "delight-im/http",
@@ -189,7 +190,30 @@
                 "http",
                 "https"
             ],
-            "time": "2016-07-21T15:05:01+00:00"
+            "time": "2016-07-21 15:05:01"
+        },
+        {
+            "name": "dmitri-liventsev/service-executor",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dmitri-liventsev/service-executor.git",
+                "reference": "459fe8c01db430fe0402377c6d491c2133d3df5e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dmitri-liventsev/service-executor/zipball/459fe8c01db430fe0402377c6d491c2133d3df5e",
+                "reference": "459fe8c01db430fe0402377c6d491c2133d3df5e",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ServiceExecutor\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "time": "2016-12-05 07:12:28"
         },
         {
             "name": "php-di/invoker",
@@ -232,7 +256,7 @@
                 "invoke",
                 "invoker"
             ],
-            "time": "2016-07-14T13:09:58+00:00"
+            "time": "2016-07-14 13:09:58"
         },
         {
             "name": "php-di/php-di",
@@ -292,7 +316,7 @@
                 "dependency injection",
                 "di"
             ],
-            "time": "2016-08-23T20:18:00+00:00"
+            "time": "2016-08-23 20:18:00"
         },
         {
             "name": "php-di/phpdoc-reader",
@@ -329,13 +353,15 @@
                 "phpdoc",
                 "reflection"
             ],
-            "time": "2015-11-29T10:34:25+00:00"
+            "time": "2015-11-29 10:34:25"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "dmitri-liventsev/service-executor": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

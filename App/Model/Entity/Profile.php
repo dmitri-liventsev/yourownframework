@@ -18,7 +18,6 @@ use YourOwnFramework\Db\ErzatsORM;
  * @method getStatus()
  * @method getIsActive()
  * @method getViewCount()
- * @method getUic()
  * @method getCreatedAt()
  * @method getDeletedAt()
  * @method setId($id)
@@ -27,7 +26,6 @@ use YourOwnFramework\Db\ErzatsORM;
  * @method setStatus($status)
  * @method setIsActive($isActive)
  * @method setViewCount($viewCount)
- * @method setUic($Uic)
  * @method setCreatedAt($createdAt)
  * @method setDeletedAt($deletedAt)
  */
