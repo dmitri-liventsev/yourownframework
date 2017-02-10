@@ -55,10 +55,16 @@ class View
     protected $auth;
 
     /**
+     * @var string
+     */
+    private $token;
+
+    /**
      * @param array $params
      */
     public function render(array $params)
     {
+        $params['token'] = $this->token;
         extract(['content' => $this->renderPhpFile($this->getFullTemplatePath($this->template), $params)], EXTR_OVERWRITE);
         require($this->getFullLayoutPath($this->layout));
     }
@@ -138,4 +144,14 @@ class View
     {
         return ROOT . $this->layoutDirectory . $layout . '.php';
     }
+
+    /**
+     * @param string $token
+     */
+    public function setToken(string $token)
+    {
+        $this->token = $token;
+    }
+
+
 }

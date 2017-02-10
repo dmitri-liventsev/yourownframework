@@ -54,7 +54,6 @@ class YourOwnFramework
     {
         $this->route();
         $params = $this->runAction();
-        $params['token'] = $this->getRequest()->getToken();
         $this->getView()->render($params);
     }
 
@@ -126,6 +125,7 @@ class YourOwnFramework
         $view->setTemplate($this->controller->getTemplate());
         $view->setLayout($this->controller->getLayout());
         $view->setAuth($this->getAuth());
+        $view->setToken($this->getRequest()->getToken());
 
         return $view;
     }
