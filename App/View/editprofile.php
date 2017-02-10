@@ -32,10 +32,3 @@
     <div id="versions"></div>
     </div>
 </div>
-
-<script type="text/javascript">
-    $("versions").profileVersions({
-        versions: <?php echo json_encode($allProfiles)?>,
-        form_div: $('#form_div')
-    });
-</script>
