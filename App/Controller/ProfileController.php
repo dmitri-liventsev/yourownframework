@@ -58,6 +58,13 @@ class ProfileController extends Controller
         /** @var ProfileEdit $service */
         $service = $this->get(ProfileEdit::CONTAINER_KEY_EXECUTOR);
 
-        return $service->execute(['userId' => $this->auth->getUserId(), 'newProfileDetails' => $newProfileDetails]) + [Csrf::CSRF_TOKEN_KEY => $request->getToken()];
+        return $service->execute(
+            [
+                'userId' => $this->auth->getUserId(),
+                'newProfileDetails' => $newProfileDetails
+            ]
+        ) + [
+            Csrf::CSRF_TOKEN_KEY => $request->getToken()
+        ];
     }
 }

@@ -27,8 +27,10 @@ class ProfileEdit extends BaseService implements ServiceInterface
         /** @var Profile $profile */
         $profile = $this->profileRepository->findOneById($profileId);
 
+        $success = false;
         if ($newProfileDetails !== null) {
             $profile = $this->updateProfile($profile, $newProfileDetails);
+            $success = true;
         }
 
         $profileVersions = $this->profileRepository->findAllByUserId($profile->getUserId());
@@ -40,6 +42,7 @@ class ProfileEdit extends BaseService implements ServiceInterface
             'profileData' => $profileData,
             'profile' => $profile,
             'profileVersions' => $profileVersions,
+            'success' => $success
         ];
     }
 
