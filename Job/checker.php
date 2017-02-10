@@ -5,6 +5,7 @@
 
 use App\Model\Entity\Profile;
 use App\Model\Repository\ProfileRepository;
+use App\Model\Repository\WidgetRepository;
 use DI\Container;
 use DI\ContainerBuilder;
 
@@ -29,11 +30,18 @@ function initializeContainer($config) : Container
 //Take not checked profiles
 /** @var ProfileRepository $profileRepository */
 $profileRepository = $container->get(ProfileRepository::CONTAINER_KEY);
-$newProfiles = $profileRepository->findAllNotChecked();
+/** @var WidgetRepository $widgetRepository */
+$widgetRepository = $container->get(WidgetRepository::CONTAINER_KEY);
 
+$newProfiles = $profileRepository->findAllNotChecked();
 /** @var Profile $profile */
 foreach ($newProfiles as $profile) {
     $status = $profile->checkDetails() ? Profile::STATUS_VALID : Profile::STATUS_INVALID;
     $profile->setStatus($status);
     $profile->save();
+
+    $widget = $widgetRepository->findByUserId($profile->getUserId());
+    $widget->setLastStatus($status);
+
+    $widget->save();
 }
