@@ -42,12 +42,4 @@ class RequestDataProvider
     {
         return $_COOKIE;
     }
-
-    /**
-     * @return array
-     */
-    public function getSession()
-    {
-        return $_SESSION;
-    }
 }
