@@ -35,6 +35,7 @@ class ProfileController extends Controller
 
         /** @var ProfileEdit $service */
         $service = $this->get(\App\Service\ProfileGet::CONTAINER_KEY_EXECUTOR);
+
         return $service->execute(['userId' => $userId, 'isUic' => $isUic]);
     }
 
@@ -54,6 +55,7 @@ class ProfileController extends Controller
 
         /** @var ProfileEdit $service */
         $service = $this->get(\App\Service\ProfileGet::CONTAINER_KEY_EXECUTOR);
+
         return $service->execute(['userId' => $this->auth->getUserId(), 'newProfileDetails' => $newProfileDetails]);
     }
 }

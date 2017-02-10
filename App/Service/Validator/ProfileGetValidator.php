@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Service\Validator;
+
 use ServiceExecutor\ValidatorInterface;
 
 
@@ -16,6 +17,7 @@ class ProfileGetValidator implements ValidatorInterface
      */
     public function validate(array $params)
     {
+        //TODO implement validation
         return true;
     }
 

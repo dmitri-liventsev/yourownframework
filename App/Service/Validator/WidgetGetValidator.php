@@ -16,6 +16,7 @@ class WidgetGetValidator implements ValidatorInterface
      */
     public function validate(array $params)
     {
+        //TODO implement validation
         return true;
     }
 
