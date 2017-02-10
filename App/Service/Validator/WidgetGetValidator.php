@@ -20,6 +20,9 @@ class WidgetGetValidator implements ValidatorInterface
         return true;
     }
 
+    /**
+     * @return string
+     */
     public function getErrorMessage()
     {
         return "Oops something went wrong!";
