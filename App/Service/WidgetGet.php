@@ -18,7 +18,7 @@ class WidgetGet extends BaseService implements ServiceInterface
      * @param array $params
      * @return array
      */
-    public function execute(array $params)
+    public function execute(array $params) : array
     {
 
         $activeProfiles = $this->profileRepository->findAllActive();

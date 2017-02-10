@@ -19,7 +19,7 @@ class ProfileGet  extends BaseService implements ServiceInterface
      * @throws ErzatsORMException
      * @return array
      */
-    public function execute(array $params)
+    public function execute(array $params) : array
     {
         $userId = $params['userId'];
         $profile = $this->profileRepository->findActiveProfileByUserId($userId);

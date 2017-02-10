@@ -19,7 +19,7 @@ class ProfileEdit extends BaseService implements ServiceInterface
      * @throws ErzatsORMException
      * @return array
      */
-    public function execute(array $params)
+    public function execute(array $params) : array
     {
         $profileId = $params['profileId'];
         $newProfileDetails = $params['newProfileDetails'];
@@ -50,7 +50,7 @@ class ProfileEdit extends BaseService implements ServiceInterface
      * @return Profile
      * @throws ErzatsORMException
      */
-    private function updateProfile(Profile $profile, $newProfileDetails)
+    private function updateProfile(Profile $profile, $newProfileDetails) : Profile
     {
         $widget = $this->widgetRepository->findByUserId($profile->getUserId());
         $profile->setIsActive(0);
@@ -80,7 +80,7 @@ class ProfileEdit extends BaseService implements ServiceInterface
      *
      * @return Profile
      */
-    private function buildNewProfile(Profile $profile, $newProfileDetails)
+    private function buildNewProfile(Profile $profile, $newProfileDetails) : Profile
     {
         /** @var Profile $newProfile */
         $newProfile = $this->profileRepository->clone($profile);
