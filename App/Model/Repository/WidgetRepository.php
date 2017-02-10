@@ -43,6 +43,6 @@ class WidgetRepository extends Repository
             'deletedAt IS NULL'
         ];
 
-        return $this->findOne($where, []);
+        return $this->findAll($where, []);
     }
 }
