@@ -1,11 +1,9 @@
 <?php
 /**
  * @author Dmitri Liventsev <dmitri@credy.eu>
- * User: dmitri
  */
 
 namespace App\Service;
-
 
 use App\Model\Repository\ProfileRepository;
 use App\Model\Repository\WidgetRepository;
