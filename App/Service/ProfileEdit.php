@@ -2,30 +2,21 @@
 namespace App\Service;
 
 use App\Model\Entity\Profile;
-use App\Model\Repository\ProfileRepository;
-use App\Model\Repository\WidgetRepository;
 use ServiceExecutor\ServiceInterface;
+use YourOwnFramework\Exception\ErzatsORMException;
 
 /**
  * @author Dmitri Liventsev <dmitri@credy.eu>
  */
-class ProfileEdit implements ServiceInterface
+class ProfileEdit extends BaseService implements ServiceInterface
 {
     const CONTAINER_KEY = "service.profile.edit";
     const CONTAINER_KEY_EXECUTOR = "service.profile.edit.executor";
 
     /**
-     * @var WidgetRepository
-     */
-    private $widgetRepository;
-
-    /**
-     * @var ProfileRepository
-     */
-    private $profileRepository;
-
-    /**
      * @param array $params
+     *
+     * @throws ErzatsORMException
      * @return array
      */
     public function execute(array $params)
@@ -41,17 +32,29 @@ class ProfileEdit implements ServiceInterface
 
 
             $profile->setIsActive(0);
-            $profile->save();
 
-            $profile = $this->profileRepository->clone($profile);
-            $profile->setDetails(json_encode($newProfileDetails));
-            $profile->setIsActive(1);
-            $profile->setStatus(Profile::STATUS_NOT_CHECKED);
-
-            $profile->save();
+            $newProfile = $this->profileRepository->clone($profile);
+            $newProfile->setDetails(json_encode($newProfileDetails));
+            $newProfile->setIsActive(1);
+            $newProfile->setStatus(Profile::STATUS_NOT_CHECKED);
 
             $widget->setLastStatus(Profile::STATUS_NOT_CHECKED);
-            $widget->save();
+
+            try {
+                $this->db->beginTransaction();
+
+                $profile->save();
+                $newProfile->save();
+                $widget->save();
+
+                $this->db->commit();
+            } catch(ErzatsORMException $e) {
+                $this->db->rollBack();
+                throw $e;
+            }
+
+
+            $profile = $newProfile;
         }
 
         $profileVersions = $this->profileRepository->findAllByUserId($profile->getUserId());
@@ -65,22 +68,4 @@ class ProfileEdit implements ServiceInterface
             'profileVersions' => $profileVersions,
         ];
     }
-
-    /**
-     * @param WidgetRepository $widgetRepository
-     */
-    public function setWidgetRepository(WidgetRepository $widgetRepository)
-    {
-        $this->widgetRepository = $widgetRepository;
-    }
-
-    /**
-     * @param ProfileRepository $profileRepository
-     */
-    public function setProfileRepository(ProfileRepository $profileRepository)
-    {
-        $this->profileRepository = $profileRepository;
-    }
-
-
 }

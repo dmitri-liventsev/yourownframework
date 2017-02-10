@@ -4,27 +4,15 @@ namespace App\Service;
 
 use App\Model\Entity\Profile;
 use App\Model\Entity\Widget;
-use App\Model\Repository\ProfileRepository;
-use App\Model\Repository\WidgetRepository;
 use ServiceExecutor\ServiceInterface;
 
 /**
  * @author Dmitri Liventsev <dmitri@credy.eu>
  */
-class WidgetGet implements ServiceInterface
+class WidgetGet extends BaseService implements ServiceInterface
 {
     const CONTAINER_KEY = "service.widget.get";
     const CONTAINER_KEY_EXECUTOR = "service.widget.get.executor";
-
-    /**
-     * @var WidgetRepository
-     */
-    private $widgetRepository;
-
-    /**
-     * @var ProfileRepository
-     */
-    private $profileRepository;
 
     /**
      * @param array $params
@@ -52,21 +40,5 @@ class WidgetGet implements ServiceInterface
         }
 
         return ["widgets" => $widgetArrays];
-    }
-
-    /**
-     * @param WidgetRepository $widgetRepository
-     */
-    public function setWidgetRepository(WidgetRepository $widgetRepository)
-    {
-        $this->widgetRepository = $widgetRepository;
-    }
-
-    /**
-     * @param ProfileRepository $profileRepository
-     */
-    public function setProfileRepository(ProfileRepository $profileRepository)
-    {
-        $this->profileRepository = $profileRepository;
     }
 }

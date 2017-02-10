@@ -2,30 +2,21 @@
 
 namespace App\Service;
 
-use App\Model\Repository\ProfileRepository;
-use App\Model\Repository\WidgetRepository;
 use ServiceExecutor\ServiceInterface;
+use YourOwnFramework\Exception\ErzatsORMException;
 
 /**
  * @author Dmitri Liventsev <dmitri@credy.eu>
  */
-class ProfileGet implements ServiceInterface
+class ProfileGet  extends BaseService implements ServiceInterface
 {
     const CONTAINER_KEY = "service.profile.get";
     const CONTAINER_KEY_EXECUTOR = "service.profile.get.executor";
 
     /**
-     * @var WidgetRepository
-     */
-    private $widgetRepository;
-
-    /**
-     * @var ProfileRepository
-     */
-    private $profileRepository;
-
-    /**
      * @param array $params
+     *
+     * @throws ErzatsORMException
      * @return array
      */
     public function execute(array $params)
@@ -34,9 +25,19 @@ class ProfileGet implements ServiceInterface
         $profile = $this->profileRepository->findActiveProfileByUserId($userId);
 
         $widget = $this->widgetRepository->findByUserId($userId);
-        $widget->increaseViewCount();
-        if ($params['isUic']) {
-            $widget->increaseUic();
+
+        try {
+            $this->db->beginTransaction();
+
+            $widget->increaseViewCount();
+            if ($params['isUic']) {
+                $widget->increaseUic();
+            }
+
+            $this->db->commit();
+        } catch (ErzatsORMException $e) {
+            $this->db->rollBack();
+            throw $e;
         }
 
         $profileVersions = $this->profileRepository->findAllByUserId($profile->getUserId());
@@ -46,22 +47,4 @@ class ProfileGet implements ServiceInterface
             'profileVersions' => $profileVersions,
         ];
     }
-
-    /**
-     * @param WidgetRepository $widgetRepository
-     */
-    public function setWidgetRepository(WidgetRepository $widgetRepository)
-    {
-        $this->widgetRepository = $widgetRepository;
-    }
-
-    /**
-     * @param ProfileRepository $profileRepository
-     */
-    public function setProfileRepository(ProfileRepository $profileRepository)
-    {
-        $this->profileRepository = $profileRepository;
-    }
-
-
 }

@@ -50,6 +50,7 @@ return [
         $service = new \App\Service\ProfileEdit();
         $service->setProfileRepository($c->get(\App\Model\Repository\ProfileRepository::CONTAINER_KEY));
         $service->setWidgetRepository($c->get(\App\Model\Repository\WidgetRepository::CONTAINER_KEY));
+        $service->setDb($c->get('db'));
 
         return $service;
     },
@@ -58,6 +59,7 @@ return [
         $service = new \App\Service\ProfileGet();
         $service->setProfileRepository($c->get(\App\Model\Repository\ProfileRepository::CONTAINER_KEY));
         $service->setWidgetRepository($c->get(\App\Model\Repository\WidgetRepository::CONTAINER_KEY));
+        $service->setDb($c->get('db'));
 
         return $service;
     },
@@ -65,6 +67,7 @@ return [
         $service = new \App\Service\WidgetGet();
         $service->setProfileRepository($c->get(\App\Model\Repository\ProfileRepository::CONTAINER_KEY));
         $service->setWidgetRepository($c->get(\App\Model\Repository\WidgetRepository::CONTAINER_KEY));
+        $service->setDb($c->get('db'));
 
         return $service;
     },

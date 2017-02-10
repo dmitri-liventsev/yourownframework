@@ -77,28 +77,38 @@ abstract class ErzatsORM implements ErzatsORMInterface
     {
         $params = array_diff_key($this->paramsValue, array_flip($this->utilFields));
         if ($this->isNew()) {
-            $this->insert($params);
+            $isSuccess = $this->insert($params);
         } else {
-            $this->update($params);
+            $isSuccess = $this->update($params);
+        }
+
+        if (!$isSuccess ) {
+            throw new ErzatsORMException();
         }
     }
 
     /**
      * @param array $params
+     *
+     * @return bool
      */
     private function insert(array $params)
     {
         $primaryKey = $this->executor->insert($this->table, $params);
         $this->paramsValue[$this->getPrimaryKey()] = $primaryKey;
+
+        return !!$primaryKey;
     }
 
     /**
      * @param array $params
+     *
+     * @return bool
      */
     private function update(array $params)
     {
         $params[$this->getPrimaryKey()] = $this->getPrimaryKeyValue();
-        $this->executor->update($this->table, $this->primaryKey, $params);
+        return $this->executor->update($this->table, $this->primaryKey, $params);
     }
 
 

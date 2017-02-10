@@ -33,14 +33,27 @@ $profileRepository = $container->get(ProfileRepository::CONTAINER_KEY);
 /** @var WidgetRepository $widgetRepository */
 $widgetRepository = $container->get(WidgetRepository::CONTAINER_KEY);
 
+/** @var PDO $db */
+$db = $container->get('db');
 $newProfiles = $profileRepository->findAllNotChecked();
 /** @var Profile $profile */
 foreach ($newProfiles as $profile) {
     $status = $profile->checkDetails() ? Profile::STATUS_VALID : Profile::STATUS_INVALID;
     $profile->setStatus($status);
-    $profile->save();
 
     $widget = $widgetRepository->findByUserId($profile->getUserId());
     $widget->setLastStatus($status);
-    $widget->save();
+
+    try {
+        $db->beginTransaction();
+
+        $profile->save();
+        $widget->save();
+
+        $db->commit();
+    } catch (\YourOwnFramework\Exception\ErzatsORMException $e) {
+        $db->rollBack();
+        throw $e;
+    }
+
 }
