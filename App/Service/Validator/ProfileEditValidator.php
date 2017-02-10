@@ -12,9 +12,11 @@ class ProfileEditValidator implements ValidatorInterface
     const CONTAINER_KEY = "service.validator.profile.edit";
 
     /**
+     * @param $params array
+     *
      * @return bool
      */
-    public function validate(array $params)
+    public function validateParams(array $params)
     {
         //TODO implement validation
         return true;

@@ -12,9 +12,11 @@ class WidgetGetValidator implements ValidatorInterface
     const CONTAINER_KEY = "service.validator.widget.edit";
 
     /**
+     * @param $params array
+     *
      * @return bool
      */
-    public function validate(array $params)
+    public function validateParams(array $params)
     {
         //TODO implement validation
         return true;

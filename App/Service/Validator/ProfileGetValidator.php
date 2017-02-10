@@ -13,9 +13,11 @@ class ProfileGetValidator implements ValidatorInterface
     const CONTAINER_KEY = "service.validator.profile.get";
 
     /**
+     * @param $params array
+     *
      * @return bool
      */
-    public function validate(array $params)
+    public function validateParams(array $params)
     {
         //TODO implement validation
         return true;
