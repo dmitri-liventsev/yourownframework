@@ -57,6 +57,6 @@ class ProfileController extends Controller
         /** @var ProfileEdit $service */
         $service = $this->get(ProfileEdit::CONTAINER_KEY_EXECUTOR);
 
-        return $service->execute(['userId' => $this->auth->getUserId(), 'newProfileDetails' => $newProfileDetails]);
+        return $service->execute(['userId' => $this->auth->getUserId(), 'newProfileDetails' => $newProfileDetails]) + ['token' => $request->getToken()];
     }
 }

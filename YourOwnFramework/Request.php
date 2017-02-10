@@ -6,6 +6,8 @@
 namespace YourOwnFramework;
 
 
+use YourOwnFramework\Exception\SecurityException;
+
 class Request
 {
     const CONTAINER_KEY = 'request';
@@ -42,12 +44,44 @@ class Request
      */
     private $method;
 
-    public function __construct(RequestDataProvider $requestDataProvider)
+    /**
+     * @var string
+     */
+    private $session;
+
+    /**
+     * @var Csrf
+     */
+    private $csrf;
+
+    /**
+     * @var string
+     */
+    private $token;
+
+    /**
+     * @return string
+     */
+    public function getToken(): string
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param string $token
+     */
+    public function setToken(string $token)
+    {
+        $this->token = $token;
+    }
+
+    public function __construct(RequestDataProvider $requestDataProvider, Csrf $csrf)
     {
         $this->post = $requestDataProvider->getPost();
         $this->get = $requestDataProvider->getGet();
         $this->server = $requestDataProvider->getServer();
         $this->cookie = $requestDataProvider->getCookies();
+        $this->csrf = $csrf;
 
         $this->init();
     }
@@ -56,6 +90,18 @@ class Request
     {
         $this->determineMethod();
         $this->determineParams();
+        $this->initCSRFProtection();
+    }
+
+    private function initCSRFProtection()
+    {
+        if (!$this->isPost() && !$this->csrf->hasCSRF()) {
+            $this->token = $this->csrf->initCSRF();
+        } elseif($this->isPost() && !$this->csrf->isValidCSRF($this->params['CSRF'])) {
+            throw new SecurityException();
+        }
+
+        unset($this->params['CSRF']);
     }
 
     /**

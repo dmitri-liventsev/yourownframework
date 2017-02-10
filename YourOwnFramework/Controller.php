@@ -159,6 +159,5 @@ abstract class Controller implements ControllerInterface
     {
         header("$headerName: $value");
     }
-
 }
 

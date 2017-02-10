@@ -83,7 +83,13 @@ return [
         return new \YourOwnFramework\RequestDataProvider();
     },
     \YourOwnFramework\Request::CONTAINER_KEY => function (ContainerInterface $c) {
-        return new \YourOwnFramework\Request($c->get(\YourOwnFramework\RequestDataProvider::CONTAINER_KEY));
+        return new \YourOwnFramework\Request(
+            $c->get(\YourOwnFramework\RequestDataProvider::CONTAINER_KEY),
+            $c->get(\YourOwnFramework\Csrf::CONTAINER_KEY)
+        );
+    },
+    \YourOwnFramework\Csrf::CONTAINER_KEY => function (ContainerInterface $c) {
+        return new \YourOwnFramework\Csrf();
     },
 
     //VIEW

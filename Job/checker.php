@@ -19,6 +19,11 @@ $config = $config[\YourOwnFramework\YourOwnFramework::CONTAINER_CONTAINER_KEY];
 
 $container = initializeContainer($config);
 
+/**
+ * @param $config
+ *
+ * @return Container
+ */
 function initializeContainer($config) : Container
 {
     $builder = new ContainerBuilder();

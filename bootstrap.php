@@ -3,6 +3,8 @@
  * @author Dmitri Liventsev <dmitri.linvetsev@gmail.com>
  */
 
+use YourOwnFramework\Exception\SecurityException;
+
 try {
     require(ROOT . '/autoload.php');
     require(ROOT . '/vendor/autoload.php');
@@ -14,6 +16,9 @@ try {
 } catch (\YourOwnFramework\Exception\HttpNotFoundException $e) {
     http_response_code(404);
     echo "404, everybody like 404.";
+} catch(SecurityException $e) {
+    http_response_code(403);
+    echo "Why you try to hack me? %(";
 } catch (Throwable $e) {
     http_response_code(500);
     echo "Oops something went wrong!";
