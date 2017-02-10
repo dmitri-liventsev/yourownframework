@@ -37,7 +37,7 @@ class WidgetGet implements ServiceInterface
         $activeProfilesDetailsArray = [];
         /** @var Profile $profile */
         foreach($activeProfiles  as $profile) {
-            $activeProfilesArray[$profile->getUserId()] = json_decode($profile->getDetails());
+            $activeProfilesDetailsArray[$profile->getUserId()] = json_decode($profile->getDetails());
         }
 
         $widgetArrays = [];
@@ -46,7 +46,7 @@ class WidgetGet implements ServiceInterface
         /** @var Widget $widget */
         foreach($widgets as $widget) {
             $widgetArray = $widget->getParams();
-            $widgetArray['profileDetails'] = $widget[$profile->getUserId()] ?? [];
+            $widgetArray['profileDetails'] = $activeProfilesDetailsArray[$profile->getUserId()] ?? [];
 
             $widgetArrays[$profile->getId()] = $widgetArray;
         }
