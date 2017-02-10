@@ -25,7 +25,7 @@ class ProfileController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $this->template = 'profile';
+        $this->template = 'Profile/profile';
 
         $userId = $request->get('id') ?? $this->auth->getUserId();
 
@@ -52,7 +52,7 @@ class ProfileController extends Controller
             $newProfileDetails = $request->getParams();
         }
 
-        $this->template = 'editprofile';
+        $this->template = 'Profile/editprofile';
 
         /** @var ProfileEdit $service */
         $service = $this->get(ProfileEdit::CONTAINER_KEY_EXECUTOR);

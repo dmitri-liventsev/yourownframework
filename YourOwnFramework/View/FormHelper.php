@@ -19,7 +19,7 @@ class FormHelper
      *
      * @return string
      */
-    public function text(string $name, string $label = '', string $value = '', array $params = [])
+    public function text(string $name, string $label = '', string $value = '', array $params = []) : string
     {
         return "<div class='form-group'>
                         <label for='$name'>$label:</label>
@@ -35,7 +35,7 @@ class FormHelper
      *
      * @return string
      */
-    public function checkbox(string $name, string $label = '', $isChecked = false, array $params = [])
+    public function checkbox(string $name, string $label = '', $isChecked = false, array $params = []) : string
     {
         $checked = $isChecked? 'checked="checked"' : '';
 
@@ -53,7 +53,7 @@ class FormHelper
      *
      * @return string
      */
-    public function radio(string $name, string $label, $options = [], $defaultValue = null, array $params = [])
+    public function radio(string $name, string $label, $options = [], $defaultValue = null, array $params = []) : string
     {
         $radioButtons = '';
 
@@ -65,8 +65,30 @@ class FormHelper
         return "<div class=\"form-group\"><label for=\"$name\">$label:</label>$radioButtons</div>";
     }
 
+    /**
+     * @return string
+     */
     public function submit()
     {
         return '<input type="submit" class="btn btn-default" value="Submit"/>';
+    }
+
+    /**
+     * @param string $name
+     * @param string $label
+     * @param array $params
+     * @param null|int|string $defaultValue
+     * @return string
+     */
+    public function select(string $name, string $label, array $params, $defaultValue = null) : string
+    {
+        $select = "<div class=\"form-group\"><label for='$name'>$label:</label><select class=\"form-control\" name='$name'>";
+        foreach ($params as $value => $optionName) {
+            $selected = $defaultValue == $value? "selected" : "";
+            $select .= "<option value='$value' $selected>$optionName</option>";
+        }
+        $select .= "</select></div>";
+
+        return $select;
     }
 }

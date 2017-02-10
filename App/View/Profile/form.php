@@ -7,7 +7,6 @@
 use YourOwnFramework\Request\Csrf;
 
 ?>
-
 <form method="post">
     <?php
         if (isset($profile['text1'])) {

@@ -48,6 +48,23 @@ class ProfileRepository extends Repository
     }
 
     /**
+     * @param $userId
+     *
+     * @return Profile[]
+     */
+    public function findAllOldProfilesByUserId($userId)
+    {
+        $where = [
+            'userId = :userId',
+            'isActive = 0',
+            'deletedAt IS NULL'
+        ];
+        $params = ['userId' => $userId];
+
+        return $this->findAll($where, $params);
+    }
+
+    /**
      * @param int $userId
      *
      * @return null|Profile
