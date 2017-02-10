@@ -21,11 +21,11 @@ class ProfileEdit extends BaseService implements ServiceInterface
      */
     public function execute(array $params) : array
     {
-        $profileId = $params['profileId'];
+        $userId = $params['userId'];
         $newProfileDetails = $params['newProfileDetails'];
 
         /** @var Profile $profile */
-        $profile = $this->profileRepository->findOneById($profileId);
+        $profile = $this->profileRepository->findActiveProfileByUserId($userId);
 
         $success = false;
         if ($newProfileDetails !== null) {

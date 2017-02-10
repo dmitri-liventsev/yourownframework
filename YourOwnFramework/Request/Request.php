@@ -94,6 +94,8 @@ class Request
             $this->token = $this->csrf->initCSRF();
         } elseif($this->isPost() && !$this->csrf->isValidCSRF($this->params[Csrf::CSRF_TOKEN_KEY])) {
             throw new SecurityException();
+        } elseif($this->token === null) {
+            $this->token = $this->csrf->getCSRF();
         }
 
         unset($this->params[Csrf::CSRF_TOKEN_KEY]);

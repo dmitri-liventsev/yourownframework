@@ -69,7 +69,7 @@ use YourOwnFramework\Request\Csrf;
         }
     ?>
 
-    <input type="hidden" name="<?php echo Csrf::CSRF_TOKEN_KEY; ?>" value="<?php echo $token;?>">
+    <input type="hidden" name="<?php echo Csrf::CSRF_TOKEN_KEY; ?>" value="<?php echo $this->token;?>">
 
     <?php echo $this->form->submit()?>
 </form>

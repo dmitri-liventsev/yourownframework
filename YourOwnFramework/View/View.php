@@ -57,14 +57,13 @@ class View
     /**
      * @var string
      */
-    private $token;
+    protected $token;
 
     /**
      * @param array $params
      */
     public function render(array $params)
     {
-        $params['token'] = $this->token;
         extract(['content' => $this->renderPhpFile($this->getFullTemplatePath($this->template), $params)], EXTR_OVERWRITE);
         require($this->getFullLayoutPath($this->layout));
     }
