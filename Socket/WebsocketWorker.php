@@ -210,7 +210,6 @@ abstract class WebsocketWorker
     protected function decode($data)
     {
         $unmaskedPayload = '';
-        $decodedData = array();
 
         // estimate frame type:
         $firstByteBinary = sprintf('%08b', ord($data[0]));
@@ -224,34 +223,7 @@ abstract class WebsocketWorker
             return array('type' => '', 'payload' => '', 'error' => 'protocol error (1002)');
         }
 
-        switch ($opcode) {
-            // text frame:
-            case 1:
-                $decodedData['type'] = 'text';
-                break;
-
-            case 2:
-                $decodedData['type'] = 'binary';
-                break;
-
-            // connection close frame:
-            case 8:
-                $decodedData['type'] = 'close';
-                break;
-
-            // ping frame:
-            case 9:
-                $decodedData['type'] = 'ping';
-                break;
-
-            // pong frame:
-            case 10:
-                $decodedData['type'] = 'pong';
-                break;
-
-            default:
-                return array('type' => '', 'payload' => '', 'error' => 'unknown opcode (1003)');
-        }
+        $decodedData = $this->getDecoded($opcode);
 
         if ($payloadLength === 126) {
             $mask = substr($data, 4, 4);
@@ -292,6 +264,44 @@ abstract class WebsocketWorker
         } else {
             $payloadOffset = $payloadOffset - 4;
             $decodedData['payload'] = substr($data, $payloadOffset);
+        }
+
+        return $decodedData;
+    }
+
+    /**
+     * @param int $opcode
+     * @return array
+     */
+    private function getDecoded($opcode) : array
+    {
+        switch ($opcode) {
+            // text frame:
+            case 1:
+                $decodedData['type'] = 'text';
+                break;
+
+            case 2:
+                $decodedData['type'] = 'binary';
+                break;
+
+            // connection close frame:
+            case 8:
+                $decodedData['type'] = 'close';
+                break;
+
+            // ping frame:
+            case 9:
+                $decodedData['type'] = 'ping';
+                break;
+
+            // pong frame:
+            case 10:
+                $decodedData['type'] = 'pong';
+                break;
+
+            default:
+                return array('type' => '', 'payload' => '', 'error' => 'unknown opcode (1003)');
         }
 
         return $decodedData;

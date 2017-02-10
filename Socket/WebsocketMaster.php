@@ -17,20 +17,28 @@ class WebsocketMaster
             stream_select($read, $write, $except, null);//обновляем массив сокетов, которые можно обработать
 
             if ($read) {//пришли данные от подключенных клиентов
-                foreach ($read as $client) {
-                    $data = fread($client, 1000);
+                $this->handleRequest($read);
+            }
+        }
+    }
 
-                    if (!$data) { //соединение было закрыто
-                        unset($this->clients[intval($client)]);
-                        @fclose($client);
-                        continue;
-                    }
+    /**
+     * @param array $read
+     */
+    private function handleRequest(array $read)
+    {
+        foreach ($read as $client) {
+            $data = fread($client, 1000);
 
-                    foreach ($this->workers as $worker) {//пересылаем данные во все воркеры
-                        if ($worker !== $client) {
-                            fwrite($worker, $data);
-                        }
-                    }
+            if (!$data) { //соединение было закрыто
+                unset($this->clients[intval($client)]);
+                @fclose($client);
+                continue;
+            }
+
+            foreach ($this->workers as $worker) {//пересылаем данные во все воркеры
+                if ($worker !== $client) {
+                    fwrite($worker, $data);
                 }
             }
         }
