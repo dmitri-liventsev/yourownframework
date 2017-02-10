@@ -6,6 +6,7 @@
 namespace App\Controller;
 
 use App\Service\ProfileEdit;
+use App\Service\ProfileGet;
 use YourOwnFramework\Controller;
 use YourOwnFramework\Exception\HttpNotFoundException;
 use YourOwnFramework\Request;
@@ -33,8 +34,8 @@ class ProfileController extends Controller
             $this->setCookie(self::UIC_COOKIE_NAME, $userId, self::COMMON_AMOUNT_OF_SECONDS_PER_DAY);
         }
 
-        /** @var ProfileEdit $service */
-        $service = $this->get(\App\Service\ProfileGet::CONTAINER_KEY_EXECUTOR);
+        /** @var ProfileGet $service */
+        $service = $this->get(ProfileGet::CONTAINER_KEY_EXECUTOR);
 
         return $service->execute(['userId' => $userId, 'isUic' => $isUic]);
     }
@@ -54,7 +55,7 @@ class ProfileController extends Controller
         $this->template = 'editprofile';
 
         /** @var ProfileEdit $service */
-        $service = $this->get(\App\Service\ProfileGet::CONTAINER_KEY_EXECUTOR);
+        $service = $this->get(ProfileEdit::CONTAINER_KEY_EXECUTOR);
 
         return $service->execute(['userId' => $this->auth->getUserId(), 'newProfileDetails' => $newProfileDetails]);
     }
