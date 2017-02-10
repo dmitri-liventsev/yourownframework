@@ -6,6 +6,7 @@
  * @var $profileData array
  * @var $profile \App\Model\Entity\Profile
  * @var $allProfiles \App\Model\Entity\Profile[]
+ * @var $token string
  */
 
 ?>
@@ -13,7 +14,7 @@
 
 <div class="row">
     <div class="col-sm-6" id="form_div">
-        <?php $this->includeTemplate('form', ['profile' => $profileData]);?>
+        <?php $this->includeTemplate('form', ['profile' => $profileData, 'token' => $token]);?>
     </div>
     <div class="col-sm-6">
         <div>

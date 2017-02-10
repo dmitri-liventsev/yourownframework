@@ -48,6 +48,7 @@
                     <div class="form-group">
                         <input type="password" name="password" placeholder="Password" class="form-control">
                     </div>
+                    <input type="hidden" name="csrf" value="<?php echo $token; ?>">
                     <button type="submit" class="btn btn-success">Sign in</button>
                 </form>
             <?php else: ?>

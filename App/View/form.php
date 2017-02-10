@@ -2,6 +2,7 @@
 /**
  * @var $this YourOwnFramework\View\View
  * @var $profile array
+ * @var $token string
  */
 ?>
 
@@ -65,6 +66,8 @@
             );
         }
     ?>
+
+    <input type="hidden" name="csrf" value="<?php echo $token;?>">
 
     <?php echo $this->form->submit()?>
 </form>

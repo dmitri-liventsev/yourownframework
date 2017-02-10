@@ -54,6 +54,7 @@ class YourOwnFramework
     {
         $this->route();
         $params = $this->runAction();
+        $params['token'] = $this->getRequest()->getToken();
         $this->getView()->render($params);
     }
 
