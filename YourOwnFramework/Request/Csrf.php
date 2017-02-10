@@ -3,7 +3,7 @@
  * @author Dmitri Liventsev <dmitri@credy.eu>
  */
 
-namespace YourOwnFramework;
+namespace YourOwnFramework\Request;
 
 class Csrf
 {

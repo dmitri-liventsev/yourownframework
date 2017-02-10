@@ -4,7 +4,7 @@
  * User: dmitri
  */
 
-namespace YourOwnFramework;
+namespace YourOwnFramework\Request;
 
 
 class RequestDataProvider

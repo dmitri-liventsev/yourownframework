@@ -3,7 +3,7 @@
  * @author Dmitri Liventsev <dmitri.linvetsev@gmail.com>
  */
 
-namespace YourOwnFramework;
+namespace YourOwnFramework\Request;
 
 
 use YourOwnFramework\Exception\SecurityException;

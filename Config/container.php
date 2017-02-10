@@ -79,17 +79,20 @@ return [
     \YourOwnFramework\Router::CONTAINER_KEY => function (ContainerInterface $c) {
         return new \YourOwnFramework\Router();
     },
-    \YourOwnFramework\RequestDataProvider::CONTAINER_KEY => function (ContainerInterface $c) {
-        return new \YourOwnFramework\RequestDataProvider();
+
+    // Request
+
+    \YourOwnFramework\Request\RequestDataProvider::CONTAINER_KEY => function (ContainerInterface $c) {
+        return new \YourOwnFramework\Request\RequestDataProvider();
     },
-    \YourOwnFramework\Request::CONTAINER_KEY => function (ContainerInterface $c) {
-        return new \YourOwnFramework\Request(
-            $c->get(\YourOwnFramework\RequestDataProvider::CONTAINER_KEY),
-            $c->get(\YourOwnFramework\Csrf::CONTAINER_KEY)
+    \YourOwnFramework\Request\Request::CONTAINER_KEY => function (ContainerInterface $c) {
+        return new \YourOwnFramework\Request\Request(
+            $c->get(\YourOwnFramework\Request\RequestDataProvider::CONTAINER_KEY),
+            $c->get(\YourOwnFramework\Request\Csrf::CONTAINER_KEY)
         );
     },
-    \YourOwnFramework\Csrf::CONTAINER_KEY => function (ContainerInterface $c) {
-        return new \YourOwnFramework\Csrf();
+    \YourOwnFramework\Request\Csrf::CONTAINER_KEY => function (ContainerInterface $c) {
+        return new \YourOwnFramework\Request\Csrf();
     },
 
     //VIEW
