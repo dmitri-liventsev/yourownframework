@@ -111,7 +111,6 @@ abstract class ErzatsORM implements ErzatsORMInterface
         return $this->executor->update($this->table, $this->primaryKey, $params);
     }
 
-
     /**
      * @return int
      */

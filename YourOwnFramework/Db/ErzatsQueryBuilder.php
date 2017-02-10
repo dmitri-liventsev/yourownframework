@@ -12,7 +12,8 @@ class ErzatsQueryBuilder
     const CONTAINER_KEY = 'query_builder';
 
     /**
-     * @param $fields
+     * @param array $fields
+     * @param string $table
      *
      * @return string
      */

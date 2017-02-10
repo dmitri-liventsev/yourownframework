@@ -77,7 +77,7 @@ return [
 
     /*****************System*************/
     \YourOwnFramework\Router::CONTAINER_KEY => function (ContainerInterface $c) {
-        return new \YourOwnFramework\Router();
+        return new \YourOwnFramework\Router(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
     },
 
     // Request

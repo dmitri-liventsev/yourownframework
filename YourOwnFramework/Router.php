@@ -13,6 +13,13 @@ class Router
     const ACTION = 'action';
     const CONTAINER_KEY = 'router';
 
+    private $uri;
+
+    public function __construct($uri)
+    {
+        $this->uri = $uri;
+    }
+
     /**
      * @return array
      * @throws HttpNotFoundException
@@ -74,7 +81,7 @@ class Router
      */
     private function getURI() : string
     {
-        return parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        return $this->uri;
     }
 }
 

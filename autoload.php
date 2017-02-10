@@ -3,6 +3,9 @@
  * @author Dmitri Liventsev <dmitri.linvetsev@gmail.com>
  */
 
+define("ROOT", __DIR__);
+require(ROOT . '/vendor/autoload.php');
+
 spl_autoload_extensions(".php");
 spl_autoload_register();
 

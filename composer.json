@@ -2,6 +2,7 @@
     "require": {
         "php-di/php-di": "^5.4",
         "delight-im/auth": "^4.1",
-        "dmitri-liventsev/service-executor": "dev-master#62819370"
+        "dmitri-liventsev/service-executor": "dev-master#62819370",
+        "phpunit/phpunit": "6.0.*"
     }
 }
