@@ -16,7 +16,7 @@ use YourOwnFramework\Db\ErzatsORM;
  */
 class Widget extends ErzatsORM
 {
-    protected $table = 'uic';
+    protected $table = 'widget';
 
     /**
      * @var string

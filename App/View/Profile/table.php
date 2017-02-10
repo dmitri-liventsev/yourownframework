@@ -114,8 +114,6 @@ $versionsArrayJson = json_encode($versionsArray);
             } else {
                 $(this).addClass('success');
             }
-
-
         });
     });
 </script>
