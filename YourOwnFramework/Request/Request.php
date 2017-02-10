@@ -92,11 +92,11 @@ class Request
     {
         if (!$this->isPost() && !$this->csrf->hasCSRF()) {
             $this->token = $this->csrf->initCSRF();
-        } elseif($this->isPost() && !$this->csrf->isValidCSRF($this->params['csrf'])) {
+        } elseif($this->isPost() && !$this->csrf->isValidCSRF($this->params[Csrf::CSRF_TOKEN_KEY])) {
             throw new SecurityException();
         }
 
-        unset($this->params['csrf']);
+        unset($this->params[Csrf::CSRF_TOKEN_KEY]);
     }
 
     /**

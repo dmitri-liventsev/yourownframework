@@ -4,6 +4,8 @@
  * @var $profile array
  * @var $token string
  */
+use YourOwnFramework\Request\Csrf;
+
 ?>
 
 <form method="post">
@@ -67,7 +69,7 @@
         }
     ?>
 
-    <input type="hidden" name="csrf" value="<?php echo $token;?>">
+    <input type="hidden" name="<?php echo Csrf::CSRF_TOKEN_KEY; ?>" value="<?php echo $token;?>">
 
     <?php echo $this->form->submit()?>
 </form>

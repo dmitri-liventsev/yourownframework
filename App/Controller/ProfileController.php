@@ -9,6 +9,7 @@ use App\Service\ProfileEdit;
 use App\Service\ProfileGet;
 use YourOwnFramework\Controller;
 use YourOwnFramework\Exception\HttpNotFoundException;
+use YourOwnFramework\Request\Csrf;
 use YourOwnFramework\Request\Request;
 
 class ProfileController extends Controller
@@ -57,6 +58,6 @@ class ProfileController extends Controller
         /** @var ProfileEdit $service */
         $service = $this->get(ProfileEdit::CONTAINER_KEY_EXECUTOR);
 
-        return $service->execute(['userId' => $this->auth->getUserId(), 'newProfileDetails' => $newProfileDetails]) + ['token' => $request->getToken()];
+        return $service->execute(['userId' => $this->auth->getUserId(), 'newProfileDetails' => $newProfileDetails]) + [Csrf::CSRF_TOKEN_KEY => $request->getToken()];
     }
 }
