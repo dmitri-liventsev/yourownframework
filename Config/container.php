@@ -26,21 +26,21 @@ return [
 
     \App\Service\ProfileEdit::CONTAINER_KEY_EXECUTOR => function (ContainerInterface $c) {
         return new ServiceExecutor\ServiceExecutor(
-            new \App\Service\Validator\ProfileEditValidator(),
-            $c->get(\App\Service\ProfileEdit::CONTAINER_KEY)
+            $c->get(\App\Service\ProfileEdit::CONTAINER_KEY),
+            new \App\Service\Validator\ProfileEditValidator()
         );
     },
 
     \App\Service\ProfileGet::CONTAINER_KEY_EXECUTOR => function (ContainerInterface $c) {
         return new ServiceExecutor\ServiceExecutor(
-            new \App\Service\Validator\ProfileGetValidator(),
-            $c->get(\App\Service\ProfileGet::CONTAINER_KEY)
+            $c->get(\App\Service\ProfileGet::CONTAINER_KEY),
+            new \App\Service\Validator\ProfileGetValidator()
         );
     },
     \App\Service\WidgetGet::CONTAINER_KEY_EXECUTOR => function (ContainerInterface $c) {
         return new ServiceExecutor\ServiceExecutor(
-            new \App\Service\Validator\WidgetGetValidator(),
-            $c->get(\App\Service\WidgetGet::CONTAINER_KEY)
+            $c->get(\App\Service\WidgetGet::CONTAINER_KEY),
+            new \App\Service\Validator\WidgetGetValidator()
         );
     },
 
