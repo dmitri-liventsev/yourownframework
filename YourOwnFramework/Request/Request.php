@@ -45,11 +45,6 @@ class Request
     private $method;
 
     /**
-     * @var string
-     */
-    private $session;
-
-    /**
      * @var Csrf
      */
     private $csrf;

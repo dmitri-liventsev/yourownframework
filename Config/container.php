@@ -92,7 +92,10 @@ return [
         );
     },
     \YourOwnFramework\Request\Csrf::CONTAINER_KEY => function (ContainerInterface $c) {
-        return new \YourOwnFramework\Request\Csrf();
+        return new \YourOwnFramework\Request\Csrf($c->get(\YourOwnFramework\Request\Session::CONTAINER_KEY));
+    },
+    \YourOwnFramework\Request\Session::CONTAINER_KEY => function (ContainerInterface $c) {
+        return new \YourOwnFramework\Request\Session();
     },
 
     //VIEW

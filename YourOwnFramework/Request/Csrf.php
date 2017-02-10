@@ -12,11 +12,21 @@ class Csrf
     const CSRF_TOKEN_KEY = 'csrf';
 
     /**
+     * @var Session
+     */
+    private $session;
+
+    public function __construct(Session $session)
+    {
+        $this->session = $session;
+    }
+
+    /**
      * @return string | null
      */
     public function getCSRF()
     {
-        return $_SESSION[self::CSRF_TOKEN_KEY] ?? null;
+        return $this->session->get(self::CSRF_TOKEN_KEY);
     }
 
     /**
@@ -33,11 +43,10 @@ class Csrf
     public function initCSRF() : string
     {
         $token = md5(uniqid(rand(), TRUE));
-        $_SESSION[self::CSRF_TOKEN_KEY] = $token;
+        $this->session->set(self::CSRF_TOKEN_KEY, $token);
 
         return $token;
     }
-
 
     /**
      * @param string $token
@@ -46,6 +55,6 @@ class Csrf
      */
     public function isValidCSRF(string $token) : bool
     {
-        return $_SESSION['csrf'] == $token;
+        return $this->getCSRF() == $token;
     }
 }

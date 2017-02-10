@@ -7,7 +7,7 @@ namespace App\Controller;
 
 use App\Service\WidgetGet;
 use YourOwnFramework\Controller;
-use YourOwnFramework\Request;
+use YourOwnFramework\Request\Request;
 
 class WidgetController extends Controller
 {

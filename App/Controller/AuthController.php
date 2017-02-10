@@ -6,7 +6,7 @@
 namespace App\Controller;
 
 use YourOwnFramework\Controller;
-use YourOwnFramework\Request;
+use YourOwnFramework\Request\Request;
 
 class AuthController extends Controller
 {

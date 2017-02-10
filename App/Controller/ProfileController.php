@@ -9,7 +9,7 @@ use App\Service\ProfileEdit;
 use App\Service\ProfileGet;
 use YourOwnFramework\Controller;
 use YourOwnFramework\Exception\HttpNotFoundException;
-use YourOwnFramework\Request;
+use YourOwnFramework\Request\Request;
 
 class ProfileController extends Controller
 {

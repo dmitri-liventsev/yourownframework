@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 use YourOwnFramework\Controller;
-use YourOwnFramework\Request;
+use YourOwnFramework\Request\Request;
 
 /**
  * @author Dmitri Liventsev <dmitri.linvetsev@gmail.com>
