@@ -13,7 +13,7 @@ try {
     $yourOwnFramework->run();
 } catch (\YourOwnFramework\Exception\HttpNotFoundException $e) {
     http_response_code(404);
-    echo "404, every body like 404.";
+    echo "404, everybody like 404.";
 } catch (Throwable $e) {
     http_response_code(500);
     echo "Oops something went wrong!";
