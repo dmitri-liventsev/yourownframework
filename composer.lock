@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0959f93c84468b2269e73878b50a0e0d",
-    "content-hash": "1060732cf5b4613b1260ab7583b568b4",
+    "hash": "aaf00507642dad138f8651388b7a03d2",
+    "content-hash": "219b5f5fbc9225c9f02931993070cbf2",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -198,12 +198,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dmitri-liventsev/service-executor.git",
-                "reference": "459fe8c01db430fe0402377c6d491c2133d3df5e"
+                "reference": "62819370"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dmitri-liventsev/service-executor/zipball/459fe8c01db430fe0402377c6d491c2133d3df5e",
-                "reference": "459fe8c01db430fe0402377c6d491c2133d3df5e",
+                "url": "https://api.github.com/repos/dmitri-liventsev/service-executor/zipball/62819370",
+                "reference": "62819370",
                 "shasum": ""
             },
             "type": "library",
@@ -213,7 +213,7 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2016-12-05 07:12:28"
+            "time": "2016-12-28 14:11:30"
         },
         {
             "name": "php-di/invoker",
