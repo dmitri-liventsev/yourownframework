@@ -9,7 +9,7 @@ use App\Model\Repository\WidgetRepository;
 use DI\Container;
 use DI\ContainerBuilder;
 
-define("ROOT",dirname(__DIR__));
+define("ROOT", dirname(__DIR__));
 
 require(ROOT . '/autoload.php');
 require(ROOT . '/vendor/autoload.php');
@@ -42,6 +42,5 @@ foreach ($newProfiles as $profile) {
 
     $widget = $widgetRepository->findByUserId($profile->getUserId());
     $widget->setLastStatus($status);
-
     $widget->save();
 }

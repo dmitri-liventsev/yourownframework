@@ -18,7 +18,7 @@ $( document ).ready(function() {
         var row = $('<tr></tr>',{class: statusClass});
         var td = $('<td></td>').append($('<a href="/profile?id=' + value.id + '"> ' + value.userId +'</a>'));
         row.append(td);
-        row.append($('<td></td>', {'text': value.profileDetails.text1}));
+        row.append($('<td></td>', {'text': HtmlEncode(value.profileDetails.text1})));
         row.append($('<td></td>', {'text': value.viewCount}));
         row.append($('<td></td>', {'text': value.uic}));
 
