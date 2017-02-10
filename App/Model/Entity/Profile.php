@@ -49,7 +49,7 @@ class Profile extends ErzatsORM
      * @var array
      */
     protected $params = [
-        'id', 'userId', 'details', 'isActive', 'status', 'viewCount', 'uic', 'deletedAt', 'createdAt'
+        'id', 'userId', 'details', 'isActive', 'status', 'deletedAt', 'createdAt'
     ];
 
     private $detailsAtToCheck = ['text1', 'text2', 'text3', 'text4', 'text5', 'text6', 'text7', 'text8'];
@@ -57,7 +57,7 @@ class Profile extends ErzatsORM
     /**
      * @var array
      */
-    protected $utilFields = ['id', 'createdAt', 'viewCount', 'uic'];
+    protected $utilFields = ['id', 'createdAt'];
 
     /**
      * @return bool
@@ -65,22 +65,6 @@ class Profile extends ErzatsORM
     public function isValid() :bool
     {
         return $this->getStatus() == self::STATUS_VALID;
-    }
-
-    public function increaseViewCount()
-    {
-        $this->query(
-            'UPDATE profile SET viewCount = viewCount + 1 WHERE ( id = :id )',
-            ['id' => $this->getPrimaryKeyValue()]
-        );
-    }
-
-    public function increaseUic()
-    {
-        $this->query(
-            'UPDATE profile SET uic = uic + 1 WHERE ( id = :id )',
-            ['id' => $this->getPrimaryKeyValue()]
-        );
     }
 
     public function checkDetails()

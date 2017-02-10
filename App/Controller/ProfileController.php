@@ -9,6 +9,7 @@ use App\Model\Entity\Profile;
 use App\Model\Entity\Uic;
 use App\Model\Repository\ProfileRepository;
 use App\Model\Repository\UicRepository;
+use App\Model\Repository\WidgetRepository;
 use YourOwnFramework\Controller;
 use YourOwnFramework\Exception\HttpNotFoundException;
 use YourOwnFramework\Request;
@@ -30,8 +31,8 @@ class ProfileController extends Controller
         $profileId = $request->get('id');
         /** @var ProfileRepository $profileRepository */
         $profileRepository = $this->get(ProfileRepository::CONTAINER_KEY);
-        /** @var UicRepository $uicRepository */
-        $uicRepository = $this->get(UicRepository::CONTAINER_KEY);
+        /** @var WidgetRepository $widgetRepository */
+        $widgetRepository = $this->get(WidgetRepository::CONTAINER_KEY);
 
         /** @var Profile $profile */
         if ($profileId === null) {
@@ -40,17 +41,11 @@ class ProfileController extends Controller
             $profile = $profileRepository->findOneById($profileId);
         }
 
-        $profile->increaseViewCount();
-        $ip = $request->getIp();
-
-        if (!$request->hasCookie(self::UIC_COOKIE_NAME, $profile->getUserId()) && $uicRepository->isUnique($ip, $profileId)) {
+        $widget = $widgetRepository->findByUserId($this->auth->getUserId());
+        $widget->increaseViewCount();
+        if (!$request->hasCookie(self::UIC_COOKIE_NAME, $profile->getUserId())) {
             $this->setCookie(self::UIC_COOKIE_NAME, $profile->getUserId(), self::COMMON_AMOUNT_OF_SECONDS_PER_DAY);
-            $profile->increaseUic();
-            /** @var Uic $uic */
-            $uic = $uicRepository->create();
-            $uic->setIp($ip);
-            $uic->setProfileId($profileId);
-            $uic->save();
+            $widget->increaseUic();
         }
 
         $this->template = 'profile';
@@ -67,9 +62,12 @@ class ProfileController extends Controller
     {
         /** @var ProfileRepository $profileRepository */
         $profileRepository = $this->get(ProfileRepository::CONTAINER_KEY);
+        /** @var WidgetRepository $widgetRepository */
+        $widgetRepository = $this->get(WidgetRepository::CONTAINER_KEY);
+
         /** @var Profile $profile */
         $profile = $profileRepository->findActiveProfileByUserId($this->auth->getUserId());
-
+        $widget = $widgetRepository->findByUserId($this->auth->getUserId());
         if ($request->isPost()) {
             $profile->setIsActive(0);
             $profile->save();
@@ -80,6 +78,9 @@ class ProfileController extends Controller
             $profile->setStatus(Profile::STATUS_NOT_CHECKED);
 
             $profile->save();
+
+            $widget->setLastStatus(Profile::STATUS_NOT_CHECKED);
+            $widget->save();
         }
 
         $allProfiles = $profileRepository->findAllByUserId($this->auth->getUserId());

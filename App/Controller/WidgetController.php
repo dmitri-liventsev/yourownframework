@@ -7,7 +7,9 @@
 namespace App\Controller;
 
 use App\Model\Entity\Profile;
+use App\Model\Entity\Widget;
 use App\Model\Repository\ProfileRepository;
+use App\Model\Repository\WidgetRepository;
 use YourOwnFramework\Controller;
 use YourOwnFramework\Request;
 
@@ -24,21 +26,30 @@ class WidgetController extends Controller
 
         /** @var ProfileRepository $profileRepository */
         $profileRepository = $this->get(ProfileRepository::CONTAINER_KEY);
+        /** @var WidgetRepository $widgetRepository */
+        $widgetRepository = $this->get(WidgetRepository::CONTAINER_KEY);
+
         $activeProfiles = $profileRepository->findAllActive();
-
-        $profileArrays = [];
+        $activeProfilesDetailsArray = [];
         /** @var Profile $profile */
-        foreach($activeProfiles as $profile) {
-            $profileArray = $profile->getParams() + json_decode($profile->getDetails(), true);
-            $statistics = $profileRepository->getProfileStatisticsByUserId($profile->getUserId());
-            $profileArray['statistics'] = $statistics;
+        foreach($activeProfiles  as $profile) {
+            $activeProfilesArray[$profile->getUserId()] = json_decode($profile->getDetails());
+        }
 
-            $profileArrays[$profile->getId()] = $profileArray;
+        $widgetArrays = [];
+        $widgets = $widgetRepository->findAllWidgets();
+
+        /** @var Widget $widget */
+        foreach($widgets as $widget) {
+            $widgetArray = $widget->getParams();
+            $widgetArray['profileDetails'] = $widget[$profile->getUserId()] ?? [];
+
+            $widgetArrays[$profile->getId()] = $widgetArray;
         }
 
         $this->layout = 'widget';
         $this->template = 'widget';
 
-        return ["activeProfiles" => $profileArrays];
+        return ["widgets" => $widgetArrays];
     }
 }

@@ -18,7 +18,7 @@ class ProfileRepository extends Repository
     protected $table = 'profile';
 
     /**
-     * @return \YourOwnFramework\Db\ErzatsORMInterface[]
+     * @return Profile[]
      */
     public function findAllNotChecked()
     {
@@ -34,7 +34,7 @@ class ProfileRepository extends Repository
     /**
      * @param $userId
      *
-     * @return \YourOwnFramework\Db\ErzatsORMInterface[]
+     * @return Profile[]
      */
     public function findAllByUserId($userId)
     {
@@ -84,28 +84,5 @@ class ProfileRepository extends Repository
         ];
 
         return $this->findAll($where, []);
-    }
-
-    /**
-     * Don`t ask me why i don`t use joins %) or count(viewCount).
-     * I just to lazy to implement a real ORM just for test assignment
-     *
-     * @param int $userId
-     * @return array
-     */
-    public function getProfileStatisticsByUserId(int $userId)
-    {
-        $allUserProfiles = $this->findAllByUserId($userId);
-
-        $viewCount = 0;
-        $uicCount = 0;
-
-        /** @var Profile $profile */
-        foreach ($allUserProfiles as $profile) {
-            $viewCount += $profile->getViewCount();
-            $uicCount += $profile->getUic();
-        }
-
-        return ['view' => $viewCount, 'uic' => $uicCount];
     }
 }

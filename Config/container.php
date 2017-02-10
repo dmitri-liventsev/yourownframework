@@ -12,10 +12,10 @@ return [
             \App\Model\Entity\Profile::class
         );
     },
-    \App\Model\Repository\UicRepository::CONTAINER_KEY => function (ContainerInterface $c) {
-        return new \App\Model\Repository\UicRepository(
+    \App\Model\Repository\WidgetRepository::CONTAINER_KEY => function (ContainerInterface $c) {
+        return new \App\Model\Repository\WidgetRepository(
             $c->get(\YourOwnFramework\Db\Executor::CONTAINER_KEY),
-            \App\Model\Entity\Uic::class
+            \App\Model\Entity\Widget::class
         );
     },
 
