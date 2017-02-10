@@ -82,7 +82,7 @@ class Executor
     /**
      * @param string $query
      *
-     * @return \PDOStatement
+     * @return bool
      */
     public function query($query, $params)
     {
