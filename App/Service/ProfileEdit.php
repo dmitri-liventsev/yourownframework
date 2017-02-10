@@ -28,33 +28,7 @@ class ProfileEdit extends BaseService implements ServiceInterface
         $profile = $this->profileRepository->findOneById($profileId);
 
         if ($newProfileDetails !== null) {
-            $widget = $this->widgetRepository->findByUserId($profile->getUserId());
-
-
-            $profile->setIsActive(0);
-
-            $newProfile = $this->profileRepository->clone($profile);
-            $newProfile->setDetails(json_encode($newProfileDetails));
-            $newProfile->setIsActive(1);
-            $newProfile->setStatus(Profile::STATUS_NOT_CHECKED);
-
-            $widget->setLastStatus(Profile::STATUS_NOT_CHECKED);
-
-            try {
-                $this->db->beginTransaction();
-
-                $profile->save();
-                $newProfile->save();
-                $widget->save();
-
-                $this->db->commit();
-            } catch(ErzatsORMException $e) {
-                $this->db->rollBack();
-                throw $e;
-            }
-
-
-            $profile = $newProfile;
+            $profile = $this->updateProfile($profile, $newProfileDetails);
         }
 
         $profileVersions = $this->profileRepository->findAllByUserId($profile->getUserId());
@@ -67,5 +41,53 @@ class ProfileEdit extends BaseService implements ServiceInterface
             'profile' => $profile,
             'profileVersions' => $profileVersions,
         ];
+    }
+
+    /**
+     * @param Profile $profile
+     * @param $newProfileDetails
+     *
+     * @return Profile
+     * @throws ErzatsORMException
+     */
+    private function updateProfile(Profile $profile, $newProfileDetails)
+    {
+        $widget = $this->widgetRepository->findByUserId($profile->getUserId());
+        $profile->setIsActive(0);
+        /** @var Profile $newProfile */
+        $newProfile = $this->buildNewProfile($profile, $newProfileDetails);
+        $widget->setLastStatus(Profile::STATUS_NOT_CHECKED);
+
+        try {
+            $this->db->beginTransaction();
+
+            $profile->save();
+            $newProfile->save();
+            $widget->save();
+
+            $this->db->commit();
+        } catch(ErzatsORMException $e) {
+            $this->db->rollBack();
+            throw $e;
+        }
+
+        return $newProfile;
+    }
+
+    /**
+     * @param Profile $profile
+     * @param $newProfileDetails
+     *
+     * @return Profile
+     */
+    private function buildNewProfile(Profile $profile, $newProfileDetails)
+    {
+        /** @var Profile $newProfile */
+        $newProfile = $this->profileRepository->clone($profile);
+        $newProfile->setDetails(json_encode($newProfileDetails));
+        $newProfile->setIsActive(1);
+        $newProfile->setStatus(Profile::STATUS_NOT_CHECKED);
+
+        return $newProfile;
     }
 }
