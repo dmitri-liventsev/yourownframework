@@ -82,17 +82,14 @@ return [
 
     // Request
 
-    \YourOwnFramework\Request\RequestDataProvider::CONTAINER_KEY => function (ContainerInterface $c) {
-        return new \YourOwnFramework\Request\RequestDataProvider();
-    },
     \YourOwnFramework\Request\Request::CONTAINER_KEY => function (ContainerInterface $c) {
         $request = new \YourOwnFramework\Request\Request(
             $c->get(\YourOwnFramework\Request\Csrf::CONTAINER_KEY),
             $_SERVER,
+            $_POST,
             $_GET,
-            $_POST
+            $_COOKIE
         );
-        $request->setCookie($_COOKIE);
     },
     \YourOwnFramework\Request\Csrf::CONTAINER_KEY => function (ContainerInterface $c) {
         return new \YourOwnFramework\Request\Csrf($c->get(\YourOwnFramework\Request\Session::CONTAINER_KEY));

@@ -55,27 +55,20 @@ class Request
     private $token;
 
     /**
-     * @return string
+     * Request constructor.
+     * @param Csrf $csrf
+     * @param array $server
+     * @param array $get
+     * @param array $post
+     * @param array $cookie
      */
-    public function getToken(): string
-    {
-        return $this->token;
-    }
-
-    /**
-     * @param string $token
-     */
-    public function setToken(string $token)
-    {
-        $this->token = $token;
-    }
-
-    public function __construct(Csrf $csrf, array $server, array $get, array $post)
+    public function __construct(Csrf $csrf, array $server, array $post = [], array $get = [], array $cookie = [])
     {
         $this->csrf = $csrf;
         $this->server = $server;
         $this->get = $get;
         $this->post = $post;
+        $this->cookie = $cookie;
 
         $this->init();
     }
@@ -91,7 +84,7 @@ class Request
     {
         if (!$this->isPost() && !$this->csrf->hasCSRF()) {
             $this->token = $this->csrf->initCSRF();
-        } elseif($this->isPost() && !$this->csrf->isValidCSRF($this->params[Csrf::CSRF_TOKEN_KEY])) {
+        } elseif($this->isPost() && !$this->csrf->isValidCSRF($this->params[Csrf::CSRF_TOKEN_KEY] ?? "")) {
             throw new SecurityException();
         } elseif($this->token === null) {
             $this->token = $this->csrf->getCSRF();
@@ -101,13 +94,21 @@ class Request
     }
 
     /**
+     * @return string
+     */
+    public function getToken(): string
+    {
+        return $this->token;
+    }
+
+    /**
      * @param string|null $fieldName
      *
      * @return null|int|string|array
      */
     public function get($fieldName = null)
     {
-        return $fieldName !== null? $this->params : $this->params[$fieldName] ?? null;
+        return $fieldName === null? $this->params : $this->params[$fieldName] ?? null;
     }
 
     /**
@@ -144,13 +145,5 @@ class Request
     public function getCookie(string $cookieName)
     {
         return isset($this->cookie[$cookieName]) ? $this->cookie[$cookieName] : null;
-    }
-
-    /**
-     * @param array $cookie
-     */
-    public function setCookie($cookie)
-    {
-        $this->cookie = $cookie;
     }
 }
