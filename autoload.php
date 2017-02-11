@@ -10,6 +10,7 @@ spl_autoload_extensions(".php");
 spl_autoload_register();
 
 function my_autoloader($class) {
+    $class = str_replace("\\", "/", $class);
     include ROOT . '/' . $class . '.php';
 }
 

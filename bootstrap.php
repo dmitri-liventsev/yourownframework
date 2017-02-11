@@ -6,7 +6,7 @@
 use YourOwnFramework\Exception\SecurityException;
 
 try {
-    require(ROOT . '/autoload.php');
+    require('autoload.php');
 
     $config = require(ROOT . '/Config/main.php');
 
