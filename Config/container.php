@@ -86,11 +86,13 @@ return [
         return new \YourOwnFramework\Request\RequestDataProvider();
     },
     \YourOwnFramework\Request\Request::CONTAINER_KEY => function (ContainerInterface $c) {
-        $request = new \YourOwnFramework\Request\Request($c->get(\YourOwnFramework\Request\Csrf::CONTAINER_KEY));
+        $request = new \YourOwnFramework\Request\Request(
+            $c->get(\YourOwnFramework\Request\Csrf::CONTAINER_KEY),
+            $_SERVER,
+            $_GET,
+            $_POST
+        );
         $request->setCookie($_COOKIE);
-        $request->setGet($_GET);
-        $request->setPost($_POST);
-        $request->setServer($_SERVER);
     },
     \YourOwnFramework\Request\Csrf::CONTAINER_KEY => function (ContainerInterface $c) {
         return new \YourOwnFramework\Request\Csrf($c->get(\YourOwnFramework\Request\Session::CONTAINER_KEY));

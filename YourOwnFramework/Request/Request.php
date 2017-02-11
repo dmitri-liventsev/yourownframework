@@ -70,9 +70,12 @@ class Request
         $this->token = $token;
     }
 
-    public function __construct(Csrf $csrf)
+    public function __construct(Csrf $csrf, array $server, array $get, array $post)
     {
         $this->csrf = $csrf;
+        $this->server = $server;
+        $this->get = $get;
+        $this->post = $post;
 
         $this->init();
     }
@@ -141,30 +144,6 @@ class Request
     public function getCookie(string $cookieName)
     {
         return isset($this->cookie[$cookieName]) ? $this->cookie[$cookieName] : null;
-    }
-
-    /**
-     * @param array $post
-     */
-    public function setPost($post)
-    {
-        $this->post = $post;
-    }
-
-    /**
-     * @param array $get
-     */
-    public function setGet($get)
-    {
-        $this->get = $get;
-    }
-
-    /**
-     * @param array $server
-     */
-    public function setServer($server)
-    {
-        $this->server = $server;
     }
 
     /**
