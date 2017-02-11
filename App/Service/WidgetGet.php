@@ -25,7 +25,7 @@ class WidgetGet extends BaseService implements ServiceInterface
         $activeProfilesDetailsArray = [];
         /** @var Profile $profile */
         foreach($activeProfiles  as $profile) {
-            $activeProfilesDetailsArray[$profile->getUserId()] = json_decode($profile->getDetails());
+            $activeProfilesDetailsArray[$profile->getUserId()] = json_decode($profile->getDetails(), true);
         }
 
         $widgetArrays = [];
@@ -34,9 +34,9 @@ class WidgetGet extends BaseService implements ServiceInterface
         /** @var Widget $widget */
         foreach($widgets as $widget) {
             $widgetArray = $widget->getParams();
-            $widgetArray['profileDetails'] = $activeProfilesDetailsArray[$profile->getUserId()] ?? [];
+            $widgetArray['profileDetails'] = $activeProfilesDetailsArray[$widget->getUserId()] ?? [];
 
-            $widgetArrays[$profile->getId()] = $widgetArray;
+            $widgetArrays[$widget->getId()] = $widgetArray;
         }
 
         return ["widgets" => $widgetArrays];

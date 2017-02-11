@@ -13,6 +13,8 @@ use YourOwnFramework\Db\ErzatsORM;
  * @package App\Model\Entity
  *
  * @method setLastStatus($status)
+ * @method getUserId()
+ * @method getId()
  */
 class Widget extends ErzatsORM
 {

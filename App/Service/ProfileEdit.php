@@ -33,7 +33,7 @@ class ProfileEdit extends BaseService implements ServiceInterface
             $success = true;
         }
 
-        $profileVersions = $this->profileRepository->findAllByUserId($profile->getUserId());
+        $profileVersions = $this->profileRepository->findAllByUserId($userId);
         $profileData = json_decode($profile->getDetails(), true) ?? [];
 
         $this->template = 'editprofile';
@@ -41,7 +41,6 @@ class ProfileEdit extends BaseService implements ServiceInterface
         return [
             'profileData' => $profileData,
             'profile' => $profile,
-            'profileVersions' => $profileVersions,
             'success' => $success
         ];
     }

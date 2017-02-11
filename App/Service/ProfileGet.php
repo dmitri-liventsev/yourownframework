@@ -40,7 +40,7 @@ class ProfileGet  extends BaseService implements ServiceInterface
             throw $e;
         }
 
-        $profileVersions = $this->profileRepository->findAllOldProfilesByUserId($profile->getUserId());
+        $profileVersions = $this->profileRepository->findAllOldProfilesByUserId($userId);
 
         return [
             'profile' => $profile,
