@@ -70,12 +70,8 @@ class Request
         $this->token = $token;
     }
 
-    public function __construct(RequestDataProvider $requestDataProvider, Csrf $csrf)
+    public function __construct(Csrf $csrf)
     {
-        $this->post = $requestDataProvider->getPost();
-        $this->get = $requestDataProvider->getGet();
-        $this->server = $requestDataProvider->getServer();
-        $this->cookie = $requestDataProvider->getCookies();
         $this->csrf = $csrf;
 
         $this->init();
@@ -102,21 +98,13 @@ class Request
     }
 
     /**
-     * @param string $fieldName
+     * @param string|null $fieldName
      *
      * @return null|int|string|array
      */
-    public function get(string $fieldName)
+    public function get($fieldName = null)
     {
-        return $this->params[$fieldName] ?? null;
-    }
-
-    /**
-     * @return array
-     */
-    public function getParams()
-    {
-        return $this->params;
+        return $fieldName !== null? $this->params : $this->params[$fieldName] ?? null;
     }
 
     /**
@@ -132,7 +120,7 @@ class Request
         $this->method = $this->server['REQUEST_METHOD'];
     }
 
-    public function determineParams()
+    private function determineParams()
     {
         $this->params = $this->post + $this->get;
     }
@@ -156,13 +144,34 @@ class Request
     }
 
     /**
-     * @param $cookieName
-     * @return bool
+     * @param array $post
      */
-    public function hasCookie(string $cookieName, $userId = null) : bool
+    public function setPost($post)
     {
-        $cookie = $this->getCookie($cookieName);
+        $this->post = $post;
+    }
 
-        return ($userId === null && $cookie !== $userId) || ($userId !== null && $cookie === $userId);
+    /**
+     * @param array $get
+     */
+    public function setGet($get)
+    {
+        $this->get = $get;
+    }
+
+    /**
+     * @param array $server
+     */
+    public function setServer($server)
+    {
+        $this->server = $server;
+    }
+
+    /**
+     * @param array $cookie
+     */
+    public function setCookie($cookie)
+    {
+        $this->cookie = $cookie;
     }
 }

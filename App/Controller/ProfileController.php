@@ -15,6 +15,8 @@ class ProfileController extends Controller
 {
     const COMMON_AMOUNT_OF_SECONDS_PER_DAY = 86400;
 
+    const UIC_COOKIE_DELIMITER = ",user_id:";
+
     const UIC_COOKIE_NAME = 'zdesBylMurzik';
 
     /**
@@ -29,9 +31,10 @@ class ProfileController extends Controller
 
         $userId = $request->get('id') ?? $this->auth->getUserId();
 
-        $isUic = !$request->hasCookie(self::UIC_COOKIE_NAME, $userId);
+        $isUic = !$this->isUic($request, $userId);
         if ($isUic) {
-            $this->setCookie(self::UIC_COOKIE_NAME, $userId, self::COMMON_AMOUNT_OF_SECONDS_PER_DAY);
+            $newCookieValue = $request->getCookie(self::UIC_COOKIE_NAME) . self::UIC_COOKIE_DELIMITER . $userId;
+            $this->setCookie(self::UIC_COOKIE_NAME, $newCookieValue, self::COMMON_AMOUNT_OF_SECONDS_PER_DAY);
         }
 
         /** @var ProfileGet $service */
@@ -47,16 +50,29 @@ class ProfileController extends Controller
      */
     public function editAction(Request $request)
     {
+        $this->template = 'Profile/editprofile';
+
         $newProfileDetails = null;
         if ($request->isPost()) {
-            $newProfileDetails = $request->getParams();
+            $newProfileDetails = $request->get();
         }
-
-        $this->template = 'Profile/editprofile';
 
         /** @var ProfileEdit $service */
         $service = $this->get(ProfileEdit::CONTAINER_KEY_EXECUTOR);
 
         return $service->execute(['userId' => $this->auth->getUserId(), 'newProfileDetails' => $newProfileDetails]);
+    }
+
+    /**
+     * @param Request $request
+     * @param int $userId
+     * @return bool
+     */
+    private function isUic(Request $request, $userId) : bool
+    {
+        $cookie = $request->getCookie(self::UIC_COOKIE_NAME);
+        $searchSubstring = self::UIC_COOKIE_DELIMITER . $userId;
+
+        return strpos($cookie, $searchSubstring) !== false;
     }
 }

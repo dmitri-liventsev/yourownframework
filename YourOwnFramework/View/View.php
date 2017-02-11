@@ -151,6 +151,4 @@ class View
     {
         $this->token = $token;
     }
-
-
 }
