@@ -4,6 +4,7 @@ namespace App\Service;
 
 use ServiceExecutor\ServiceInterface;
 use YourOwnFramework\Exception\ErzatsORMException;
+use YourOwnFramework\Exception\HttpNotFoundException;
 
 /**
  * @author Dmitri Liventsev <dmitri@credy.eu>
@@ -17,6 +18,7 @@ class ProfileGet  extends BaseService implements ServiceInterface
      * @param array $params
      *
      * @throws ErzatsORMException
+     * @throws HttpNotFoundException
      * @return array
      */
     public function execute(array $params) : array
@@ -25,6 +27,10 @@ class ProfileGet  extends BaseService implements ServiceInterface
         $profile = $this->profileRepository->findActiveProfileByUserId($userId);
 
         $widget = $this->widgetRepository->findByUserId($userId);
+
+        if (!$profile || !$widget) {
+            throw new HttpNotFoundException();
+        }
 
         try {
             $this->db->beginTransaction();
