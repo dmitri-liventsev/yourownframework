@@ -5,6 +5,6 @@
 
 return [
     'db-username' => 'root',
-    'db-password' => 'password',
+    'db-password' => '',
     'db-database' => 'tactica',
 ];
