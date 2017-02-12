@@ -89,7 +89,7 @@ class ProfileEdit extends BaseService implements ServiceInterface
         $newProfile->setDetails(json_encode($newProfileDetails));
         $newProfile->setIsActive(1);
         $newProfile->setStatus(Profile::STATUS_NOT_CHECKED);
-        $newProfile->setCreatedAt(date('Y-m-d'));
+        $newProfile->setCreatedAt(date('Y-m-d H:i:s'));
 
         return $newProfile;
     }
