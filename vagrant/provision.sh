@@ -72,8 +72,8 @@ mysql < /var/www/yourownframework/Db/dump.sql -u root --password=$DATABASE_PASS
 
 sudo chmod -R 755 /var/www
 sudo service apache2 restart
-
-sudo /bin/bash /var/www/yourownframework/standalonescript.sh
+sudp chmod +x /var/www/yourownframework/Job/checker.php
+sudo /bin/bash /var/www/yourownframework/standalonescript.sh &>/dev/null &
 
 # Bash.
 cp /vagrant/config/bash/profile /home/vagrant/.profile

@@ -145,7 +145,7 @@ CREATE TABLE `widget` (
   `userId` int(11) unsigned NOT NULL,
   `uic` int(11) unsigned NOT NULL DEFAULT '0',
   `viewCount` int(11) NOT NULL DEFAULT '0',
-  `lastStatus` enum('not_checked','valid') NOT NULL DEFAULT 'not_checked',
+  `lastStatus` enum('not_checked','valid', 'invalid') NOT NULL DEFAULT 'not_checked',
   `deletedAt` datetime DEFAULT NULL,
   `createdAt` datetime NOT NULL,
   PRIMARY KEY (`id`)
