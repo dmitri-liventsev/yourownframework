@@ -35,6 +35,7 @@ sudo cp /vagrant/config/php/php-cli.ini /etc/php/7.0/cli/php.ini
 sudo apt-get -y install apache2
 sudo cp /vagrant/config/apache/tactic.dev.conf /etc/apache2/sites-available/tactic.dev.conf
 sudo a2ensite tactic.dev.conf
+sudo a2enmod rewrite
 
 # Install MySQL.
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password root'
@@ -71,6 +72,8 @@ mysql < /var/www/yourownframework/Db/dump.sql -u root --password=$DATABASE_PASS
 
 sudo chmod -R 755 /var/www
 sudo service apache2 restart
+
+sudo /bin/bash /var/www/yourownframework/standalonescript.sh
 
 # Bash.
 cp /vagrant/config/bash/profile /home/vagrant/.profile

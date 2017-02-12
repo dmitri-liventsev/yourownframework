@@ -9,10 +9,8 @@ use App\Model\Repository\WidgetRepository;
 use DI\Container;
 use DI\ContainerBuilder;
 
-define("ROOT", dirname(__DIR__));
-
-require(ROOT . '/autoload.php');
-require(ROOT . '/vendor/autoload.php');
+require(dirname(__DIR__) . '/autoload.php');
+require(dirname(__DIR__) . '/vendor/autoload.php');
 
 $config = require(ROOT . '/Config/main.php');
 $config = $config[\YourOwnFramework\YourOwnFramework::CONTAINER_CONTAINER_KEY];
