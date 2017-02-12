@@ -2,7 +2,8 @@
 SQLyog Ultimate v12.14 (64 bit)
 MySQL - 10.1.19-MariaDB : Database - tactica
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -26,7 +27,7 @@ CREATE TABLE `profile` (
   `isActive` int(1) NOT NULL DEFAULT '1',
   `status` enum('not_checked','valid','invalid') NOT NULL DEFAULT 'not_checked',
   `deletedAt` datetime DEFAULT NULL,
-  `createdAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `createdAt` datetime NOT NULL,
   `userId` int(11) NOT NULL,
   `viewCount` int(11) NOT NULL DEFAULT '0',
   `uic` int(11) NOT NULL DEFAULT '0',
@@ -146,7 +147,7 @@ CREATE TABLE `widget` (
   `viewCount` int(11) NOT NULL DEFAULT '0',
   `lastStatus` enum('not_checked','valid') NOT NULL DEFAULT 'not_checked',
   `deletedAt` datetime DEFAULT NULL,
-  `createdAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `createdAt` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
