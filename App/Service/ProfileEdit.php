@@ -4,6 +4,8 @@ namespace App\Service;
 use App\Model\Entity\Profile;
 use ServiceExecutor\ServiceInterface;
 use YourOwnFramework\Exception\ErzatsORMException;
+use YourOwnFramework\Exception\HttpNotFoundException;
+use YourOwnFramework\Exception\SecurityException;
 
 /**
  * @author Dmitri Liventsev <dmitri@credy.eu>
@@ -17,6 +19,7 @@ class ProfileEdit extends BaseService implements ServiceInterface
      * @param array $params
      *
      * @throws ErzatsORMException
+     * @throws SecurityException
      * @return array
      */
     public function execute(array $params) : array
@@ -27,13 +30,16 @@ class ProfileEdit extends BaseService implements ServiceInterface
         /** @var Profile $profile */
         $profile = $this->profileRepository->findActiveProfileByUserId($userId);
 
+        if (!$profile) {
+            throw new SecurityException();
+        }
+
         $success = false;
         if ($newProfileDetails !== null) {
             $profile = $this->updateProfile($profile, $newProfileDetails);
             $success = true;
         }
 
-        $profileVersions = $this->profileRepository->findAllByUserId($userId);
         $profileData = json_decode($profile->getDetails(), true) ?? [];
 
         $this->template = 'editprofile';
