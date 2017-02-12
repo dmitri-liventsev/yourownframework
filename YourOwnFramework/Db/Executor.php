@@ -50,7 +50,7 @@ class Executor
      *
      * @return bool
      */
-    public function insert(string $table, array $params) : bool
+    public function insert(string $table, array $params)
     {
         $query = $this->queryBuilder->getInsertQuery(array_keys($params), $table);
         $sth = $this->db->prepare($query);

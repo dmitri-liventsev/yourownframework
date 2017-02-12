@@ -20,7 +20,7 @@ class WidgetController extends Controller
     {
         $this->header("Content-Type", "text/javascript");
 
-        $this->layout = 'widget';
+        $this->layout = 'blank';
         $this->template = 'widget';
 
         /** @var WidgetGet $service */

@@ -5,6 +5,8 @@
 
 namespace App\Controller;
 
+use App\Model\Entity\Profile;
+use App\Model\Repository\ProfileRepository;
 use App\Service\ProfileEdit;
 use App\Service\ProfileGet;
 use YourOwnFramework\Controller;
@@ -61,6 +63,28 @@ class ProfileController extends Controller
         $service = $this->get(ProfileEdit::CONTAINER_KEY_EXECUTOR);
 
         return $service->execute(['userId' => $this->auth->getUserId(), 'newProfileDetails' => $newProfileDetails]);
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return array
+     */
+    public function jsonAction(Request $request)
+    {
+        $this->layout = 'blank';
+        $this->template = 'json';
+
+        $profileRepository = $this->get(ProfileRepository::CONTAINER_KEY);
+        /** @var Profile $profile */
+        $profile = $profileRepository->findActiveProfileByUserId($this->auth->getUserId());
+        $details = $profile->getDetails();
+        $details = json_decode($details, true);
+        $details['id'] = $profile->getId();
+
+        $details = json_encode($details);
+
+        return ['json' => $details];
     }
 
     /**
