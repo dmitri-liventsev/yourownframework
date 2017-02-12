@@ -72,7 +72,7 @@ mysql < /var/www/yourownframework/Db/dump.sql -u root --password=$DATABASE_PASS
 
 sudo chmod -R 755 /var/www
 sudo service apache2 restart
-sudp chmod +x /var/www/yourownframework/Job/checker.php
+sudo chmod +x /var/www/yourownframework/Job/checker.php
 sudo /bin/bash /var/www/yourownframework/standalonescript.sh &>/dev/null &
 
 # Bash.
