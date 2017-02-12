@@ -55,7 +55,7 @@ class Profile extends ErzatsORM
     /**
      * @var array
      */
-    protected $utilFields = ['id', 'createdAt'];
+    protected $utilFields = ['id'];
 
     /**
      * @return bool

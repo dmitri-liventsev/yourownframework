@@ -66,7 +66,7 @@ git clone https://github.com/dmitri-liventsev/yourownframework.git
 cd yourownframework
 composer install
 sudo chmod +x /var/www/yourownframework/Job/checker.php
-bin/sh ./standalonescript.sh &
+/bin/sh ./standalonescript.sh &
 cd $HOME
 
 mysql < /var/www/yourownframework/Db/dump.sql -u root --password=$DATABASE_PASS
