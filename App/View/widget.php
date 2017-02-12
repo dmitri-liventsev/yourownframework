@@ -16,7 +16,7 @@ $( document ).ready(function() {
     jQuery.each(widgets, function( index, value ) {
         statusClass = getStatusClass(value.lastStatus)
         var row = $('<tr></tr>',{class: statusClass});
-        var td = $('<td></td>').append($('<a href="/profile?id=' + value.id + '"> ' + value.userId +'</a>'));
+        var td = $('<td></td>').append($('<a href="/profile?id=' + value.userId + '"> ' + value.userId +'</a>'));
         row.append(td);
         row.append($('<td></td>', {'text': HtmlEncode(value.profileDetails.text1)}));
         row.append($('<td></td>', {'text': value.viewCount}));

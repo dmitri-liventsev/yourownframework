@@ -65,15 +65,14 @@ cd /var/www
 git clone https://github.com/dmitri-liventsev/yourownframework.git
 cd yourownframework
 composer install
-sudo cp /vagrant/config/apache/.htaccess /var/www/yourownframeword/public/.htacess
+sudo chmod +x /var/www/yourownframework/Job/checker.php
+./standalonescript.sh &
 cd $HOME
 
 mysql < /var/www/yourownframework/Db/dump.sql -u root --password=$DATABASE_PASS
 
 sudo chmod -R 755 /var/www
 sudo service apache2 restart
-sudo chmod +x /var/www/yourownframework/Job/checker.php
-sudo /bin/bash /var/www/yourownframework/standalonescript.sh &>/dev/null &
 
 # Bash.
 cp /vagrant/config/bash/profile /home/vagrant/.profile
