@@ -12,7 +12,7 @@ use App\Model\Entity\Profile;
         Profile is valid, you was a good boy, so please take that kitty:
         <img width="250" alt="Kitty" src="http://www.randomkittengenerator.com/cats/rotator.php" />
     <?php else:?>
-        Your profile is invalid: <br />
+        Profile is invalid: <br />
         <img width="250" alt="No!" src="/img/no.gif" />
     <?php endif;?>
 </div>
