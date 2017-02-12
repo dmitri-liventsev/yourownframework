@@ -67,6 +67,8 @@ composer install
 sudo cp /vagrant/config/apache/.htaccess /var/www/yourownframeword/public/.htacess
 cd $HOME
 
+mysql source /var/www/yourownframeword/Db/dump.sql;
+
 sudo chmod -R 755 /var/www
 sudo service apache2 restart
 

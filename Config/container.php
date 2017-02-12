@@ -90,6 +90,8 @@ return [
             $_GET,
             $_COOKIE
         );
+
+        return $request;
     },
     \YourOwnFramework\Request\Csrf::CONTAINER_KEY => function (ContainerInterface $c) {
         return new \YourOwnFramework\Request\Csrf($c->get(\YourOwnFramework\Request\Session::CONTAINER_KEY));
