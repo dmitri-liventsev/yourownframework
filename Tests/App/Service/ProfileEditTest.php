@@ -25,11 +25,9 @@ class ProfileEditTest extends TestCase
         $profileRepositoryMock = $this->getMockBuilder(ProfileRepository::class)->disableOriginalConstructor()->setMethods(
             [
                 'findActiveProfileByUserId',
-                'findAllByUserId'
             ]
         )->getMock();
         $profileRepositoryMock->expects($this->once())->method('findActiveProfileByUserId')->willReturn($profileMock);
-        $profileRepositoryMock->expects($this->once())->method('findAllByUserId')->willReturn([$profileMock]);
 
         $profileEdit = new ProfileEdit();
         $profileEdit->setProfileRepository($profileRepositoryMock);
@@ -45,12 +43,10 @@ class ProfileEditTest extends TestCase
 
         $profileRepositoryMock = $this->getMockBuilder(ProfileRepository::class)->disableOriginalConstructor()->setMethods(
             [
-                'findActiveProfileByUserId',
-                'findAllByUserId'
+                'findActiveProfileByUserId'
             ]
         )->getMock();
         $profileRepositoryMock->expects($this->once())->method('findActiveProfileByUserId')->willReturn($profileMock);
-        $profileRepositoryMock->expects($this->once())->method('findAllByUserId')->willReturn([$profileMock]);
 
         $profileEdit = new ProfileEdit();
         $profileEdit->setProfileRepository($profileRepositoryMock);
@@ -67,11 +63,9 @@ class ProfileEditTest extends TestCase
         $profileRepositoryMock = $this->getMockBuilder(ProfileRepository::class)->disableOriginalConstructor()->setMethods(
             [
                 'findActiveProfileByUserId',
-                'findAllByUserId'
             ]
         )->getMock();
         $profileRepositoryMock->expects($this->once())->method('findActiveProfileByUserId')->willReturn($profileMock);
-        $profileRepositoryMock->expects($this->once())->method('findAllByUserId')->willReturn([$profileMock]);
 
         $profileEdit = new ProfileEdit();
         $profileEdit->setProfileRepository($profileRepositoryMock);
@@ -97,7 +91,6 @@ class ProfileEditTest extends TestCase
         $profileRepositoryMock = $this->getMockBuilder(ProfileRepository::class)->disableOriginalConstructor()->setMethods(
             [
                 'findActiveProfileByUserId',
-                'findAllByUserId',
                 'clone'
             ]
         )->getMock();
@@ -109,7 +102,6 @@ class ProfileEditTest extends TestCase
         $widgetRepository->expects($this->once())->method('findByUserId')->willReturn($widgetMock);
 
         $profileRepositoryMock->expects($this->once())->method('findActiveProfileByUserId')->willReturn($profileMock);
-        $profileRepositoryMock->expects($this->once())->method('findAllByUserId')->willReturn([$profileMock]);
         $profileRepositoryMock->expects($this->once())->method('clone')->willReturn($newProfileMock);
 
         $dbMock = $this->getMockBuilder(\PDO::class)->disableOriginalConstructor()->setMethods(['commit', 'beginTransaction'])->getMock();
@@ -142,7 +134,6 @@ class ProfileEditTest extends TestCase
         $profileRepositoryMock = $this->getMockBuilder(ProfileRepository::class)->disableOriginalConstructor()->setMethods(
             [
                 'findActiveProfileByUserId',
-                'findAllByUserId',
                 'clone'
             ]
         )->getMock();
@@ -154,7 +145,6 @@ class ProfileEditTest extends TestCase
         $widgetRepository->expects($this->once())->method('findByUserId')->willReturn($widgetMock);
 
         $profileRepositoryMock->expects($this->once())->method('findActiveProfileByUserId')->willReturn($profileMock);
-        $profileRepositoryMock->expects($this->once())->method('findAllByUserId')->willReturn([$profileMock]);
         $profileRepositoryMock->expects($this->once())->method('clone')->willReturn($newProfileMock);
 
         $dbMock = $this->getMockBuilder(\PDO::class)->disableOriginalConstructor()->setMethods(['commit', 'beginTransaction'])->getMock();
@@ -184,7 +174,6 @@ class ProfileEditTest extends TestCase
         $profileRepositoryMock = $this->getMockBuilder(ProfileRepository::class)->disableOriginalConstructor()->setMethods(
             [
                 'findActiveProfileByUserId',
-                'findAllByUserId',
                 'clone'
             ]
         )->getMock();
@@ -196,7 +185,6 @@ class ProfileEditTest extends TestCase
         $widgetRepository->expects($this->once())->method('findByUserId')->willReturn($widgetMock);
 
         $profileRepositoryMock->expects($this->once())->method('findActiveProfileByUserId')->willReturn($profileMock);
-        $profileRepositoryMock->expects($this->once())->method('findAllByUserId')->willReturn([$profileMock, $newProfileMock]);
         $profileRepositoryMock->expects($this->once())->method('clone')->willReturn($newProfileMock);
 
         $dbMock = $this->getMockBuilder(\PDO::class)->disableOriginalConstructor()->setMethods(['commit', 'beginTransaction'])->getMock();
