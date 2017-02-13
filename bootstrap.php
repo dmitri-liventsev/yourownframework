@@ -18,6 +18,9 @@ try {
 } catch(SecurityException $e) {
     http_response_code(403);
     echo " Why you try to hack me? %(";
+} catch(\YourOwnFramework\Exception\HttpUnauthorized $e) {
+    http_response_code(403);
+    echo " Just sign-in and try again!";
 } catch (Throwable $e) {
     http_response_code(500);
     echo " You broke it! Why did you broke it?! It was born in love.... but than you damage it....;-(";

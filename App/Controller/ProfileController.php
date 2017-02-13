@@ -11,6 +11,7 @@ use App\Service\ProfileEdit;
 use App\Service\ProfileGet;
 use YourOwnFramework\Controller;
 use YourOwnFramework\Exception\HttpNotFoundException;
+use YourOwnFramework\Exception\HttpUnauthorized;
 use YourOwnFramework\Request\Request;
 
 class ProfileController extends Controller
@@ -48,10 +49,15 @@ class ProfileController extends Controller
     /**
      * @param Request $request
      *
+     * @throws HttpUnauthorized
      * @return array
      */
     public function editAction(Request $request)
     {
+        if (!$this->auth->getUserId()) {
+            throw new HttpUnauthorized();
+        }
+
         $this->template = 'Profile/editprofile';
 
         $newProfileDetails = null;
@@ -68,10 +74,15 @@ class ProfileController extends Controller
     /**
      * @param Request $request
      *
+     * @throws HttpUnauthorized
      * @return array
      */
     public function jsonAction(Request $request)
     {
+        if (!$this->auth->getUserId()) {
+            throw new HttpUnauthorized();
+        }
+
         $this->layout = 'blank';
         $this->template = 'json';
 
