@@ -19,7 +19,7 @@ try {
     http_response_code(403);
     echo " Why you try to hack me? %(";
 } catch(\YourOwnFramework\Exception\HttpUnauthorized $e) {
-    http_response_code(403);
+    http_response_code(401);
     echo " Just sign-in and try again!";
 } catch (Throwable $e) {
     http_response_code(500);
